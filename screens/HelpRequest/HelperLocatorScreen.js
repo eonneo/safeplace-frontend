@@ -5,8 +5,6 @@ import * as Location from 'expo-location';
 
 export default function HelperLocatorScreen({ navigation }) {
 
-  const dispatch = useDispatch();
-
   //récupérer les données du store
   const user = useSelector((state) => state.user.value);
 
