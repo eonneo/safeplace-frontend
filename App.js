@@ -2,6 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+//import des composants du store
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+
 
 // Import des composants de navigation 
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,6 +34,10 @@ import HelperConfirmationScreen from './screens/Helper/HelperConfirmationScreen'
 import HelperDeclineScreen from './screens/Helper/HelperDeclineScreen';
 import HelperAcceptScreen from './screens/Helper/HelperAcceptScreen';
 import HelperContactScreen from './screens/Helper/HelperContactScreen';
+
+const store = configureStore({
+  reducer: {},
+ });
 
 export default function App() {
 
@@ -80,29 +88,29 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Carrousel" component={CarrouselScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Cgu" component={CguScreen} />
-      <Stack.Screen name="Signup" component={SignupScreen} />
-      <Stack.Screen name="Upload" component={UploadScreen} />
-      <Stack.Screen name="Selfie" component={SelfieScreen} />
-      <Stack.Screen name="Account" component={AccountConfirmScreen} />
-      <Stack.Screen name="HelperLocation" component={HelperLocatorScreen} />
-      <Stack.Screen name="HelperConfirmRequest" component={HelperConfirmRequestScreen} />
-      <Stack.Screen name="ContactHelper" component={ContactHelperScreen} />
-      <Stack.Screen name="HelperNotification" component={HelperNotificationScreen} />
-      <Stack.Screen name="HelpermoreInfo" component={HelperMoreInfoScreen} />
-      <Stack.Screen name="HelperConfirmation" component={HelperConfirmationScreen} />
-      <Stack.Screen name="HelperDecline" component={HelperDeclineScreen} />
-      <Stack.Screen name="HelperAccept" component={HelperAcceptScreen}  />
-      <Stack.Screen name="HelperContact" component={HelperContactScreen}  />
-
-      <Stack.Screen name="TabNavigator" component={TabNavigator} />
-
-    </Stack.Navigator>
-  </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Carrousel" component={CarrouselScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Cgu" component={CguScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="Upload" component={UploadScreen} />
+          <Stack.Screen name="Selfie" component={SelfieScreen} />
+          <Stack.Screen name="Account" component={AccountConfirmScreen} />
+          <Stack.Screen name="HelperLocation" component={HelperLocatorScreen} />
+          <Stack.Screen name="HelperConfirmRequest" component={HelperConfirmRequestScreen} />
+          <Stack.Screen name="ContactHelper" component={ContactHelperScreen} />
+          <Stack.Screen name="HelperNotification" component={HelperNotificationScreen} />
+          <Stack.Screen name="HelpermoreInfo" component={HelperMoreInfoScreen} />
+          <Stack.Screen name="HelperConfirmation" component={HelperConfirmationScreen} />
+          <Stack.Screen name="HelperDecline" component={HelperDeclineScreen} />
+          <Stack.Screen name="HelperAccept" component={HelperAcceptScreen}  />
+          <Stack.Screen name="HelperContact" component={HelperContactScreen}  />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

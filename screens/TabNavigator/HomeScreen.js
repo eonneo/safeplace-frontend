@@ -1,4 +1,5 @@
 import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import * as Location from 'expo-location';
 
 export default function HomeScreen({ navigation }) {
 
@@ -25,16 +26,12 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-     <Text style={styles.title}> Home Page  </Text>
-
-     
-     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelperLocation')}>
-       <Text style={styles.textButton}>Lancer Alerte => Choix Helper</Text>
-     </TouchableOpacity>
-   </KeyboardAvoidingView>
-   
-    
-   );
+          <Text style={styles.title}> Home Page  </Text>
+          <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelperLocation')}>
+            <Text style={styles.textButton}>Lancer Alerte Choix Helper</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+    );
 }
 
 const styles = StyleSheet.create({
