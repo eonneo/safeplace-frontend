@@ -2,7 +2,26 @@ import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, Touch
 
 export default function HomeScreen({ navigation }) {
 
+  const user = useSelector((state) => state.user.value);
 
+  const [currentPosition, setCurrentPosition] = useState(null);
+
+  //récupérer les données de géolocalisation
+  useEffect(() => {
+    (async () => {
+      //demander la permission
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      //si permission accordée
+      if (status === 'granted') {
+        //récupérer la localisation tous les 5 minutes
+        Location.watchPositionAsync({ timeInterval: 300000 },
+          (location) => {
+            //transmettre les données des dernières coordonnées
+            setCurrentPosition(location.coords);
+          });
+      }
+    })();
+  }, []);
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
