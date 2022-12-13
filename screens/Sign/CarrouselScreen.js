@@ -1,23 +1,57 @@
-import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { FlatList, 
+  Dimensions, 
+  Image, 
+  Button, 
+  StyleSheet, 
+  Text, 
+  View, 
+  KeyboardAvoidingView,  
+  TextInput, 
+  TouchableOpacity,
+  ScrollView } from 'react-native';
+
+  const width = Dimensions.get("window");
+  //const height = width * 100 / 70;
 
 export default function CarrouselScreen({ navigation }) {
 
+  const imagesData = [
+    "https://unsplash.com/fr/photos/Zyx1bK9mqmA",
+    "https://unsplash.com/fr/photos/p7XunYuC17Q",
+    "https://unsplash.com/fr/photos/D1E7W9AHE40",
+    "https://unsplash.com/fr/photos/UOwvwZ9Dy6w",
+    "https://unsplash.com/fr/photos/ATlRqTCbvV4",
+  ]
 
-
+  const images = imagesData.map((data, i) => {
+    //console.log(data);
     return (
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-     <Text style={styles.title}>Welcome to SAFE PLACE</Text>
-     <Text style={styles.title}>Emplacement du Carrousel</Text>
+      <Image
+        key={i}
+        source={{uri: data}}
+        style={width}>
+      </Image>
+    );
+  });
+  console.log(images)
 
-
-     
-     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Login')}>
-       <Text style={styles.textButton}>Naviguer jusqu'a la page Login</Text>
-     </TouchableOpacity>
-   </KeyboardAvoidingView>
-   
-   
-   );
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Text style={styles.title}>Welcome to SAFE PLACE</Text>
+      <View style={styles.carouselContainer}>
+        <ScrollView 
+          pagingEnabled
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.carousel} >
+              {images}
+        </ScrollView>
+      </View>
+      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.textButton}>Naviguer jusqu'a la page Login</Text>
+      </TouchableOpacity>
+    </KeyboardAvoidingView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -27,13 +61,19 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    carouselContainer: {
+      flex: 1,
+      width: "100%",
+      height: "70%",
+    },
+    carousel: {
+      flex: 1,
+    },
     image: {
-      width: '100%',
-      height: '50%',
     },
     title: {
       width: '80%',
-      fontSize: 38,
+      fontSize: 36,
       fontWeight: '600',
     },
     input: {
