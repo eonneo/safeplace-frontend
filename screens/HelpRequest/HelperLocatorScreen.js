@@ -37,8 +37,18 @@ export default function HelperLocatorScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <Text style={styles.helloText}>Bonjour Bidule</Text>
       <Text style={styles.helpersText}>Helpers proches de toi</Text>
-      <MapView mapType="standard" showsUserLocation={true} followsUserLocation={true} region={currentPosition} animateToRegion={{region:{currentPosition}}, {duration: 0.5}}  style={styles.map}>
-      </MapView>
+      {currentPosition && <MapView mapType="standard" 
+      showsUserLocation={true} 
+      followsUserLocation={true} 
+      initialRegion={{
+        latitude: currentPosition.latitude,
+        longitude: currentPosition.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }} 
+    
+      style={styles.map}>
+      </MapView>}
       <View>
         <TouchableOpacity style={styles.cardContent}>
           <View style={styles.leftContent}>
