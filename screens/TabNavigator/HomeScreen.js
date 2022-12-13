@@ -1,4 +1,6 @@
 import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { useSelector, } from 'react-redux';
+import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 
 export default function HomeScreen({ navigation }) {

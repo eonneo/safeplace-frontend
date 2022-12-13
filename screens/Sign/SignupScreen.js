@@ -7,6 +7,7 @@ export default function SignupScreen({ navigation }) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
      <Text style={styles.title}>SignUp Page Form </Text>
+     
 
      
      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Upload')}>
