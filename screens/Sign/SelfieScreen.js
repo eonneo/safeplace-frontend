@@ -6,7 +6,7 @@ export default function SelfieScreen({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-     <Text style={styles.title}>Selfie Upload Page Form </Text>
+     <Text style={styles.title}>Selfie Upload Page Form text test </Text>
 
      
      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Account')}>
