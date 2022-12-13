@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View, KeyboardAvoidingView, Switch, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, Text, View, KeyboardAvoidingView, Switch, TouchableOpacity, ScrollView } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -15,10 +15,26 @@ export default function CguScreen({ navigation }) {
       </View>
 
       <View style={styles.container2}>
+        <ScrollView>
         <Text >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      </Text>
+
+      <Text >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.Quis hendrerit dolor magna eget est lorem ipsum dolor. Quam lacus suspendisse faucibus interdum. Nisl suscipit adipiscing bibendum est. Ultrices dui sapien eget mi proin. Ut sem nulla pharetra diam. Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla. Potenti nullam ac tortor vitae purus. Sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit. Tellus cras adipiscing enim eu.
-        </Text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit
+      </Text>
+
+
+       <Text>
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      </Text>
+        </ScrollView>
 
         <Text style={styles.text2}>
           Veuillez accepter les conditions
