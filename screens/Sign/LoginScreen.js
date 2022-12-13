@@ -47,7 +47,7 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.text}>Mot de passe</Text>
         <TextInput
           style={styles.input}
-          placeholder="jane@exemple.com"
+          placeholder="******"
           placeholderTextColor='#C9D6DF'
           onChangeText={(value) => setPassword(value)}
         />
@@ -55,7 +55,7 @@ export default function LoginScreen({ navigation }) {
         <Text style={styles.text}>Confirmation du mot de passe</Text>
         <TextInput
           style={styles.input}
-          placeholder="jane@exemple.com"
+          placeholder="******"
           placeholderTextColor='#C9D6DF'
           onChangeText={(value) => setPasswordConfirmation(value)}
 
