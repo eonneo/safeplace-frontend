@@ -32,7 +32,11 @@ export default function SelfieScreen({ navigation }) {
   }, []);
 
   const takePicture = async () => {
-    const photo = await cameraRef.takePictureAsync({ quality: 0.3 });
+    const photo = await cameraRef.takePictureAsync({
+      quality: 0.3,
+      exif: false,
+      skipProcessing: true,
+    });
     dispatch(addSelfie(photo.uri));
   };
 
@@ -46,6 +50,7 @@ export default function SelfieScreen({ navigation }) {
     >
       <View style={styles.topContent}>
         <View style={styles.header}>
+        <FontAwesome name='arrow-left' size={25} color='#33355C' onPress={() => navigation.navigate('Upload')} />
           <Text style={styles.title}>Welcome to Safe Place</Text>
         </View>
         <Text style={styles.instructions}>
@@ -97,8 +102,12 @@ export default function SelfieScreen({ navigation }) {
         </View>
       </Camera>
       <TouchableOpacity style={styles.button3}>
-        <Text style={styles.text3}
-        onPress={() => navigation.navigate("Account")}>confirmation compte</Text>
+        <Text
+          style={styles.text3}
+          onPress={() => navigation.navigate("Account")}
+        >
+          confirmation compte
+        </Text>
       </TouchableOpacity>
       {/* <TouchableOpacity
         style={styles.button}
@@ -115,9 +124,9 @@ export default function SelfieScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   camera: {
-    flex: 2,
-    alignItems: 'center',
-    width: '100%',
+    flex: 2.1,
+    alignItems: "center",
+    width: "100%",
   },
   buttonsContainer: {
     flex: 0.1,
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     // marginBottom: 30,
-    
+
     // justifyContent: "center",
   },
   topContent: {
@@ -158,6 +167,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
+    flexDirection: 'row',
   },
   button: {
     alignItems: "center",
@@ -175,8 +185,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   title: {
-    fontSize: 36,
+    fontSize: 32,
     color: "#5CA4A9",
+    marginLeft:10,
   },
   instructions: {
     color: "#33355C",
