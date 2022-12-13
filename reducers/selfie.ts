@@ -17,11 +17,11 @@ export const selfieSlice = createSlice({
     addSelfie: (state, action: PayloadAction<string>) => {
       state.value.selfies.push(action.payload);
     },
-    removeSelfie: (state, action: PayloadAction<string>) => {
+    deleteSelfie: (state, action: PayloadAction<string>) => {
       state.value.selfies = state.value.selfies.filter((data) => data !== action.payload);
     },
   },
 });
 
-export const { addSelfie, removeSelfie } = selfieSlice.actions;
+export const { addSelfie, deleteSelfie } = selfieSlice.actions;
 export default selfieSlice.reducer;
