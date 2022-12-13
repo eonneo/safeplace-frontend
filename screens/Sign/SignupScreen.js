@@ -2,6 +2,7 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoid
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getRestSignupFields } from '../../reducers/signup';
+import DateField from 'react-native-datefield';
 
 export default function SignupScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -13,12 +14,24 @@ export default function SignupScreen({ navigation }) {
   const [rue, setRue] = useState('');
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
-  const [naissance, setNaissance] = useState('');
+  const [naissance, setNaissance] = useState('12-12-2022');
 
-
+console.log('naissance:', naissance)
 
   const handleSubmit = () => {
-    console.log('handle')
+
+    const userInfos = {
+      prenom: prenom,
+      nom: nom,
+      naissance: naissance,
+      telephone: telephone,
+      numeroRue: numeroRue,
+      rue: rue,
+      codePostal: codePostal,
+      ville: ville,
+    }
+
+    console.log('userInfos:', userInfos)
   }
 
   return (
@@ -41,6 +54,14 @@ export default function SignupScreen({ navigation }) {
               placeholderTextColor='#C9D6DF'
               onChangeText={(value) => setNom(value)}
             />
+            <Text style={styles.text}>Date de naissance</Text>
+            <DateField
+              labelDate="Jour"
+              labelMonth="Mois"
+              labelYear="Année"
+              onSubmit={(value) => setNaissance(value)}
+            />
+            
             <Text style={styles.text}>Téléphone</Text>
             <TextInput
               style={styles.input}
@@ -95,6 +116,9 @@ export default function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   safeView: {
     marginTop: 30,
+  },
+  datePickerStyle: {
+    width: 230,
   },
   container: {
     flex: 1,
