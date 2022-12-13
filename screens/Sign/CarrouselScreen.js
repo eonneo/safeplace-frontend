@@ -1,6 +1,4 @@
-import { FlatList, 
-  Dimensions, 
-  Image, 
+import { Image, 
   Button, 
   StyleSheet, 
   Text, 
@@ -9,9 +7,6 @@ import { FlatList,
   TextInput, 
   TouchableOpacity,
   ScrollView } from 'react-native';
-
-  const width = Dimensions.get("window");
-  //const height = width * 100 / 70;
 
 export default function CarrouselScreen({ navigation }) {
 
@@ -29,7 +24,7 @@ export default function CarrouselScreen({ navigation }) {
       <Image
         key={i}
         source={{uri: data}}
-        style={width}>
+        style={styles.image}>
       </Image>
     );
   });
@@ -65,11 +60,21 @@ const styles = StyleSheet.create({
       flex: 1,
       width: "100%",
       height: "70%",
+      borderColor: "#05286F",
+      borderStyle: "solid",
+      borderWidth: 2,
+      padding: 10,
     },
     carousel: {
       flex: 1,
+      borderColor: "#DC0F0F",
+      borderStyle: "solid",
+      borderWidth: 2,
     },
     image: {
+      borderColor: "#0FDB94",
+      borderStyle: "solid",
+      borderWidth: 2,
     },
     title: {
       width: '80%',
