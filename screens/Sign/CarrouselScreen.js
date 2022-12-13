@@ -11,7 +11,7 @@ import { FlatList,
   ScrollView } from 'react-native';
 
   const width = Dimensions.get("window");
-  const height = width * 100 / 70;
+  //const height = width * 100 / 70;
 
 export default function CarrouselScreen({ navigation }) {
 
