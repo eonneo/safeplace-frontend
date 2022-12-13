@@ -67,16 +67,17 @@ export default function App() {
           let iconName = '';
   
           if (route.name === 'Home') {
-            iconName = 'image';
+            iconName = 'home';
           } else if (route.name === 'Ressources') {
-            iconName = 'map-pin';
+            iconName = 'book';
           } else if (route.name === 'Police') {
-            iconName = 'camera';
+            iconName = 'shield';
+            color='red';
           } 
           else if (route.name === 'Profil') {
-            iconName = 'camera';
+            iconName = 'user';
           } else if (route.name === 'Settings') {
-            iconName = 'camera';
+            iconName = 'gear';
           } 
   
           return <FontAwesome name={iconName} size={size} color={color} />;

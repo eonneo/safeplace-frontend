@@ -99,7 +99,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: '600',
-    textAlign: 'center'
+    textAlign: 'center',
+    color:'#5CA4A9',
+
   },
 
   subtitle: {
