@@ -1,5 +1,4 @@
 import { SafeAreaView, Image, Button, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useSelector, } from 'react-redux';
 
