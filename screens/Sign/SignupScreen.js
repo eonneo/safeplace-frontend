@@ -1,6 +1,6 @@
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getRestSignupFields } from '../../reducers/signup';
 import DateField from 'react-native-datefield';
 
@@ -9,12 +9,12 @@ export default function SignupScreen({ navigation }) {
 
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
+  const [naissance, setNaissance] = useState('12-12-2022');
   const [telephone, setTelephone] = useState('');
   const [numeroRue, setNumeroRue] = useState('');
   const [rue, setRue] = useState('');
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
-  const [naissance, setNaissance] = useState('12-12-2022');
 
 console.log('naissance:', naissance)
 
@@ -30,10 +30,11 @@ console.log('naissance:', naissance)
       codePostal: codePostal,
       ville: ville,
     }
-
+    dispatch(getRestSignupFields(userInfos))
     console.log('userInfos:', userInfos)
   }
-
+  const totalUserInfo = useSelector((state) => state.signup.value)
+  console.log("Full user infos:", totalUserInfo)
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={styles.safeView}>
