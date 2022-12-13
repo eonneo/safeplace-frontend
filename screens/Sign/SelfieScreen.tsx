@@ -96,16 +96,19 @@ export default function SelfieScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </Camera>
-
-      <TouchableOpacity
+      <TouchableOpacity style={styles.button3}>
+        <Text style={styles.text3}
+        onPress={() => navigation.navigate("Account")}>confirmation compte</Text>
+      </TouchableOpacity>
+      {/* <TouchableOpacity
         style={styles.button}
         activeOpacity={0.9}
         onPress={() => navigation.navigate("Account")}
       >
         <Text style={styles.textButton}>
           Naviguer vers msg confirmation compte
-        </Text>
-      </TouchableOpacity>
+        </Text> */}
+      {/* </TouchableOpacity> */}
     </View>
   );
 }
@@ -143,9 +146,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
     alignItems: "center",
-    marginBottom: 70,
+    // marginBottom: 30,
+    
     // justifyContent: "center",
   },
   topContent: {
@@ -188,5 +192,21 @@ const styles = StyleSheet.create({
     color: "#33355C",
     fontSize: 16,
     fontStyle: "italic",
+  },
+  button3: {
+    marginTop: 10,
+    marginBottom: 70,
+    width: 213,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: "#33355C",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text3: {
+    color: "#FFFFFF",
+    // fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });
