@@ -112,8 +112,8 @@ export default function App() {
             <Stack.Screen name="Cgu" component={CguScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Upload" component={UploadScreen} />
-            <Stack.Screen name="Selfie" component={SelfieScreen} />
-            <Stack.Screen name="Account" component={AccountConfirmScreen} />
+            <Stack.Screen name="Selfie" component={SelfieScreen} options={{ title: '' }}/>
+            <Stack.Screen name="Account" component={AccountConfirmScreen} options={{ title: 'Bienvenue sur SAFE PLACE' }}/>
             <Stack.Screen name="HelperLocation" component={HelperLocatorScreen} />
             <Stack.Screen name="HelperConfirmRequest" component={HelperConfirmRequestScreen} />
             <Stack.Screen name="ContactHelper" component={ContactHelperScreen} />
