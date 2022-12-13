@@ -1,62 +1,147 @@
-import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-export default function SelfieScreen({ navigation }) {
-
-
-
+export default function AccountConfirmScreen({ navigation }) {
 
 
-    return (
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-     <Text style={styles.title}>Confirmation création compte Page </Text>
 
-     
-     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('TabNavigator', { screen: 'Home' })}>
-       <Text style={styles.textButton}>Naviguer vers User Tab Navigator</Text>
-     </TouchableOpacity>
-   </KeyboardAvoidingView>
-   
-   
-   );
+
+
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+
+      <View style={styles.header}>
+        <FontAwesome name='arrow-left' size={25} color='#000000' onPress={() => navigation.navigate('Selfie')} />
+        <Text style={styles.title}>    Welcome to Safe Place</Text>
+      </View>
+
+      <View style={styles.container2}>
+        <Text style={styles.title}>Nous vous confirmons la création de votre compte sur SAFE PLACE</Text>
+      </View>
+
+
+      <View style={styles.container2}>
+
+        <Text style={styles.subtitle}  >
+          Cliquez sur le bouton ci-dessous pour commencer la navigation sur l'application.
+        </Text>
+
+        <Text style={styles.subtitle}  >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Text>
+
+      </View>
+
+      <View style={styles.container3}>
+
+        <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('TabNavigator', { screen: 'Home' })}>
+
+          <Text style={styles.textButton}>Next</Text>
+        </TouchableOpacity>
+      </View>
+
+    </KeyboardAvoidingView>
+
+
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#ffffff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    image: {
-      width: '100%',
-      height: '50%',
-    },
-    title: {
-      width: '80%',
-      fontSize: 38,
-      fontWeight: '600',
-    },
-    input: {
-      width: '80%',
-      marginTop: 25,
-      borderBottomColor: '#EC6E5B',
-      borderBottomWidth: 1,
-      fontSize: 20,
-    },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingTop: 8,
-      width: '80%',
-      marginTop: 30,
-      backgroundColor: 'blue',
-      borderRadius: 10,
-      marginBottom: 80,
-    },
-    textButton: {
-      color: '#ffffff',
-      height: 30,
-      fontWeight: '600',
-      fontSize: 16,
-    },
-   });
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  header: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#cccccc',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    textAlign: 'center',
+ },
+
+  container1: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+
+  container2: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '80%',
+  },
+
+  container3: {
+    flex: 3,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '80%',
+  },
+
+  image: {
+    width: '100%',
+    height: '50%',
+  },
+
+  title: {
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'center'
+  },
+
+  subtitle: {
+    fontSize: 14,
+    fontWeight: '300',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+
+  input: {
+    width: '80%',
+    marginTop: 25,
+    borderBottomColor: '#EC6E5B',
+    borderBottomWidth: 1,
+    fontSize: 20,
+  },
+
+  button: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: 8,
+    width: '80%',
+    marginTop: 30,
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    marginBottom: 80,
+  },
+
+  textButton: {
+    color: '#ffffff',
+    height: 30,
+    fontWeight: '600',
+    fontSize: 16,
+  },
+
+  button1: {
+    marginTop: 10,
+    width: 176,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: "#33355C",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

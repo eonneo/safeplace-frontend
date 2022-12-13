@@ -1,6 +1,6 @@
 import { SafeAreaView, Image, Button, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
+
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
