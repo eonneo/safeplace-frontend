@@ -32,6 +32,7 @@ console.log('naissance:', naissance)
     }
     dispatch(getRestSignupFields(userInfos))
     console.log('userInfos:', userInfos)
+    navigation.navigate('Upload')
   }
   const totalUserInfo = useSelector((state) => state.signup.value)
   console.log("Full user infos:", totalUserInfo)
@@ -57,9 +58,9 @@ console.log('naissance:', naissance)
             />
             <Text style={styles.text}>Date de naissance</Text>
             <DateField
-              labelDate="Jour"
-              labelMonth="Mois"
-              labelYear="Année"
+              labelDate="DD"
+              labelMonth="MM"
+              labelYear="YYYY"
               onSubmit={(value) => setNaissance(value)}
             />
             
