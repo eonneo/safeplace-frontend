@@ -3,13 +3,27 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function SignupScreen({ navigation }) {
 
+  const formData = new FormData();
 
+  formData.append('photoFromFront', {
+    uri: 'file://...',
+    name: 'photo.jpg',
+    type: 'image/jpeg',
+  });
+  
+  fetch('http://.../upload', {
+    method: 'POST',
+    body: formData,
+  }).then((response) => response.json())
+  .then((data) => {
+
+  });
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles.header}>
         <FontAwesome name='arrow-left' size={25} color='#000000' />
-        <Text style={styles.headerTitle}>    Welcome to Safe Place</Text>
+        <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
       </View>
       <Text style={styles.title}>Pour ta sécurité, nous avons besoin d’une copie de ta carte d’identité</Text>
       <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Selfie')}>
@@ -43,7 +57,8 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: '600',
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingLeft: 15,
   },
   title: {
     alignItems: 'center',
