@@ -33,6 +33,7 @@ console.log('naissance:', naissance)
     dispatch(getRestSignupFields(userInfos))
     console.log('userInfos:', userInfos)
     navigation.navigate('Upload')
+    // naviiiiiiiiiiiiiiiiiiiigate
   }
   const totalUserInfo = useSelector((state) => state.signup.value)
   console.log("Full user infos:", totalUserInfo)

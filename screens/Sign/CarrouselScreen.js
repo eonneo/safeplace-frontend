@@ -22,7 +22,7 @@ export default function CarrouselScreen({ navigation }) {
     "https://unsplash.com/fr/photos/UOwvwZ9Dy6w",
     "https://unsplash.com/fr/photos/ATlRqTCbvV4",
   ]
-  
+
   const images = imagesData.map((data, i) => {
     //console.log(data);
     return (
