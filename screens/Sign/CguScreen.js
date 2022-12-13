@@ -1,8 +1,8 @@
 import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  Switch, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CguScreen({ navigation }) {
-  const [isEnabled, setIsEnabled] = React.useState(false);
 
 
 
@@ -12,16 +12,7 @@ export default function CguScreen({ navigation }) {
      <View style={styles.container1}>
      <Text style={styles.title}>CGU </Text>
     
-     <Text>{isEnabled.toString()}</Text>
-     <Switch
-     style={styles.switch}
-        value={isEnabled}
-        onValueChange={(value) => setIsEnabled(value)}
-        trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-        thumbColor={isEnabled ? "#E6EBE0" : "#5CA4A9"}
-        ios_backgroundColor="#ff0000"
-        style={{ transform:[{ scaleX: 1.4 }, { scaleY: 1.4 }] }}
-      />
+    
 
 </View>
 
@@ -37,12 +28,11 @@ générales pour poursuivre
 votre inscription</Text>
 </View>
 <View style={styles.container2}>
-     <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate('HelperDecline')}>
+     <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate('Signup')}>
        <Text style={styles.text1}>J'accepte</Text>
       </TouchableOpacity>
       </View> 
 
-    
    </KeyboardAvoidingView>
    
    );
@@ -76,7 +66,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       width:'90%',
-      height:'50%',
 
     },
     image: {
@@ -95,16 +84,7 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
       fontSize: 20,
     },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingTop: 8,
-      width: '80%',
-      marginTop: 30,
-      backgroundColor: 'blue',
-      borderRadius: 10,
-      marginBottom: 80,
-    },
+    
     textButton: {
       color: '#ffffff',
       height: 30,
@@ -121,9 +101,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     },
 
-switch:{
-marginLeft:350,
-},
     text1: {
       color: "#FFFFFF",
       // fontFamily: ,
@@ -135,6 +112,9 @@ marginLeft:350,
       // fontFamily: ,
       fontWeight: "bold",
       fontSize: 20,
+      marginTop:50,
     },
+
+    
 
    });
