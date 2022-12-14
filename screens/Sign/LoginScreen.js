@@ -43,6 +43,7 @@ export default function LoginScreen({ navigation }) {
           style={styles.input}
           placeholder="jane@exemple.com"
           placeholderTextColor='#C9D6DF'
+          autoCapitalize="none"
           onChangeText={(value) => setEmail(value)}
         />
         {emailError && <Text style={styles.error}>Invalid email address</Text>}
@@ -51,6 +52,7 @@ export default function LoginScreen({ navigation }) {
           style={styles.input}
           placeholder="******"
           placeholderTextColor='#C9D6DF'
+          autoCapitalize="none"
           onChangeText={(value) => setPassword(value)}
         />
 
@@ -59,6 +61,7 @@ export default function LoginScreen({ navigation }) {
           style={styles.input}
           placeholder="******"
           placeholderTextColor='#C9D6DF'
+          autoCapitalize="none"
           onChangeText={(value) => setPasswordConfirmation(value)}
 
         />
