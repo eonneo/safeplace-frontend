@@ -1,23 +1,17 @@
-import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, 
+  StatusBar, 
+  Button, 
+  StyleSheet, 
+  Text, 
+  View, 
+  KeyboardAvoidingView,  
+  TextInput, 
+  TouchableOpacity 
+} from 'react-native';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-export default function SignupScreen({ navigation }) {
-
-  const formData = new FormData();
-
-  formData.append('photoFromFront', {
-    uri: 'file://...',
-    name: 'photo.jpg',
-    type: 'image/jpeg',
-  });
-  
-  fetch('http://.../upload', {
-    method: 'POST',
-    body: formData,
-  }).then((response) => response.json())
-  .then((data) => {
-
-  });
+export default function UploadScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -26,8 +20,16 @@ export default function SignupScreen({ navigation }) {
         <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
       </View>
       <Text style={styles.title}>Pour ta sécurité, nous avons besoin d’une copie de ta carte d’identité</Text>
-      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Selfie')}>
-        <Text style={styles.textButton}>Naviguer vers authentification par Selfie</Text>
+      <Text style={styles.title}>Envoie ta pièce d'identité recto:</Text>
+      <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('CNIRecto')}>
+        <Text style={styles.textButton1}>Fichier recto</Text>
+      </TouchableOpacity>
+      <Text style={styles.title}>Envoie ta pièce d'identité verso:</Text>
+      <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('CNIVerso')}>
+        <Text style={styles.textButton1}>Fichier verso</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button2} activeOpacity={0.9} onPress={() => navigation.navigate('Selfie')}>
+        <Text style={styles.textButton2}>Naviguer vers authentification par Selfie</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
@@ -75,7 +77,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     fontSize: 20,
   },
-  button: {
+  button1: {
+    marginTop: 10,
+    width: 176,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: "#33355C",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textButton1: {
+    color: "#FFFFFF",
+    fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  button2: {
     display: 'flex',
     alignItems: 'center',
     paddingTop: 8,
@@ -85,7 +102,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 80,
   },
-  textButton: {
+  textButton2: {
     color: '#ffffff',
     height: 30,
     fontWeight: '600',

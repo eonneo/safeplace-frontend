@@ -12,7 +12,9 @@ import CarrouselScreen from './screens/Sign/CarrouselScreen';
 import LoginScreen from './screens/Sign/LoginScreen';
 import CguScreen from './screens/Sign/CguScreen';
 import SignupScreen from './screens/Sign/SignupScreen';
-import UploadScreen from './screens/Sign/UploadScreen';
+import UploadScreen from './screens/Sign/CNIPictures/UploadScreen';
+import CNIRecto from './screens/Sign/CNIPictures/CNIRecto';
+import CNIVerso from './screens/Sign/CNIPictures/CNIVerso';
 import SelfieScreen from './screens/Sign/SelfieScreen';
 import AccountConfirmScreen from './screens/Sign/AccountConfirmScreen';
 import HomeScreen from './screens/TabNavigator/HomeScreen';
@@ -113,6 +115,8 @@ export default function App() {
             <Stack.Screen name="Cgu" component={CguScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Upload" component={UploadScreen} />
+            <Stack.Screen name="CNIRecto" component={CNIRecto} />
+            <Stack.Screen name="CNIVerso" component={CNIVerso} />
             <Stack.Screen name="Selfie" component={SelfieScreen} options={{ title: '' }}/>
             <Stack.Screen name="Account" component={AccountConfirmScreen} options={{ title: 'Bienvenue sur SAFE PLACE' }}/>
             <Stack.Screen name="HelperLocation" component={HelperLocatorScreen} />
