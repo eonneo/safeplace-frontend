@@ -32,17 +32,7 @@ export default function SelfieScreen({ navigation }) {
       setHasPermission(status === "granted");
     })();
   }, []);
-  // const buttonGo =
-  // <View>
-  //   <TouchableOpacity style={styles.button3}>
-  //     <Text
-  //       style={styles.text3}
-  //       onPress={() => navigation.navigate("Account")}
-  //     >
-  //       confirmation compte
-  //     </Text>
-  //   </TouchableOpacity>
-  // </View>
+
   const takePicture = async () => {
     const photo = await cameraRef.takePictureAsync({
       quality: 0.3,
@@ -51,15 +41,13 @@ export default function SelfieScreen({ navigation }) {
     });
 
     const formData: any = new FormData();
-    // console.log("photo", photo);
-    // console.log("uri", photo.uri);
 
     formData.append("photoFromFront", {
       uri: photo.uri,
       name: "photo.jpg",
       type: "image/jpeg",
     });
-    // console.log(formData, "hello");
+
     fetch(`${BACKEND_ADDRESS}/upload`, {
       method: "POST",
       body: formData,
@@ -138,6 +126,7 @@ export default function SelfieScreen({ navigation }) {
         </View>
       </Camera>
       <View>
+        {/* Bouton conditionnel si user a pris selfie */}
         {button && (
           <View>
             <TouchableOpacity style={styles.button3}>
@@ -145,20 +134,13 @@ export default function SelfieScreen({ navigation }) {
                 style={styles.text3}
                 onPress={() => navigation.navigate("Account")}
               >
-                confirmation compte
+                Valider
               </Text>
             </TouchableOpacity>
           </View>
         )}
       </View>
-      {/* <TouchableOpacity style={styles.button3}>
-        <Text
-          style={styles.text3}
-          onPress={() => navigation.navigate("Account")}
-        >
-          confirmation compte
-        </Text>
-      </TouchableOpacity> */}
+
     </View>
   );
 }
