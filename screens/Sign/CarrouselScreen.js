@@ -10,30 +10,30 @@ import { Image,
 
 export default function CarrouselScreen({ navigation }) {
 
-  const imagesData = [
-    "https://unsplash.com/fr/photos/Zyx1bK9mqmA",
-    "https://unsplash.com/fr/photos/p7XunYuC17Q",
-    "https://unsplash.com/fr/photos/D1E7W9AHE40",
-    "https://unsplash.com/fr/photos/UOwvwZ9Dy6w",
-    "https://unsplash.com/fr/photos/ATlRqTCbvV4",
-  ]
+  // const imagesData = [
+  //   "https://unsplash.com/fr/photos/Zyx1bK9mqmA",
+  //   "https://unsplash.com/fr/photos/p7XunYuC17Q",
+  //   "https://unsplash.com/fr/photos/D1E7W9AHE40",
+  //   "https://unsplash.com/fr/photos/UOwvwZ9Dy6w",
+  //   "https://unsplash.com/fr/photos/ATlRqTCbvV4",
+  // ]
 
-  const images = imagesData.map((data, i) => {
-    //console.log(data);
-    return (
-      <Image
-        key={i}
-        source={{uri: data}}
-        style={styles.image}>
-      </Image>
-    );
-  });
-  console.log(images)
+  // const images = imagesData.map((data, i) => {
+  //   //console.log(data);
+  //   return (
+  //     <Image
+  //       key={i}
+  //       source={{uri: data}}
+  //       style={styles.image}>
+  //     </Image>
+  //   );
+  // });
+  // console.log(images)
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <Text style={styles.title}>Welcome to SAFE PLACE</Text>
-      <View style={styles.carouselContainer}>
+      {/* <View style={styles.carouselContainer}>
         <ScrollView 
           pagingEnabled
           horizontal
@@ -41,7 +41,7 @@ export default function CarrouselScreen({ navigation }) {
           style={styles.carousel} >
               {images}
         </ScrollView>
-      </View>
+      </View> */}
       <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.textButton}>Naviguer jusqu'a la page Login</Text>
       </TouchableOpacity>
