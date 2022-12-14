@@ -79,8 +79,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#ffffff',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      borderColor: "red",
-      borderWidth: 1,
       padding: 0,
       Margin: 0,
     },
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
       color: "#33355C",
       padding: 0,
       marginTop: 40,
-      marginBottom: 30,
+      marginBottom: 10,
     },
     title2: {
       width: '80%',
@@ -106,7 +104,7 @@ const styles = StyleSheet.create({
       fontWeight: '400',
       color: "#33355C",
       padding: 0,
-      Margin: 0,
+      marginTop: 10,
     },
     input: {
       width: '80%',
