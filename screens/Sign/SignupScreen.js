@@ -33,7 +33,7 @@ export default function SignupScreen({ navigation }) {
     dispatch(getRestSignupFields(userInfos))
     console.log('userInfos:', userInfos)
     console.log("Full user infos:", totalUserInfo)
-    fetch('http://192.168.43.253:3000/users/signup', {
+    fetch('http://192.168.161.148:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(totalUserInfo),
