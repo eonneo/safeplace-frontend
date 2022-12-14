@@ -29,7 +29,7 @@ export default function SettingsScreen({ navigation }) {
 
       <View style={styles.topprofilContainer}>
         <View>
-          <Text style={styles.profilName}> User Name {user.email}</Text>
+          <Text style={styles.profilName}>  {user.prenom}</Text>
         </View>
         <View>
           <Image source={PlaceholderImage} style={styles.profilePic}></Image>

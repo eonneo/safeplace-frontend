@@ -1,8 +1,9 @@
-import { Switch, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Switch, StyleSheet, Text, View, Link, TextInput, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useSelector } from 'react-redux';
 import React from 'react';
+import { useSelector, } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -11,7 +12,7 @@ const PlaceholderImage = require("../../assets/Vector.png");
 
 export default function SettingsScreen({ navigation }) {
 
-  const user = useSelector((state) => state.user.value);
+const user = useSelector((state) => state.user.value);
 
 
   // Controle des switchs
@@ -19,6 +20,9 @@ export default function SettingsScreen({ navigation }) {
   const [isReadyToAccomodate, setisReadyToAccomodat] = React.useState(false);
   const [isReadyToLift, setisReadyToLift] = React.useState(false);
   const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
+
+
+
 
 
   return (
@@ -29,10 +33,15 @@ export default function SettingsScreen({ navigation }) {
 
       <View style={styles.topprofilContainer}>
         <View>
-          <Text style={styles.profilName}> User Name {user.email}</Text>
+          <Text style={styles.profilName}> {user.prenom}</Text>
         </View>
         <View>
-          <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
+
+          <Image source={PlaceholderImage} style={styles.profilePic}/>
+
+          </TouchableOpacity>
+
         </View>
 
       </View>
