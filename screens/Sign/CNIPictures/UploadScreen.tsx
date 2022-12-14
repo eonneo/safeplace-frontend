@@ -16,20 +16,13 @@ export default function UploadScreen({ navigation }) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles.header}>
-        <FontAwesome name='arrow-left' size={25} color='#000000' />
+        <FontAwesome name='arrow-left' size={25} color='#000000' onPress={() => navigation.navigate("Signup")} />
         <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
       </View>
       <Text style={styles.title}>Pour ta sécurité, nous avons besoin d’une copie de ta carte d’identité</Text>
-      <Text style={styles.title}>Envoie ta pièce d'identité recto:</Text>
+      <Text style={styles.title}>Envoie ta pièce d'identité:</Text>
       <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('CNIRecto')}>
-        <Text style={styles.textButton1}>Fichier recto</Text>
-      </TouchableOpacity>
-      <Text style={styles.title}>Envoie ta pièce d'identité verso:</Text>
-      <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('CNIVerso')}>
-        <Text style={styles.textButton1}>Fichier verso</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button2} activeOpacity={0.9} onPress={() => navigation.navigate('Selfie')}>
-        <Text style={styles.textButton2}>Naviguer vers authentification par Selfie</Text>
+        <FontAwesome name="arrow-right" size={24} color="white" />
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
