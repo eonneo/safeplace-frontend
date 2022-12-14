@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRestSignupFields } from '../../reducers/signup';
 import DateField from 'react-native-datefield';
 
+const fetchUrl='https://safeplace-backend.vercel.app'
+
 export default function SignupScreen({ navigation }) {
   const dispatch = useDispatch();
 
@@ -36,7 +38,7 @@ export default function SignupScreen({ navigation }) {
     }
    
     console.log("Full user infos:", userInfos)
-    fetch('http://192.168.42.89:3000/users/signup', {
+    fetch(`${fetchUrl}/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userInfos,),

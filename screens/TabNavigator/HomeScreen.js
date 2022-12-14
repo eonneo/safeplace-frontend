@@ -1,4 +1,11 @@
-import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { Button,
+  StyleSheet, 
+  Text, 
+  View, 
+  KeyboardAvoidingView, 
+  TextInput, 
+  TouchableOpacity, 
+Image } from 'react-native';
 import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
@@ -43,20 +50,21 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('HelperLocation')
   }
 
+  const homePic = require('../../assets/mains.jpg')
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <Text style={styles.title}>`Hello ${prenom}`</Text>
-          <Text style={styles.title}>`${count} utilisateurs autour de toi`</Text>
-          <Text style={styles.title}>`Déjà ${countSaved} utilisateurs sauvé.e.s depuis le début de Safe Place`</Text>
-          <Image></Image>
-          <TouchableOpacity>
+          <Text style={styles.title1}>Hello {user.prenom}</Text>
+          <Text style={styles.title2}>x utilisateurs autour de toi</Text>
+          <Text style={styles.title2}>Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place</Text>
+          <Image source={homePic} style={styles.homePic}></Image>
+          <TouchableOpacity onPress={() => HelpeRequest()}>
         <LinearGradient
           // Background Linear Gradient
           colors={["#E4513D", "#FFA647"]}
           style={styles.SosButton}
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}
-          onPress={() => HelpeRequest()}
         >
           <Text style={styles.SosText}>SOS</Text>
         </LinearGradient>
@@ -70,16 +78,35 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#ffffff',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+      borderColor: "red",
+      borderWidth: 1,
+      padding: 0,
+      Margin: 0,
     },
-    image: {
+    homePic: {
       width: '100%',
       height: '50%',
+      marginTop: 20,
     },
-    title: {
+    title1: {
       width: '80%',
-      fontSize: 38,
+      fontSize: 36,
       fontWeight: '600',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+      color: "#33355C",
+      padding: 0,
+      marginTop: 40,
+      marginBottom: 30,
+    },
+    title2: {
+      width: '80%',
+      fontSize: 20,
+      fontWeight: '400',
+      color: "#33355C",
+      padding: 0,
+      Margin: 0,
     },
     input: {
       width: '80%',
@@ -88,20 +115,26 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
       fontSize: 20,
     },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingTop: 8,
-      width: '80%',
-      marginTop: 30,
-      backgroundColor: 'blue',
-      borderRadius: 10,
-      marginBottom: 80,
+    SosButton: {
+      width: 199,
+      height: 199,
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 100,
+      alignItems: "center",
+      justifyContent: "center",
+      opacity: 1,
+      position: 'absolute',
+      top: -100,
+      left: "-27%",
+      zIndex: 1,
+  
     },
-    textButton: {
-      color: '#ffffff',
-      height: 30,
-      fontWeight: '600',
-      fontSize: 16,
+    SosText: {
+      color: "white",
+      fontWeight: "bold",
+      fontSize: 64,
+      alignItems: "center",
+      fontFamily: 'OpenSans',
     },
    });
