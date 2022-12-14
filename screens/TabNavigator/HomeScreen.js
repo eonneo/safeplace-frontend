@@ -28,7 +28,10 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <Text style={styles.title}> Home Page  </Text>
+          <Text style={styles.title}>`Hello ${prenom}`</Text>
+          <Text style={styles.title}>`${count} utilisateurs autour de toi`</Text>
+          <Text style={styles.title}>`Déjà ${countSaved} utilisateurs sauvé.e.s depuis le début de Safe Place`</Text>
+          <Image></Image>
           <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelperLocation')}>
             <Text style={styles.textButton}>Lancer Alerte Choix Helper</Text>
           </TouchableOpacity>
