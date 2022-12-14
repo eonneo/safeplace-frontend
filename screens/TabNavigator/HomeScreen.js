@@ -2,8 +2,21 @@ import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, Touch
 import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
+import { LinearGradient } from "expo-linear-gradient";
+import { useFonts } from "@expo-google-fonts/inter";
+import React from "react";
+import HelperConfirmRequestScreen from '../HelpRequest/HelperConfirmRequestScreen';
 
 export default function HomeScreen({ navigation }) {
+
+  /*const [fontsLoaded] = useFonts({
+    OpenSans: require("../assets/OpenSans/OpenSans-Regular.ttf"),
+  });
+  
+  if (!fontsLoaded) {
+    return <View />;
+  }*/
+  
 
   const user = useSelector((state) => state.user.value);
 
@@ -26,15 +39,28 @@ export default function HomeScreen({ navigation }) {
     })();
   }, []);
 
+  const HelpeRequest = () => {
+    navigation.navigate('HelperLocation')
+  }
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Text style={styles.title}>`Hello ${prenom}`</Text>
           <Text style={styles.title}>`${count} utilisateurs autour de toi`</Text>
           <Text style={styles.title}>`Déjà ${countSaved} utilisateurs sauvé.e.s depuis le début de Safe Place`</Text>
           <Image></Image>
-          <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelperLocation')}>
-            <Text style={styles.textButton}>Lancer Alerte Choix Helper</Text>
-          </TouchableOpacity>
+          <TouchableOpacity>
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["#E4513D", "#FFA647"]}
+          style={styles.SosButton}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          onPress={() => HelpeRequest()}
+        >
+          <Text style={styles.SosText}>SOS</Text>
+        </LinearGradient>
+      </TouchableOpacity>
         </KeyboardAvoidingView>
     );
 }
