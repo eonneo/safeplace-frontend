@@ -96,6 +96,7 @@ export default function CNIRecto({ navigation }) {
                 flashMode={flashMode}
                 ref={(ref: any) => (cameraRef = ref)}
                 style={styles.camera}
+                autoFocus={true}
             >
                 <View style={styles.buttonsContainer}>
                     <TouchableOpacity
