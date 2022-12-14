@@ -116,7 +116,6 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Cgu" component={CguScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="Upload" component={UploadScreen} />
             <Stack.Screen name="CNIRecto" component={CNIRecto} />
             <Stack.Screen name="CNIVerso" component={CNIVerso} />

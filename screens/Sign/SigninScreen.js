@@ -44,7 +44,8 @@ export default function SigninScreen({ navigation }) {
                     })
 
                     //  navigate to home
-                    navigation.navigate('HomeScreen')
+                    navigation.navigate('TabNavigator', { screen: 'Home' })
+                    
 
                 } else {
                     console.log('Mauvais mot de passe ou mauvaise adresse email')
