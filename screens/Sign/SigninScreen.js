@@ -3,6 +3,9 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoid
 import { login } from '../../reducers/users';
 import { useDispatch, useSelector } from 'react-redux';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 const fetchUrl='https://safeplace-backend.vercel.app'
 
 export default function SigninScreen({ navigation }) {
@@ -54,6 +57,14 @@ export default function SigninScreen({ navigation }) {
                 }
             });
     };
+
+    const [isLoaded] = useFonts({
+        'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+        'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+        });
+      if(!isLoaded) {
+        return <AppLoading />
+      }
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <Text style={styles.title}>Bienvenue sur SAFE PLACE</Text>

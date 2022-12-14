@@ -46,12 +46,13 @@ export default function HomeScreen({ navigation }) {
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   
   if(!isLoaded) {
     return <AppLoading />
   }
-  
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Text style={styles.title1}>Bonjour {user.prenom}</Text>

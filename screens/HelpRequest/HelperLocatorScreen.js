@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 //imports cards
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 const PlaceholderImage = require("../../assets/Vector.png");
@@ -33,7 +36,13 @@ export default function HelperLocatorScreen({ navigation }) {
     })();
   }, []);
 
-
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <Text style={styles.helloText}>Bonjour {user.prenom}</Text>

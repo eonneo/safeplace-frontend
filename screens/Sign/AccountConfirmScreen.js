@@ -2,6 +2,9 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from '
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 const fetchUrl='https://safeplace-backend.vercel.app'
 
 export default function AccountConfirmScreen({ navigation }) {
@@ -22,7 +25,13 @@ export default function AccountConfirmScreen({ navigation }) {
 
   }
 
-
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
