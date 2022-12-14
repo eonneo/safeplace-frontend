@@ -14,7 +14,7 @@ export const selfieSlice = createSlice({
   name: 'selfie',
   initialState,
   reducers: {
-    addSelfie: (state, action: PayloadAction<string>) => {
+    addSelfie: (state, action: PayloadAction<any>) => {
       state.value.selfies.push(action.payload);
     },
     deleteSelfie: (state, action: PayloadAction<string>) => {
