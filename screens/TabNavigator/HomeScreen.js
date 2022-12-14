@@ -5,7 +5,7 @@ import { Image,
   KeyboardAvoidingView, 
   TextInput, 
   TouchableOpacity, 
-Image } from 'react-native';
+ } from 'react-native';
 import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
