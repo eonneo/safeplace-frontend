@@ -16,11 +16,15 @@ export default function SignupScreen({ navigation }) {
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
 
-  const totalUserInfo = useSelector((state) => state.signup.value)
+  
+  const email = useSelector((state) => state.signup.value.email)
+  const password = useSelector((state) => state.signup.value.password)
 
   const handleSubmit = () => {
 
     const userInfos = {
+      email: email,
+      password: password,
       prenom: prenom,
       nom: nom,
       naissance: naissance,
@@ -30,17 +34,17 @@ export default function SignupScreen({ navigation }) {
       codePostal: codePostal,
       ville: ville,
     }
-    dispatch(getRestSignupFields(userInfos))
-    console.log('userInfos:', userInfos)
-    console.log("Full user infos:", totalUserInfo)
-    fetch('http://192.168.1.181:3000/users/signup', {
+   
+    console.log("Full user infos:", userInfos)
+    fetch('http://192.168.42.89:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(totalUserInfo),
+      body: JSON.stringify(userInfos,),
     }).then(response => response.json())
       .then(user => {
         if (user.result) {
           console.log('okposted')
+          dispatch(getRestSignupFields(userInfos))
         }
       })
     navigation.navigate('Upload')
