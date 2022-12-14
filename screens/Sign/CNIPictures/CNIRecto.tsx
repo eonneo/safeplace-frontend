@@ -14,11 +14,7 @@ import { addSelfie } from "../../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
-<<<<<<< HEAD
 const BACKEND_ADDRESS = "http://192.168.0.39:3000";
-=======
-const BACKEND_ADDRESS = "http://192.168.42.89:3000";
->>>>>>> 5edd0616b4878f8182d1c91ce90cd304f5006b42
 
 export default function CNIRecto({ navigation }) {
 

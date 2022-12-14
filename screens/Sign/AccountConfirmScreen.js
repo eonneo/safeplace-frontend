@@ -6,6 +6,17 @@ export default function AccountConfirmScreen({ navigation }) {
 
   const email = useSelector((state) => state.signup.value.email)
 
+  const handleNext = () => {
+    console.log('btn next')
+    fetch('http://192.168.1.181:3000/users/isconnected', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, isConnected: true }),
+    }).then(response => response.json())
+      .then(updateStatus => {
+        console.log('status isConnected à jour en bdd')
+        navigation.navigate('TabNavigator', { screen: 'Home' })
+      })
 
   }
 
