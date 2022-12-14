@@ -10,20 +10,12 @@ import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import { LinearGradient } from "expo-linear-gradient";
-import { useFonts } from "@expo-google-fonts/inter";
 import React from "react";
 import HelperConfirmRequestScreen from '../HelpRequest/HelperConfirmRequestScreen';
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
 
 export default function HomeScreen({ navigation }) {
-
-  /*const [fontsLoaded] = useFonts({
-    OpenSans: require("../assets/OpenSans/OpenSans-Regular.ttf"),
-  });
-  
-  if (!fontsLoaded) {
-    return <View />;
-  }*/
-  
 
   const user = useSelector((state) => state.user.value);
 
@@ -52,9 +44,17 @@ export default function HomeScreen({ navigation }) {
 
   const homePic = require('../../assets/mains.jpg')
 
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    });
+  
+  if(!isLoaded) {
+    return <AppLoading />
+  }
+  
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <Text style={styles.title1}>Hello {user.prenom}</Text>
+          <Text style={styles.title1}>Bonjour {user.prenom}</Text>
           <Text style={styles.title2}>x utilisateurs autour de toi</Text>
           <Text style={styles.title2}>Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place</Text>
           <Image source={homePic} style={styles.homePic}></Image>
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
       alignItems: "center",
       fontFamily: 'OpenSans',
     },
-   });
+  });

@@ -50,7 +50,7 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
-        <TouchableOpacity style={styles.cardContent}>
+        <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
           <View style={styles.leftContent}>
             <Image source={PlaceholderImage} style={styles.profilePic}></Image>
             <View style={styles.middleContent}>
@@ -68,9 +68,24 @@ export default function HelperLocatorScreen({ navigation }) {
             </View>
           </View>
         </TouchableOpacity>
-      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-        <Text style={styles.textButton}>Poursuivre pour confirmer request</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+          <View style={styles.leftContent}>
+            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+            <View style={styles.middleContent}>
+              <Text style={styles.name}>Name</Text>
+              <Text style={styles.description}>Description</Text>
+              <Text style={styles.distance}>Distance</Text>
+            </View>
+          </View>
+          <View style={styles.rightContent}>
+            <View style={styles.isFavorite}>
+              <FontAwesome name="heart" size={20} color="#ec6e5b" />
+            </View>
+            <View style={styles.isConnected}>
+              <FontAwesome name="circle" size={20} color="#5CA4A9" />
+            </View>
+          </View>
+        </TouchableOpacity>
     </KeyboardAvoidingView>
     
   );
@@ -124,6 +139,8 @@ const styles = StyleSheet.create({
       marginBottom: 5,
       backgroundColor: "white",
       flexDirection: "row",
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     middleContent: {
       marginLeft: 15,
