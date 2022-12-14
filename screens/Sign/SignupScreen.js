@@ -34,7 +34,7 @@ export default function SignupScreen({ navigation }) {
       codePostal: codePostal,
       ville: ville,
     }
-  
+   
     console.log("Full user infos:", userInfos)
     fetch('http://192.168.42.89:3000/users/signup', {
       method: 'POST',
