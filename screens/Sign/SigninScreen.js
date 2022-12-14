@@ -61,6 +61,7 @@ export default function SigninScreen({ navigation }) {
                     style={styles.input}
                     placeholder="jane@exemple.com"
                     placeholderTextColor='#C9D6DF'
+                    autoCapitalize="none"
                     onChangeText={(value) => setEmail(value)}
                 />
                 {emailError && <Text style={styles.error}>Invalid email address</Text>}
@@ -69,6 +70,7 @@ export default function SigninScreen({ navigation }) {
                     style={styles.input}
                     placeholder="******"
                     placeholderTextColor='#C9D6DF'
+                    autoCapitalize="none"
                     onChangeText={(value) => setPassword(value)}
                 />
             </View>
