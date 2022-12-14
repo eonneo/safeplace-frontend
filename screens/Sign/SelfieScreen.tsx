@@ -14,6 +14,8 @@ import { addSelfie, deleteSelfie } from "../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
+const BACKEND_ADDRESS = "http://192.168.161.148:3000";
+
 export default function SelfieScreen({ navigation }) {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
@@ -32,8 +34,31 @@ export default function SelfieScreen({ navigation }) {
   }, []);
 
   const takePicture = async () => {
-    const photo = await cameraRef.takePictureAsync({ quality: 0.3 });
-    dispatch(addSelfie(photo.uri));
+    const photo = await cameraRef.takePictureAsync({
+      quality: 0.3,
+      exif: false,
+      skipProcessing: true,
+    });
+
+    const formData: any = new FormData();
+    // console.log("photo", photo);
+    // console.log("uri", photo.uri);
+
+
+    formData.append("photoFromFront", {
+      uri: photo.uri,
+      name: "photo.jpg",
+      type: "image/jpeg",
+    });
+    // console.log(formData, "hello");
+    fetch(`${BACKEND_ADDRESS}/upload`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        data.result && dispatch(addSelfie(data.url));
+      });
   };
 
   if (!hasPermission || !isFocused) {
@@ -42,10 +67,15 @@ export default function SelfieScreen({ navigation }) {
   return (
     <View
       style={styles.container}
-      // behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.topContent}>
         <View style={styles.header}>
+          <FontAwesome
+            name="arrow-left"
+            size={25}
+            color="#33355C"
+            onPress={() => navigation.navigate("Upload")}
+          />
           <Text style={styles.title}>Welcome to Safe Place</Text>
         </View>
         <Text style={styles.instructions}>
@@ -97,8 +127,12 @@ export default function SelfieScreen({ navigation }) {
         </View>
       </Camera>
       <TouchableOpacity style={styles.button3}>
-        <Text style={styles.text3}
-        onPress={() => navigation.navigate("Account")}>confirmation compte</Text>
+        <Text
+          style={styles.text3}
+          onPress={() => navigation.navigate("Account")}
+        >
+          confirmation compte
+        </Text>
       </TouchableOpacity>
       {/* <TouchableOpacity
         style={styles.button}
@@ -115,9 +149,9 @@ export default function SelfieScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   camera: {
-    flex: 2,
-    alignItems: 'center',
-    width: '100%',
+    flex: 2.1,
+    alignItems: "center",
+    width: "100%",
   },
   buttonsContainer: {
     flex: 0.1,
@@ -149,7 +183,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     // marginBottom: 30,
-    
+
     // justifyContent: "center",
   },
   topContent: {
@@ -158,6 +192,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
+    flexDirection: "row",
   },
   button: {
     alignItems: "center",
@@ -175,8 +210,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   title: {
-    fontSize: 36,
+    fontSize: 32,
     color: "#5CA4A9",
+    marginLeft: 10,
   },
   instructions: {
     color: "#33355C",
