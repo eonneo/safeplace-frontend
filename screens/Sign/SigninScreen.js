@@ -21,29 +21,39 @@ export default function SigninScreen({ navigation }) {
             .then(userData => {
 
                 if (userData.result) {
-                    
                     console.log('ok connecte', userData)
-                    //  update isconnecte
-                    // reducer user => isconnecte mail et prenom
+                    // reducer user => isconnected email et prenom
                     const loginInfos = {
                         email: email,
                         prenom: userData.userInfos.prenom,
                         isConnected: true,
                     }
-                    console.log('loginInfos:',loginInfos)
+                    console.log('loginInfos:', loginInfos)
+
                     // reducer user => isconnecte mail et prenom
                     dispatch(login(loginInfos))
 
-                    //  navigate to home
+                    //  update isconnecte in database
+                    fetch('http://192.168.43.253:3000/users/isconnected', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email, isConnected: true }),
+                    }).then(response => response.json())
+                    .then(updateStatus => {
+                            console.log('status isConnected à jour en bdd')
+                    })
 
-                }else{
+                    //  navigate to home
+                    navigation.navigate('HomeScreen')
+
+                } else {
                     console.log('Mauvais mot de passe ou mauvaise adresse email')
                 }
             });
     };
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-           <Text style={styles.title}>Bienvenue sur SAFE PLACE</Text>
+            <Text style={styles.title}>Bienvenue sur SAFE PLACE</Text>
             <View style={styles.inputGroup}>
                 <Text style={styles.text}>Email</Text>
                 <TextInput
@@ -73,31 +83,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
-      },
-      title: {
+    },
+    title: {
         width: '80%',
         fontSize: 38,
         fontWeight: '600',
         textAlign: 'center',
-      },
+    },
     inputGroup: {
         marginTop: 60,
         display: 'flex',
         justifyContent: 'space-around',
-      },
-      text: {
+    },
+    text: {
         color: '#5CA4A9',
         fontSize: 12,
         marginTop: 30,
-      },
-      input: {
+    },
+    input: {
         width: 320,
         height: 40,
         borderBottomColor: "#5CA4A9",
         borderBottomWidth: 1,
         fontSize: 18,
-      },
-      button5: {
+    },
+    button5: {
         marginTop: 10,
         width: 176,
         height: 48,
@@ -105,11 +115,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#33355C",
         alignItems: "center",
         justifyContent: "center",
-      },
-      text5: {
+    },
+    text5: {
         color: "#FFFFFF",
         fontFamily: 'OpenSans',
         fontWeight: "bold",
         fontSize: 20,
-      },
+    },
 })
