@@ -16,7 +16,7 @@ export default function SignupScreen({ navigation }) {
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
 
-console.log('naissance:', naissance)
+  const totalUserInfo = useSelector((state) => state.signup.value)
 
   const handleSubmit = () => {
 
@@ -32,12 +32,21 @@ console.log('naissance:', naissance)
     }
     dispatch(getRestSignupFields(userInfos))
     console.log('userInfos:', userInfos)
-    navigation.navigate('Upload')
-    // naviiiiiiiiiiiiiiiiiiiigate
+    console.log("Full user infos:", totalUserInfo)
+    fetch('http://192.168.43.80:3000/users/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(totalUserInfo),
+    }).then(response => response.json())
+      .then(user => {
+        if (user.result) {
+          console.log('okposted')
+        }
+      })
     navigation.navigate('Upload')
   }
-  const totalUserInfo = useSelector((state) => state.signup.value)
-  console.log("Full user infos:", totalUserInfo)
+
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={styles.safeView}>
@@ -60,12 +69,12 @@ console.log('naissance:', naissance)
             />
             <Text style={styles.text}>Date de naissance</Text>
             <DateField
-              labelDate="Jour"
-              labelMonth="Mois"
-              labelYear="Année"
+              labelDate="DD"
+              labelMonth="MM"
+              labelYear="YYYY"
               onSubmit={(value) => setNaissance(value)}
             />
-            
+
             <Text style={styles.text}>Téléphone</Text>
             <TextInput
               style={styles.input}
