@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Import des Screens
 import CarrouselScreen from './screens/Sign/CarrouselScreen';
+import SigninScreen from './screens/Sign/SigninScreen';
 import LoginScreen from './screens/Sign/LoginScreen';
 import CguScreen from './screens/Sign/CguScreen';
 import SignupScreen from './screens/Sign/SignupScreen';
@@ -109,6 +110,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Carrousel" component={CarrouselScreen} />
+            <Stack.Screen name="SigninScreen" component={SigninScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Cgu" component={CguScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />

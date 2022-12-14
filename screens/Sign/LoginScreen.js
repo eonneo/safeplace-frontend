@@ -33,7 +33,9 @@ export default function LoginScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       {/* <Text style={styles.title}>Login Page </Text> */}
       <Text>Tu as déja un compte SAFE PLACE ?</Text>
-      <Text>Connecte toi</Text>
+      <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => navigation.navigate('SigninScreen')}>
+        <Text style={styles.text5}>Connecte toi</Text>
+      </TouchableOpacity>
 
       <View style={styles.inputGroup}>
         <Text style={styles.text}>Email</Text>
