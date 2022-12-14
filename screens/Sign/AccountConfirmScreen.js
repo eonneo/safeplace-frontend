@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function AccountConfirmScreen({ navigation }) {
 
