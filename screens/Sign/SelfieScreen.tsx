@@ -23,7 +23,7 @@ export default function SelfieScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(false);
   const [type, setType] = useState(CameraType.front);
   const [flashMode, setFlashMode] = useState(FlashMode.off);
-
+  const [button, setButton] = useState(false);
   let cameraRef: any = useRef(null);
 
   useEffect(() => {
@@ -32,7 +32,17 @@ export default function SelfieScreen({ navigation }) {
       setHasPermission(status === "granted");
     })();
   }, []);
-
+  // const buttonGo =
+  // <View>
+  //   <TouchableOpacity style={styles.button3}>
+  //     <Text
+  //       style={styles.text3}
+  //       onPress={() => navigation.navigate("Account")}
+  //     >
+  //       confirmation compte
+  //     </Text>
+  //   </TouchableOpacity>
+  // </View>
   const takePicture = async () => {
     const photo = await cameraRef.takePictureAsync({
       quality: 0.3,
@@ -43,7 +53,6 @@ export default function SelfieScreen({ navigation }) {
     const formData: any = new FormData();
     // console.log("photo", photo);
     // console.log("uri", photo.uri);
-
 
     formData.append("photoFromFront", {
       uri: photo.uri,
@@ -57,17 +66,19 @@ export default function SelfieScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        data.result && dispatch(addSelfie(data.url));
+        if (data.result) {
+          data.result && dispatch(addSelfie(data.url));
+          setButton(true);
+        }
       });
   };
 
   if (!hasPermission || !isFocused) {
     return <View />;
   }
+
   return (
-    <View
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <View style={styles.topContent}>
         <View style={styles.header}>
           <FontAwesome
@@ -126,23 +137,28 @@ export default function SelfieScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </Camera>
-      <TouchableOpacity style={styles.button3}>
+      <View>
+        {button && (
+          <View>
+            <TouchableOpacity style={styles.button3}>
+              <Text
+                style={styles.text3}
+                onPress={() => navigation.navigate("Account")}
+              >
+                confirmation compte
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+      {/* <TouchableOpacity style={styles.button3}>
         <Text
           style={styles.text3}
           onPress={() => navigation.navigate("Account")}
         >
           confirmation compte
         </Text>
-      </TouchableOpacity>
-      {/* <TouchableOpacity
-        style={styles.button}
-        activeOpacity={0.9}
-        onPress={() => navigation.navigate("Account")}
-      >
-        <Text style={styles.textButton}>
-          Naviguer vers msg confirmation compte
-        </Text> */}
-      {/* </TouchableOpacity> */}
+      </TouchableOpacity> */}
     </View>
   );
 }
