@@ -40,9 +40,7 @@ export default function HomeScreen({ navigation }) {
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-
           <Image source={PlaceholderImage} style={styles.profilePic}/>
-
           </TouchableOpacity>
 
         </View>

@@ -7,7 +7,7 @@ export default function AccountConfirmScreen({ navigation }) {
 
   const handleNext = () => {
     console.log('btn next')
-    fetch('http://192.168.42.89:3000/users/isconnected', {
+    fetch('http://192.168.1.181:3000/users/isconnected', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, isConnected: true }),

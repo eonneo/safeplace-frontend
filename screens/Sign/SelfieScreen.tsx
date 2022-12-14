@@ -14,7 +14,7 @@ import { addSelfie, deleteSelfie } from "../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
-const BACKEND_ADDRESS = "http://192.168.161.148:3000";
+const BACKEND_ADDRESS = "http://192.168.1.181:3000";
 
 export default function SelfieScreen({ navigation }) {
   const dispatch = useDispatch();
