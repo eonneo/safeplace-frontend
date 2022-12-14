@@ -1,4 +1,4 @@
-import { SafeAreaView, Image, Button, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Image, Button, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -36,7 +36,7 @@ export default function HelperLocatorScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Text style={styles.helloText}>Bonjour Bidule</Text>
+      <Text style={styles.helloText}>Bonjour {user.prenom}</Text>
       <Text style={styles.helpersText}>Helpers proches de toi</Text>
       {currentPosition && <MapView mapType="standard" 
       showsUserLocation={true} 
@@ -50,7 +50,6 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
-      <View>
         <TouchableOpacity style={styles.cardContent}>
           <View style={styles.leftContent}>
             <Image source={PlaceholderImage} style={styles.profilePic}></Image>
@@ -65,11 +64,10 @@ export default function HelperLocatorScreen({ navigation }) {
               <FontAwesome name="heart" size={20} color="#ec6e5b" />
             </View>
             <View style={styles.isConnected}>
-              <FontAwesome name="circle" size={20} color="green" />
+              <FontAwesome name="circle" size={20} color="#5CA4A9" />
             </View>
           </View>
         </TouchableOpacity>
-      </View>
       <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelperConfirmRequest')}>
         <Text style={styles.textButton}>Poursuivre pour confirmer request</Text>
       </TouchableOpacity>
@@ -80,36 +78,34 @@ export default function HelperLocatorScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1.5,
+    flex: 1,
       backgroundColor: '#ffffff',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
   },
-    image: {
-      width: '100%',
-      height: '50%',
-    },
     helloText: {
       width: '80%',
       fontSize: 24,
       fontWeight: '600',
-      paddingTop: 10,
+      paddingTop: 30,
+      color: "#33355C",
     },
     helpersText: {
       width: '80%',
       fontSize: 24,
       fontWeight: '600',
       paddingBottom: 10,
+      color: "#33355C",
+      textAlign: 'center',
     },
     button: {
       display: 'flex',
       alignItems: 'center',
       paddingTop: 8,
       width: '80%',
-      marginTop: 10,
       backgroundColor: 'blue',
       borderRadius: 10,
-      marginBottom: 80,
+      marginBottom: 10,
     },
     textButton: {
       color: '#ffffff',
@@ -118,13 +114,14 @@ const styles = StyleSheet.create({
       fontSize: 16,
     },
     map: {
-      flex: 0.9,
+      flex: 1,
       width: "95%",
     },
     cardContent: {
       width: "100%",
       height: 70,
-      marginTop: 10,
+      marginTop: 5,
+      marginBottom: 5,
       backgroundColor: "white",
       flexDirection: "row",
     },
@@ -138,7 +135,7 @@ const styles = StyleSheet.create({
     },
     rightContent: {
       flexDirection: "row",
-      marginLeft: 160,
+      marginLeft: 140,
       alignItems: 'center',
       marginBottom: 20,
     },
@@ -161,4 +158,4 @@ const styles = StyleSheet.create({
     isFavorite: {
       marginRight: 20,
     }
-   });
+});

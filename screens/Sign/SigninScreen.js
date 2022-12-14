@@ -3,6 +3,8 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoid
 import { login } from '../../reducers/users';
 import { useDispatch, useSelector } from 'react-redux';
 
+const fetchUrl='https://safeplace-backend.vercel.app'
+
 export default function SigninScreen({ navigation }) {
     const dispatch = useDispatch();
 
@@ -21,7 +23,7 @@ export default function SigninScreen({ navigation }) {
             .then(userData => {
 
                 if (userData.result) {
-                    console.log('ok connecte', userData)
+                    console.log('ok connected', userData)
                     // reducer user => isconnected email et prenom
                     const loginInfos = {
                         email: email,
@@ -34,7 +36,7 @@ export default function SigninScreen({ navigation }) {
                     dispatch(login(loginInfos))
 
                     //  update isconnecte in database
-                    fetch('http://192.168.42.89:3000/users/isconnected', {
+                    fetch(`http://192.168.0.39:3000/users/isconnected`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: email, isConnected: true }),

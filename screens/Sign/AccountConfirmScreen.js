@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from '
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
+const fetchUrl='https://safeplace-backend.vercel.app'
+
 export default function AccountConfirmScreen({ navigation }) {
 
   const email = useSelector((state) => state.signup.value.email)

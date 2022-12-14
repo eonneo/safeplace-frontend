@@ -1,14 +1,29 @@
-import { Image, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { Image,
+  StyleSheet, 
+  Text, 
+  View, 
+  KeyboardAvoidingView, 
+  TextInput, 
+  TouchableOpacity, 
+Image } from 'react-native';
 import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
-import React from "react";
-
-const PlaceholderImage = require("../../assets/Vector.png");
 import { LinearGradient } from "expo-linear-gradient";
-
+import { useFonts } from "@expo-google-fonts/inter";
+import React from "react";
+import HelperConfirmRequestScreen from '../HelpRequest/HelperConfirmRequestScreen';
 
 export default function HomeScreen({ navigation }) {
+
+  /*const [fontsLoaded] = useFonts({
+    OpenSans: require("../assets/OpenSans/OpenSans-Regular.ttf"),
+  });
+  
+  if (!fontsLoaded) {
+    return <View />;
+  }*/
+  
 
   const user = useSelector((state) => state.user.value);
 
@@ -31,38 +46,29 @@ export default function HomeScreen({ navigation }) {
     })();
   }, []);
 
+  const HelpeRequest = () => {
+    navigation.navigate('HelperLocation')
+  }
+
+  const homePic = require('../../assets/mains.jpg')
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
-<View style={styles.topprofilContainer}>
-        <View>
-          <Text style={styles.profilName}> Hello {user.prenom}</Text>
-        </View>
-        <View>
-          <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-          <Image source={PlaceholderImage} style={styles.profilePic}/>
-          </TouchableOpacity>
-
-        </View>
-
-      </View>
-          <Text style={styles.title}> Home Page  </Text>
-
-<LinearGradient
-        // Background Linear Gradient
-        colors={["#E4513D", "#FFA647"]}
-        style={styles.SosButton}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
-                >
-        <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('HelperLocation')}>
-            <Text style={styles.SosText}>SOS</Text>
-          </TouchableOpacity>
-
+          <Text style={styles.title1}>Hello {user.prenom}</Text>
+          <Text style={styles.title2}>x utilisateurs autour de toi</Text>
+          <Text style={styles.title2}>Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place</Text>
+          <Image source={homePic} style={styles.homePic}></Image>
+          <TouchableOpacity onPress={() => HelpeRequest()}>
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["#E4513D", "#FFA647"]}
+          style={styles.SosButton}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+        >
+          <Text style={styles.SosText}>SOS</Text>
         </LinearGradient>
-
-         
-          
+      </TouchableOpacity>
         </KeyboardAvoidingView>
     );
 }
@@ -72,39 +78,33 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#ffffff',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+      padding: 0,
+      Margin: 0,
     },
-
-    topprofilContainer: {
-      //backgroundColor: '#ccc',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '90%',
-      flexDirection: 'row',
-      backgroundColor:'#ccc',
-    },
-
-    profilePic: {
-      width: 40,
-      height: 40,
-    },
-  
-    profilName: {
-      fontSize: 18,
-      fontWeight: '600',
-      textAlign: 'left',
-      width: 300,
-    }
-    ,
-    image: {
+    homePic: {
       width: '100%',
       height: '50%',
+      marginTop: 20,
     },
-    title: {
+    title1: {
       width: '80%',
-      fontSize: 38,
+      fontSize: 36,
       fontWeight: '600',
-      textAlign:'center',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+      color: "#33355C",
+      padding: 0,
+      marginTop: 40,
+      marginBottom: 10,
+    },
+    title2: {
+      width: '80%',
+      fontSize: 20,
+      fontWeight: '400',
+      color: "#33355C",
+      padding: 0,
+      marginTop: 10,
     },
     input: {
       width: '80%',
@@ -113,21 +113,27 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
       fontSize: 20,
     },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingTop: 8,
-      width: '80%',
-      marginTop: 30,
-      backgroundColor: 'blue',
-      borderRadius: 10,
-      marginBottom: 80,
+    SosButton: {
+      width: 199,
+      height: 199,
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 100,
+      alignItems: "center",
+      justifyContent: "center",
+      opacity: 1,
+      position: 'absolute',
+      top: -100,
+      left: "-27%",
+      zIndex: 1,
+  
     },
-    textButton: {
-      color: '#ffffff',
-      height: 30,
-      fontWeight: '600',
-      fontSize: 16,
+    SosText: {
+      color: "white",
+      fontWeight: "bold",
+      fontSize: 64,
+      alignItems: "center",
+      fontFamily: 'OpenSans',
     },
     SosButton: {
     marginTop: 10,
