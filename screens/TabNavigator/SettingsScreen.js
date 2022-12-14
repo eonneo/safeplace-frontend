@@ -38,29 +38,15 @@ export default function SettingsScreen({ navigation }) {
       </View>
 
       <View style={styles.profilContainer}>
-        <Text style={styles.title}>Mon profil</Text>
+        <Text style={styles.title}>Mes paramètres</Text>
 
-        <View style={styles.readytohelpcontainer}>
-          <View>
-            <Switch
-              value={isEnabled}
-              onValueChange={(value) => setIsEnabled(value)}
-              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isEnabled ? "white" : "white"}
-              ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-
-          </View>
-          <View>
-            <Text style={styles.subtitle}>     Je suis disponible pour aider</Text>
-          </View>
-        </View>
+        
         <View style={styles.lineStyle} />
 
         <View style={styles.optionhelpcontainer}>
 
           <View>
-            <Text style={styles.subtitle}>HEBERGEMENT                                 </Text>
+            <Text style={styles.subtitle}>Notifications                                      </Text>
           </View>
 
           <View>
@@ -74,13 +60,13 @@ export default function SettingsScreen({ navigation }) {
           </View>
 
         </View>
-        <Text style={styles.smallText} > Je peux héberger une personne en cas d'urgence</Text>
+        <Text style={styles.smallText} > Je permets à l'équipe de Safe Place de m'envoyer des notifications</Text>
 
 
         <View style={styles.optionhelpcontainer}>
 
           <View>
-            <Text style={styles.subtitle}>TRANSPORT                                      </Text>
+            <Text style={styles.subtitle}>Setting 1                                               </Text>
           </View>
 
           <View>
@@ -94,13 +80,13 @@ export default function SettingsScreen({ navigation }) {
           </View>
 
         </View>
-        <Text style={styles.smallText}> Je peux véhiculer une personne en cas d'urgence</Text>
+        <Text style={styles.smallText}> Texte setting</Text>
 
 
         <View style={styles.optionhelpcontainer}>
 
           <View>
-            <Text style={styles.subtitle}>ACCOMPAGNEMENT                        </Text>
+            <Text style={styles.subtitle}>Setting 2                                               </Text>
           </View>
 
           <View>
@@ -114,27 +100,39 @@ export default function SettingsScreen({ navigation }) {
           </View>
 
         </View>
-        <Text style={styles.smallText} > Je peux assister une personne en cas d'urgence</Text>
+        <Text style={styles.smallText} > Texte setting</Text>
+
+
+        <View style={styles.optionhelpcontainer}>
+
+<View>
+  <Text style={styles.subtitle}>Setting 3                                              </Text>
+</View>
+
+<View>
+  <Switch
+    value={isReadyToAssist}
+    onValueChange={(value) => setisReadyToAssist(value)}
+    trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+    thumbColor={isReadyToAssist ? "white" : "white"}
+    ios_backgroundColor="#e5eadf"
+    style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+</View>
+
+</View>
+<Text style={styles.smallText} > Texte setting</Text>
 
       </View>
 
-      <View style={styles.lineStyle} />
+      
 
 
 
 
 
 
-      <View style={styles.userBadgeContainer}>
-        <Text style={styles.subtitle}> MES BADGES :</Text>
 
-        <View style={styles.badgeContainer}>
-          <FontAwesome name='trophy' size={40} color='green' />
-          <FontAwesome name='trophy' size={40} color='blue' />
-          <FontAwesome name='trophy' size={40} color='purple' />
-          <FontAwesome name='trophy' size={40} color='gold' />
-        </View>
-      </View>
+     
 
     </SafeAreaView>
 
