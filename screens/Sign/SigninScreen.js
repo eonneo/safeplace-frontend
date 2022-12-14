@@ -34,7 +34,7 @@ export default function SigninScreen({ navigation }) {
                     dispatch(login(loginInfos))
 
                     //  update isconnecte in database
-                    fetch('http://192.168.43.253:3000/users/isconnected', {
+                    fetch('http://192.168.42.89:3000/users/isconnected', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: email, isConnected: true }),
