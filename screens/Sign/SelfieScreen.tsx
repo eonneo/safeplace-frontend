@@ -14,6 +14,8 @@ import { addSelfie, deleteSelfie } from "../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
+const BACKEND_ADDRESS = "http://192.168.161.148:3000";
+
 export default function SelfieScreen({ navigation }) {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
@@ -37,7 +39,26 @@ export default function SelfieScreen({ navigation }) {
       exif: false,
       skipProcessing: true,
     });
-    dispatch(addSelfie(photo.uri));
+
+    const formData: any = new FormData();
+    // console.log("photo", photo);
+    // console.log("uri", photo.uri);
+
+
+    formData.append("photoFromFront", {
+      uri: photo.uri,
+      name: "photo.jpg",
+      type: "image/jpeg",
+    });
+    // console.log(formData, "hello");
+    fetch(`${BACKEND_ADDRESS}/upload`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        data.result && dispatch(addSelfie(data.url));
+      });
   };
 
   if (!hasPermission || !isFocused) {
@@ -46,11 +67,15 @@ export default function SelfieScreen({ navigation }) {
   return (
     <View
       style={styles.container}
-      // behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.topContent}>
         <View style={styles.header}>
-        <FontAwesome name='arrow-left' size={25} color='#33355C' onPress={() => navigation.navigate('Upload')} />
+          <FontAwesome
+            name="arrow-left"
+            size={25}
+            color="#33355C"
+            onPress={() => navigation.navigate("Upload")}
+          />
           <Text style={styles.title}>Welcome to Safe Place</Text>
         </View>
         <Text style={styles.instructions}>
@@ -167,7 +192,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   button: {
     alignItems: "center",
@@ -187,7 +212,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     color: "#5CA4A9",
-    marginLeft:10,
+    marginLeft: 10,
   },
   instructions: {
     color: "#33355C",
