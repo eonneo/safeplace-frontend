@@ -93,7 +93,7 @@ export default function SigninScreen({ navigation }) {
             <View style={styles.blocSignup}>
                 <Text style={styles.textSignup}>Pas encore de compte ?</Text>
                 <TouchableOpacity style={styles.button6} activeOpacity={0.9} onPress={() => navigation.navigate('Login')}>
-                    <Text style={styles.text5}>S'incrire</Text>
+                    <Text style={styles.text5}>S'inscrire</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
