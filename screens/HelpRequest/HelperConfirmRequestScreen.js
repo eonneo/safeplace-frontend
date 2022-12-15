@@ -1,10 +1,8 @@
-import { Button, 
-  Image, 
+import { Image, 
   StyleSheet, 
   Text, 
   View, 
   KeyboardAvoidingView,  
-  TextInput, 
   TouchableOpacity 
 } from 'react-native';
 
