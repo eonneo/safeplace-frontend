@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 import { Image,
+=======
+import { Button,
+>>>>>>> c1f1c5255b8ee5b9ec6fd51c0baf9f221c3bf22d
   StyleSheet, 
   Text, 
   View, 
   KeyboardAvoidingView, 
   TextInput, 
   TouchableOpacity, 
+<<<<<<< HEAD
  } from 'react-native';
+=======
+Image } from 'react-native';
+>>>>>>> c1f1c5255b8ee5b9ec6fd51c0baf9f221c3bf22d
 import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';

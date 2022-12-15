@@ -15,7 +15,11 @@ export default function SigninScreen({ navigation }) {
 
 
     const handleSignin = () => {
+<<<<<<< HEAD
         fetch('http://192.168.1.181:3000/users/signin', {
+=======
+        fetch(`http://192.168.0.39:3000/users/signin`, {
+>>>>>>> c1f1c5255b8ee5b9ec6fd51c0baf9f221c3bf22d
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email, password: password }),

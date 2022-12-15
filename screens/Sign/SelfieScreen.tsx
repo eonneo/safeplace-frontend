@@ -48,7 +48,11 @@ export default function SelfieScreen({ navigation }) {
       type: "image/jpeg",
     });
 
+<<<<<<< HEAD
     fetch(`http://192.168.1.181:3000/upload`, {
+=======
+    fetch(`http://192.168.0.39:3000/upload`, {
+>>>>>>> c1f1c5255b8ee5b9ec6fd51c0baf9f221c3bf22d
       method: "POST",
       body: formData,
     })
