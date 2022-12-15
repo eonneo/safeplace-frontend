@@ -11,8 +11,18 @@ import { SafeAreaView,
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 export default function UploadScreen({ navigation }) {
 
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>

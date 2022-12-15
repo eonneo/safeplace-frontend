@@ -1,37 +1,21 @@
-<<<<<<< HEAD
-import { Image,
-=======
 import { Button,
->>>>>>> c1f1c5255b8ee5b9ec6fd51c0baf9f221c3bf22d
   StyleSheet, 
   Text, 
   View, 
   KeyboardAvoidingView, 
   TextInput, 
   TouchableOpacity, 
-<<<<<<< HEAD
- } from 'react-native';
-=======
 Image } from 'react-native';
->>>>>>> c1f1c5255b8ee5b9ec6fd51c0baf9f221c3bf22d
 import { useSelector, } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import { LinearGradient } from "expo-linear-gradient";
-import { useFonts } from "@expo-google-fonts/inter";
 import React from "react";
 import HelperConfirmRequestScreen from '../HelpRequest/HelperConfirmRequestScreen';
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
 
 export default function HomeScreen({ navigation }) {
-
-  /*const [fontsLoaded] = useFonts({
-    OpenSans: require("../assets/OpenSans/OpenSans-Regular.ttf"),
-  });
-  
-  if (!fontsLoaded) {
-    return <View />;
-  }*/
-  
 
   const user = useSelector((state) => state.user.value);
 
@@ -60,9 +44,18 @@ export default function HomeScreen({ navigation }) {
 
   const homePic = require('../../assets/mains.jpg')
 
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  
+  if(!isLoaded) {
+    return <AppLoading />
+  }
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <Text style={styles.title1}>Hello {user.prenom}</Text>
+          <Text style={styles.title1}>Bonjour {user.prenom}</Text>
           <Text style={styles.title2}>x utilisateurs autour de toi</Text>
           <Text style={styles.title2}>Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place</Text>
           <Image source={homePic} style={styles.homePic}></Image>
@@ -143,22 +136,4 @@ const styles = StyleSheet.create({
       alignItems: "center",
       fontFamily: 'OpenSans',
     },
-    SosButton: {
-    marginTop: 10,
-    width: 199,
-    height: 199,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    opacity: 0.9,
-
-  },
-  SosText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 64,
-    alignItems: 'center'
-  }
-   });
+  });

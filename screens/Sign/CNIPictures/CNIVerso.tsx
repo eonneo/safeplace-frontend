@@ -14,6 +14,9 @@ import { addSelfie, deleteSelfie } from "../../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 const fetchUrl = "https://safeplace-backend.vercel.app";
 export default function CNIVerso({ navigation }) {
 
@@ -48,7 +51,7 @@ export default function CNIVerso({ navigation }) {
         type: "image/jpeg",
     });
       // console.log(formData, "hello");
-    fetch(`http://192.168.0.39:3000/upload`, {
+    fetch(`http://192.168.1.181:3000/upload`, {
         method: "POST",
         body: formData,
     })
@@ -61,10 +64,13 @@ export default function CNIVerso({ navigation }) {
         });
     };
     
-    if (!hasPermission || !isFocused) {
-        return <View />;
+    const [isLoaded] = useFonts({
+        'OpenSans': require("../../../assets/OpenSans/OpenSans-Regular.ttf"),
+        'Raleway': require('../../../assets/Raleway/static/Raleway-Regular.ttf')
+        });
+    if (!hasPermission || !isFocused || !isLoaded) {
+        return <AppLoading />;
     }
-
     return (
         <View style={styles.container}>
             <View style={styles.topContent}>

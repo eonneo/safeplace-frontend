@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRestSignupFields } from '../../reducers/signup';
 import DateField from 'react-native-datefield';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 const fetchUrl='https://safeplace-backend.vercel.app'
 
 export default function SignupScreen({ navigation }) {
@@ -52,7 +55,13 @@ export default function SignupScreen({ navigation }) {
     navigation.navigate('Upload')
   }
 
-
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={styles.safeView}>

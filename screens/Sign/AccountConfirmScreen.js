@@ -2,6 +2,9 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from '
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 const fetchUrl='https://safeplace-backend.vercel.app'
 
 export default function AccountConfirmScreen({ navigation }) {
@@ -10,11 +13,7 @@ export default function AccountConfirmScreen({ navigation }) {
 
   const handleNext = () => {
     console.log('btn next')
-<<<<<<< HEAD
-    fetch('http://192.168.1.181/users/isconnected', {
-=======
-    fetch(`http://192.168.0.39:3000/users/isconnected`, {
->>>>>>> c1f1c5255b8ee5b9ec6fd51c0baf9f221c3bf22d
+    fetch(`http:///192.168.1.181:3000/users/isconnected`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, isConnected: true }),
@@ -26,7 +25,13 @@ export default function AccountConfirmScreen({ navigation }) {
 
   }
 
-
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 

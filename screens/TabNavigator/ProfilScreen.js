@@ -5,6 +5,9 @@ import React from 'react';
 import { useSelector, } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 
 
 const PlaceholderImage = require("../../assets/Vector.png");
@@ -21,16 +24,15 @@ const user = useSelector((state) => state.user.value);
   const [isReadyToLift, setisReadyToLift] = React.useState(false);
   const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
 
-
-
-
-
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
-
-
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
-
       <View style={styles.topprofilContainer}>
         <View>
           <Text style={styles.profilName}> {user.prenom}</Text>

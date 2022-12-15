@@ -1,9 +1,16 @@
 import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
 
 export default function HelperConfirmRequestScreen({ navigation }) {
 
-
-
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
      <Text style={styles.title}> Page affichage Confirmation demande d'aide (step2)  </Text>
