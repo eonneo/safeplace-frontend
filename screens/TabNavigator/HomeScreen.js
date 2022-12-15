@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
       width: '100%',
       height: '50%',
       marginTop: 20,
+      resizeMode: 'contain',
     },
     title1: {
       width: '80%',
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       opacity: 1,
       position: 'absolute',
-      top: -100,
+      top: -110,
       left: "-27%",
       zIndex: 1,
   

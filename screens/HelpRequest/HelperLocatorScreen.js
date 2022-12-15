@@ -45,7 +45,10 @@ export default function HelperLocatorScreen({ navigation }) {
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Text style={styles.helloText}>Bonjour {user.prenom}</Text>
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+        <Text style={styles.nameText}>{user.prenom}</Text>
+        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+      </TouchableOpacity>
       <Text style={styles.helpersText}>Helpers proches de toi</Text>
       {currentPosition && <MapView mapType="standard" 
       showsUserLocation={true} 
@@ -106,14 +109,22 @@ const styles = StyleSheet.create({
       backgroundColor: '#ffffff',
       alignItems: 'center',
       justifyContent: 'flex-start',
+      paddingTop: 35,
   },
-    helloText: {
-      width: '80%',
-      fontSize: 24,
-      fontWeight: '600',
-      paddingTop: 30,
-      color: "#33355C",
-    },
+  header: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  nameText: {
+    width: '80%',
+    fontSize: 24,
+    color: "#33355C",
+    fontWeight: '400',
+  },
     helpersText: {
       width: '80%',
       fontSize: 24,
@@ -139,7 +150,7 @@ const styles = StyleSheet.create({
     },
     map: {
       flex: 1,
-      width: "95%",
+      width: "92%",
     },
     cardContent: {
       width: "100%",
