@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#33355C",
     fontWeight: '400',
+    fontFamily: 'Raleway',
   },
     helpersText: {
       width: '80%',
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
       paddingBottom: 10,
       color: "#33355C",
       textAlign: 'center',
+      fontFamily: 'Raleway',
     },
     button: {
       display: 'flex',
@@ -181,16 +183,19 @@ const styles = StyleSheet.create({
       height: 40,
     },
     name: {
-      fontSize: 24,
+      fontSize: 20,
       color: "#5CA4A9",
+      fontFamily: 'Raleway',
     },
     description: {
       fontSize: 16,
       color: "#33355C",
+      fontFamily: 'Raleway',
     },
     distance: {
       fontSize: 16,
       color: "#33355C",
+      fontFamily: 'Raleway',
     },
     isFavorite: {
       marginRight: 20,

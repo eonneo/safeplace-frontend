@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
       padding: 0,
       marginTop: 40,
       marginBottom: 10,
+      fontFamily: 'Raleway',
     },
     title2: {
       width: '80%',
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
       color: "#33355C",
       padding: 0,
       marginTop: 10,
+      fontFamily: 'Raleway',
     },
     input: {
       width: '80%',

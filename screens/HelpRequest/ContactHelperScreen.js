@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
       fontSize: 24,
       color: "#33355C",
       fontWeight: '400',
+      fontFamily: 'Raleway',
     },
     profilePic: {
       width: 40,
@@ -142,9 +143,10 @@ const styles = StyleSheet.create({
     },
     title: {
       width: '80%',
-      fontSize: 20,
+      fontSize: 18,
       color: "#33355C",
       fontWeight: '400',
+      fontFamily: 'Raleway',
     },
     map: {
       flex: 1,
@@ -179,16 +181,19 @@ const styles = StyleSheet.create({
       height: 40,
     },
     name: {
-      fontSize: 24,
+      fontSize: 20,
       color: "#5CA4A9",
+      fontFamily: 'Raleway',
     },
     description: {
       fontSize: 16,
       color: "#33355C",
+      fontFamily: 'Raleway',
     },
     distance: {
       fontSize: 16,
       color: "#33355C",
+      fontFamily: 'Raleway',
     },
     isFavorite: {
       marginRight: 20,
