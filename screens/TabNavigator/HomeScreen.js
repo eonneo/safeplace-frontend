@@ -136,4 +136,8 @@ const styles = StyleSheet.create({
       alignItems: "center",
       fontFamily: 'OpenSans',
     },
+<<<<<<< HEAD
   });
+=======
+  });
+>>>>>>> ed25dc0269f40afbf627123d06970bf277d2a807
