@@ -6,6 +6,8 @@ import { getFirstSignupFields } from '../../reducers/signup';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
+import IP from '../../IPAdress';
+
 export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
 
@@ -15,18 +17,35 @@ export default function LoginScreen({ navigation }) {
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
+  const [existantUser, setExistantUser] = useState(false);
   const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+  
   const handleSubmit = () => {
     if (EMAIL_REGEX.test(email) && password === passwordConfirmation) {
       setPasswordMatch(true)
+
       const loginInfos = {
         email: email,
         password: password
       }
-      dispatch(getFirstSignupFields(loginInfos));
-      console.log(loginInfos)
-      navigation.navigate('Cgu')
+
+      fetch(`http://${IP}:3000/users/checkemail`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({email: loginInfos.email}),
+      }).then(response => response.json())
+        .then(user => {
+          if (user.result) {
+            console.log('email already exist')
+            // message d'erreur email existant
+            setExistantUser(true)
+          } else {
+            dispatch(getFirstSignupFields(loginInfos));
+            console.log(loginInfos)
+            navigation.navigate('Cgu')
+          }
+        })
     } else {
       setEmailError(true);
     }
@@ -52,6 +71,7 @@ export default function LoginScreen({ navigation }) {
           onChangeText={(value) => setEmail(value)}
         />
         {emailError && <Text style={styles.error}>Invalid email address</Text>}
+        {existantUser && <Text style={styles.error}>Vous avez déjà créé un compte via cette adresse email</Text>}
         <Text style={styles.text}>Mot de passe</Text>
         <TextInput
           style={styles.input}
