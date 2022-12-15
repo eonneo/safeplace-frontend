@@ -89,10 +89,13 @@ export default function ContactHelperScreen({ navigation }) {
       </MapView>}
       <View style={styles.titlesContainer}>
         <Text style={styles.title}>Tu peux contacter X:</Text>
+        <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('HelpermoreInfo')}>
+        <Text>Naviguer vers screens Helper</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
-}
+}                                
 
 const styles = StyleSheet.create({
     container: {
@@ -198,6 +201,23 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       alignItems: 'center',
       justifyContent: 'center',
+      fontSize: 20,
+    },
+// a effeacer
+    button4: {
+      marginTop: 10,
+      width: 213,
+      height: 48,
+      borderRadius: 10,
+      backgroundColor: "#5CA4A9",
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: 70,
+    },
+    text4: {
+      color: "#FFFFFF",
+      fontFamily: 'OpenSans',
+      fontWeight: "bold",
       fontSize: 20,
     },
    });
