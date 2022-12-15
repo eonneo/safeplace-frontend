@@ -8,8 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
-import AppLoading  from 'expo-app-loading';
-import { useFonts } from '@use-expo/font';
 
 
 
