@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
       width: '100%',
       height: '50%',
       marginTop: 20,
+      resizeMode: 'contain',
     },
     title1: {
       width: '80%',

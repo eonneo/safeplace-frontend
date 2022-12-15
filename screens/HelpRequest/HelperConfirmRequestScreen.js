@@ -53,6 +53,10 @@ export default function HelperConfirmRequestScreen({ navigation }) {
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+        <Text style={styles.nameText}>{user.prenom}</Text>
+        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+      </TouchableOpacity>
       <View style={styles.titlesContainer}> 
         <Text style={styles.title}>X est le helper que tu as désigné pour t'aider</Text>
         <Text style={styles.title}>Il arrive vers toi, tu peux suivre ses déplacements sur la carte</Text>
@@ -106,6 +110,20 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'flex-start',
       paddingTop: 35,
+    },
+    header: {
+      flexDirection: 'row',
+      width: '100%',
+      alignItems: "center",
+      justifyContent: 'space-between',
+      paddingLeft: 15,
+      paddingRight: 15,
+    },
+    nameText: {
+      width: '80%',
+      fontSize: 24,
+      color: "#33355C",
+      fontWeight: '400',
     },
     titlesContainer: {
       alignItems: 'flex-start',
