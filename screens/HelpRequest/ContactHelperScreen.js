@@ -92,11 +92,11 @@ export default function ContactHelperScreen({ navigation }) {
         <Text style={styles.title}>Tu peux contacter X:</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.buttonCall} onPress={() => navigation.navigate('ContactHelper')}>
-            <FontAwesome name="phone" size={24} color="#E6EBE0" style={styles.phone}/>
+            <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
             <Text style={styles.text3}>Appeler X</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('ContactHelper')}>
-            <Entypo name="chat" size={24} color="#E6EBE0" style={styles.chat}/>
+            <Entypo name="chat" size={24} color="white" style={styles.chat}/>
             <Text style={styles.text3}>Ouvrir le chat</Text>
           </TouchableOpacity>
         </View>
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     text3: {
-      color: "#E6EBE0",
+      color: "white",
       fontFamily: 'OpenSans',
       fontWeight: "bold",
       alignItems: 'center',
