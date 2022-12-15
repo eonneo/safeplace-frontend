@@ -1,10 +1,10 @@
-import { Switch, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Switch, StyleSheet, Text, View, ScrollView, KeyboardAvoidingView, TextInput, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 import React from 'react';
 
-import AppLoading  from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 
@@ -26,8 +26,8 @@ export default function SettingsScreen({ navigation }) {
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
-  if(!isLoaded) {
+  });
+  if (!isLoaded) {
     return <AppLoading />
   }
   return (
@@ -43,104 +43,92 @@ export default function SettingsScreen({ navigation }) {
       </View>
 
       <View style={styles.profilContainer}>
-        <Text style={styles.title}>Mes paramètres</Text>
+        <Text style={styles.title}>Paramètres</Text>
 
-        
         <View style={styles.lineStyle} />
+        <ScrollView>
 
-        <View style={styles.optionhelpcontainer}>
+          <View style={styles.optionhelpcontainer}>
+            <View>
+              <Text style={styles.subtitle}>Notifications</Text>
+            </View>
 
-          <View>
-            <Text style={styles.subtitle}>Notifications                                      </Text>
+            <View>
+              <Switch
+                value={isEnabled}
+                onValueChange={(value) => setIsEnabled(value)}
+                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+                thumbColor={isEnabled ? "white" : "white"}
+                ios_backgroundColor="#e5eadf"
+                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+            </View>
+
           </View>
+          <Text style={styles.smallText} >Je permets à l'équipe de Safe Place de m'envoyer des notifications</Text>
 
-          <View>
-            <Switch
-              value={isEnabled}
-              onValueChange={(value) => setIsEnabled(value)}
-              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isEnabled ? "white" : "white"}
-              ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+
+          <View style={styles.optionhelpcontainer}>
+
+            <View>
+              <Text style={styles.subtitle}>Setting 1</Text>
+            </View>
+
+            <View>
+              <Switch
+                value={isReadyToAccomodate}
+                onValueChange={(value) => setisReadyToAccomodate(value)}
+                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+                thumbColor={isReadyToAccomodate ? "white" : "white"}
+                ios_backgroundColor="#e5eadf"
+                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+            </View>
+
           </View>
-
-        </View>
-        <Text style={styles.smallText} > Je permets à l'équipe de Safe Place de m'envoyer des notifications</Text>
+          <Text style={styles.smallText}>Texte setting</Text>
 
 
-        <View style={styles.optionhelpcontainer}>
+          <View style={styles.optionhelpcontainer}>
 
-          <View>
-            <Text style={styles.subtitle}>Setting 1                                               </Text>
+            <View>
+              <Text style={styles.subtitle}>Setting 2</Text>
+            </View>
+
+            <View>
+              <Switch
+                value={isReadyToLift}
+                onValueChange={(value) => setisReadyToLift(value)}
+                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+                thumbColor={isReadyToLift ? "white" : "white"}
+                ios_backgroundColor="#e5eadf"
+                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+            </View>
+
           </View>
+          <Text style={styles.smallText} >Texte setting</Text>
 
-          <View>
-            <Switch
-              value={isReadyToAccomodate}
-              onValueChange={(value) => setisReadyToAccomodate(value)}
-              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isReadyToAccomodate ? "white" : "white"}
-              ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+
+          <View style={styles.optionhelpcontainer}>
+
+            <View>
+              <Text style={styles.subtitle}>Setting 3</Text>
+            </View>
+
+            <View>
+              <Switch
+                value={isReadyToAssist}
+                onValueChange={(value) => setisReadyToAssist(value)}
+                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+                thumbColor={isReadyToAssist ? "white" : "white"}
+                ios_backgroundColor="#e5eadf"
+                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+            </View>
+
           </View>
-
-        </View>
-        <Text style={styles.smallText}> Texte setting</Text>
-
-
-        <View style={styles.optionhelpcontainer}>
-
-          <View>
-            <Text style={styles.subtitle}>Setting 2                                               </Text>
-          </View>
-
-          <View>
-            <Switch
-              value={isReadyToLift}
-              onValueChange={(value) => setisReadyToLift(value)}
-              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isReadyToLift ? "white" : "white"}
-              ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-          </View>
-
-        </View>
-        <Text style={styles.smallText} > Texte setting</Text>
-
-
-        <View style={styles.optionhelpcontainer}>
-
-<View>
-  <Text style={styles.subtitle}>Setting 3                                              </Text>
-</View>
-
-<View>
-  <Switch
-    value={isReadyToAssist}
-    onValueChange={(value) => setisReadyToAssist(value)}
-    trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-    thumbColor={isReadyToAssist ? "white" : "white"}
-    ios_backgroundColor="#e5eadf"
-    style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-</View>
-
-</View>
-<Text style={styles.smallText} > Texte setting</Text>
-
+          <Text style={styles.smallText} >Texte setting</Text>
+        </ScrollView>
       </View>
 
-      
-
-
-
-
-
-
-
-     
-
     </SafeAreaView>
-
 
   );
 }
@@ -151,15 +139,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 
   topprofilContainer: {
     flex: 1,
-    //backgroundColor: '#ccc',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '90%',
+    width: '100%',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   profilePic: {
@@ -171,39 +160,33 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     textAlign: 'left',
-    width: 300,
   }
   ,
   profilContainer: {
     flex: 4,
-    // backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '90%',
+    width: '100%',
   },
 
   readytohelpcontainer: {
     height: 50,
     flexDirection: 'row',
-    //backgroundColor: 'red',
-    width: '90%',
-
+    backgroundColor: 'red',
+    width: '100%',
   },
 
   optionhelpcontainer: {
-    height: 30,
     flexDirection: 'row',
-    // backgroundColor: 'yellow',
-    width: '90%',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: "center",
   },
 
   userBadgeContainer: {
     flex: 1,
-    // backgroundColor: 'grey',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '90%',
-
+    width: '100%',
   },
 
   badgeContainer: {
@@ -211,7 +194,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     margin: 10,
-    //backgroundColor: 'grey',
     width: '50%',
   },
 
@@ -220,7 +202,6 @@ const styles = StyleSheet.create({
     height: '50%',
   },
   title: {
-    width: '80%',
     fontSize: 38,
     fontWeight: '600',
     textAlign: 'center',
@@ -230,16 +211,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#5CA4A9',
-
   },
 
   smallText: {
     fontSize: 14,
-    margin: 0,
+    marginBottom: 20,
     textAlign: 'left',
     backgroundColor: 'white',
-    width: '90%',
-
+    width: '80%',
   },
 
   input: {
@@ -271,6 +250,6 @@ const styles = StyleSheet.create({
     width: '80%',
     borderColor: 'black',
     margin: 10,
-
+    alignSelf: 'center'
   },
 });
