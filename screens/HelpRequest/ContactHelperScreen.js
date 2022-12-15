@@ -17,6 +17,7 @@ import { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { Entypo } from '@expo/vector-icons'; 
 
 export default function ContactHelperScreen({ navigation }) {
 
@@ -87,8 +88,18 @@ export default function ContactHelperScreen({ navigation }) {
         }} 
         style={styles.map}>
       </MapView>}
-      <View style={styles.titlesContainer}>
+      <View style={styles.bottomContainer}>
         <Text style={styles.title}>Tu peux contacter X:</Text>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.buttonCall} onPress={() => navigation.navigate('ContactHelper')}>
+            <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
+            <Text style={styles.text3}>Appeler X</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('ContactHelper')}>
+            <Entypo name="chat" size={24} color="white" style={styles.chat}/>
+            <Text style={styles.text3}>Ouvrir le chat</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -121,10 +132,10 @@ const styles = StyleSheet.create({
       height: 40,
     },
     titlesContainer: {
-      flex: 1,
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
       width: "100%",
+      paddingTop: 10,
       paddingBottom: 10,
       paddingLeft: 15,
       paddingRight: 15,
@@ -182,7 +193,25 @@ const styles = StyleSheet.create({
     isFavorite: {
       marginRight: 20,
     },
-    button3: {
+  bottomContainer: {
+    alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+      width: "100%",
+      heigth: 250,
+      paddingTop: 10,
+      paddingBottom: 50,
+      paddingLeft: 15,
+      paddingRight: 15,
+  },
+    buttonsContainer: {
+      flex: 1,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingTop: 70,
+      paddingBottom: 20,
+    },
+    buttonCall: {
       marginTop: 5,
       marginBottom: 15,
       width: 213,
@@ -190,14 +219,33 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       backgroundColor: "#33355C",
       alignItems: "center",
-      justifyContent: "center",
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingRight: 20,
+    },
+    buttonChat: {
+      marginTop: 5,
+      marginBottom: 15,
+      width: 213,
+      height: 48,
+      borderRadius: 10,
+      backgroundColor: "#33355C",
+      alignItems: "center",
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
     text3: {
-      color: "#FFFFFF",
+      color: "white",
       fontFamily: 'OpenSans',
       fontWeight: "bold",
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: 20,
     },
-   });
+    phone: {
+      paddingRight: 20,
+    },
+    chat: {
+      paddingRight: 20,
+    },
+});
