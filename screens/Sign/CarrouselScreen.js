@@ -62,8 +62,8 @@ export default function CarrouselScreen({ navigation }) {
         tappableDots={true}
       />
       </View>
-      <TouchableOpacity style={styles.button4}>
-        <Text style={styles.text4} onPress={() => navigation.navigate("Login")}>Login</Text>
+      <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate("SigninScreen")}>
+        <Text style={styles.text4}>Login</Text>
       </TouchableOpacity>
       {/* <TouchableOpacity
         style={styles.button}
