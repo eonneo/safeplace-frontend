@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from '
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
+import IP from '../../IPAdress';
+
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
-
-const fetchUrl='https://safeplace-backend.vercel.app'
 
 export default function AccountConfirmScreen({ navigation }) {
 
@@ -13,7 +13,7 @@ export default function AccountConfirmScreen({ navigation }) {
 
   const handleNext = () => {
     console.log('btn next')
-    fetch(`http://192.168.42.89:3000/users/isconnected`, {
+    fetch(`http://${IP}:3000/users/isconnected`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, isConnected: true }),

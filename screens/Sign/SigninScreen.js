@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
-const fetchUrl = 'https://safeplace-backend.vercel.app'
+import IP from '../../IPAdress';
 
 export default function SigninScreen({ navigation }) {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function SigninScreen({ navigation }) {
 
 
     const handleSignin = () => {
-        fetch(`http://192.168.42.89:3000/users/signin`, {
+        fetch(`http://${IP}:3000/users/signin`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email, password: password }),
@@ -39,7 +39,7 @@ export default function SigninScreen({ navigation }) {
                     dispatch(login(loginInfos))
 
                     //  update isconnecte in database
-                    fetch(`http://192.168.42.89:3000/users/isconnected`, {
+                    fetch(`http://${IP}:3000/users/isconnected`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: email, isConnected: true }),

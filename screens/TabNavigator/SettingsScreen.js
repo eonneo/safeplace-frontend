@@ -19,7 +19,7 @@ export default function SettingsScreen({ navigation }) {
 
   // Controle des switchs
   const [isEnabled, setIsEnabled] = React.useState(false);
-  const [isReadyToAccomodate, setisReadyToAccomodat] = React.useState(false);
+  const [isReadyToAccomodate, setisReadyToAccomodate] = React.useState(false);
   const [isReadyToLift, setisReadyToLift] = React.useState(false);
   const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
 
@@ -34,7 +34,7 @@ export default function SettingsScreen({ navigation }) {
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles.topprofilContainer}>
         <View>
-          <Text style={styles.profilName}> User Name {user.email}</Text>
+          <Text style={styles.profilName}>  {user.prenom}</Text>
         </View>
         <View>
           <Image source={PlaceholderImage} style={styles.profilePic}></Image>
@@ -56,10 +56,10 @@ export default function SettingsScreen({ navigation }) {
 
           <View>
             <Switch
-              value={isReadyToAccomodate}
-              onValueChange={(value) => setisReadyToAccomodat(value)}
+              value={isEnabled}
+              onValueChange={(value) => setIsEnabled(value)}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isReadyToAccomodate ? "white" : "white"}
+              thumbColor={isEnabled ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
@@ -76,10 +76,10 @@ export default function SettingsScreen({ navigation }) {
 
           <View>
             <Switch
-              value={isReadyToLift}
-              onValueChange={(value) => setisReadyToLift(value)}
+              value={isReadyToAccomodate}
+              onValueChange={(value) => setisReadyToAccomodate(value)}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isReadyToLift ? "white" : "white"}
+              thumbColor={isReadyToAccomodate ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
@@ -96,10 +96,10 @@ export default function SettingsScreen({ navigation }) {
 
           <View>
             <Switch
-              value={isReadyToAssist}
-              onValueChange={(value) => setisReadyToAssist(value)}
+              value={isReadyToLift}
+              onValueChange={(value) => setisReadyToLift(value)}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isReadyToAssist ? "white" : "white"}
+              thumbColor={isReadyToLift ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>

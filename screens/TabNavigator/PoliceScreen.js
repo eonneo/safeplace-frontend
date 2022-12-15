@@ -1,9 +1,38 @@
 import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { useEffect, useState } from 'react';
 
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
+import * as SMS from 'expo-sms';
+import { useSelector, } from 'react-redux';
 
 export default function PoliceScreen({ navigation }) {
+  const [isAvailable, setIsAvailable] = useState(false);
+  const user = useSelector((state) => state.user.value);
+
+// pour utilisation installer d'abord => expo install expo-sms
+ 
+
+  useEffect( () => {
+    async function checkAvailability() {
+      
+      const isSmsAvailable = await SMS.isAvailableAsync();
+      setIsAvailable(isSmsAvailable);
+    }
+    checkAvailability();
+  }, []);
+  
+
+  // Enregistrer ci-dessous le numéro de téléphone + Message 
+  const sendSms = async () => {
+  const {result} = await SMS.sendSMSAsync (
+  ['0665331020'], `Hello ${user.prenom} need your Help, please find below more details`)
+  ;
+  
+  console.log(result)
+  
+  
+  };
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -12,13 +41,20 @@ export default function PoliceScreen({ navigation }) {
   if(!isLoaded) {
     return <AppLoading />
   }
+
+
+
+
+
+
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-     <Text style={styles.title}> Police Page  </Text>
+     <Text style={styles.title}> Emergency page  </Text>
 
      
-     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('TabNavigator', { screen: 'Home' })}>
-       <Text style={styles.textButton}>Naviguer vers la page Home</Text>
+     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => sendSms()}>
+       <Text style={styles.textButton}>Envoyer un message d'urgence</Text>
      </TouchableOpacity>
    </KeyboardAvoidingView>
    
@@ -50,14 +86,13 @@ const styles = StyleSheet.create({
       fontSize: 20,
     },
     button: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingTop: 8,
-      width: '80%',
-      marginTop: 30,
-      backgroundColor: 'blue',
+      marginTop: 10,
+      width: 300,
+      height: 48,
       borderRadius: 10,
-      marginBottom: 80,
+      backgroundColor: "#33355C",
+      alignItems: "center",
+      justifyContent: "center",
     },
     textButton: {
       color: '#ffffff',

@@ -7,6 +7,7 @@ import {
     TextInput,
     TouchableOpacity,
 } from "react-native";
+import IP from "../../../IPAdress";
 import React, { useState, useEffect, useRef } from "react";
 import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useDispatch } from "react-redux";
@@ -18,8 +19,6 @@ import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 export default function CNIRecto({ navigation }) {
-
-    const fetchUrl = "https://safeplace-backend.vercel.app";
 
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
@@ -57,7 +56,7 @@ export default function CNIRecto({ navigation }) {
         type: "image/jpeg",
     });
     console.log('formdata ok');
-    fetch(`http://192.168.42.89:3000/upload`, {
+    fetch(`http://${IP}:3000/upload`, {
         method: "POST",
         body: formData,
     })
