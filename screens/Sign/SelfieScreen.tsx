@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import IP from "../../IPAdress";
 import React, { useState, useEffect, useRef } from "react";
 import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useDispatch } from "react-redux";
@@ -16,8 +17,6 @@ import { useIsFocused } from "@react-navigation/native";
 
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
-
-const fetchUrl='https://safeplace-backend.vercel.app'
 
 export default function SelfieScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -51,7 +50,7 @@ export default function SelfieScreen({ navigation }) {
       type: "image/jpeg",
     });
 
-    fetch(`http://192.168.1.181:3000/upload`, {
+    fetch(`http://${IP}:3000/upload`, {
       method: "POST",
       body: formData,
     })

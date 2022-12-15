@@ -7,7 +7,7 @@ import DateField from 'react-native-datefield';
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
-const fetchUrl='https://safeplace-backend.vercel.app'
+import IP from '../../IPAdress';
 
 export default function SignupScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ export default function SignupScreen({ navigation }) {
     }
    
     console.log("Full user infos:", userInfos)
-    fetch(`${fetchUrl}/users/signup`, {
+    fetch(`http://${IP}:3000/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userInfos,),
