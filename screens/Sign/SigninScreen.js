@@ -3,10 +3,10 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoid
 import { login } from '../../reducers/users';
 import { useDispatch, useSelector } from 'react-redux';
 
-import AppLoading  from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
-const fetchUrl='https://safeplace-backend.vercel.app'
+const fetchUrl = 'https://safeplace-backend.vercel.app'
 
 export default function SigninScreen({ navigation }) {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function SigninScreen({ navigation }) {
 
 
     const handleSignin = () => {
-        fetch(`http://192.168.0.39:3000/users/signin`, {
+        fetch(`http://192.168.42.89:3000/users/signin`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email, password: password }),
@@ -39,18 +39,18 @@ export default function SigninScreen({ navigation }) {
                     dispatch(login(loginInfos))
 
                     //  update isconnecte in database
-                    fetch(`http://192.168.0.39:3000/users/isconnected`, {
+                    fetch(`http://192.168.42.89:3000/users/isconnected`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: email, isConnected: true }),
                     }).then(response => response.json())
-                    .then(updateStatus => {
+                        .then(updateStatus => {
                             console.log('status isConnected à jour en bdd')
-                    })
+                        })
 
                     //  navigate to home
                     navigation.navigate('TabNavigator', { screen: 'Home' })
-                    
+
 
                 } else {
                     console.log('Mauvais mot de passe ou mauvaise adresse email')
@@ -61,10 +61,10 @@ export default function SigninScreen({ navigation }) {
     const [isLoaded] = useFonts({
         'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
         'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-        });
-      if(!isLoaded) {
+    });
+    if (!isLoaded) {
         return <AppLoading />
-      }
+    }
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <Text style={styles.title}>Bienvenue sur SAFE PLACE</Text>
@@ -90,6 +90,12 @@ export default function SigninScreen({ navigation }) {
             <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSignin()}>
                 <Text style={styles.text5}>Se connecter</Text>
             </TouchableOpacity>
+            <View style={styles.blocSignup}>
+                <Text style={styles.textSignup}>Pas encore de compte ?</Text>
+                <TouchableOpacity style={styles.button6} activeOpacity={0.9} onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.text5}>S'incrire</Text>
+                </TouchableOpacity>
+            </View>
         </KeyboardAvoidingView>
     )
 }
@@ -137,5 +143,22 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans',
         fontWeight: "bold",
         fontSize: 20,
+    },
+    blocSignup: {
+        marginTop:50,
+        textAlign:'center',
+        justifyContent: "center",
+    },
+    textSignup: {
+textAlign: 'center'
+    },
+    button6: {
+        marginTop: 10,
+        width: 176,
+        height: 48,
+        borderRadius: 10,
+        backgroundColor: "#5CA4A9",
+        alignItems: "center",
+        justifyContent: "center",
     },
 })

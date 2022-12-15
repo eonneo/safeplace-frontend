@@ -52,7 +52,7 @@ export default function CarrouselScreen({ navigation }) {
               {images}
         </ScrollView>
       </View>
-      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('SigninScreen')}>
         <Text style={styles.textButton}>Naviguer jusqu'a la page Login</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>

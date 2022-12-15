@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getFirstSignupFields } from '../../reducers/signup';
 
-import AppLoading  from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 export default function LoginScreen({ navigation }) {
@@ -12,7 +12,7 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState (false);
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
   const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -35,18 +35,13 @@ export default function LoginScreen({ navigation }) {
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
-  if(!isLoaded) {
+  });
+  if (!isLoaded) {
     return <AppLoading />
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      {/* <Text style={styles.title}>Login Page </Text> */}
-      <Text>Tu as déja un compte SAFE PLACE ?</Text>
-      <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => navigation.navigate('SigninScreen')}>
-        <Text style={styles.text5}>Connecte toi</Text>
-      </TouchableOpacity>
-
+      <Text style={styles.title}>Bienvenue sur SAFE PLACE Inscription</Text>
       <View style={styles.inputGroup}>
         <Text style={styles.text}>Email</Text>
         <TextInput
@@ -100,6 +95,7 @@ const styles = StyleSheet.create({
     width: '80%',
     fontSize: 38,
     fontWeight: '600',
+    textAlign: 'center'
   },
   inputGroup: {
     marginTop: 60,

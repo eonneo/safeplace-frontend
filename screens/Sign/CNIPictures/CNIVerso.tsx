@@ -51,7 +51,7 @@ export default function CNIVerso({ navigation }) {
         type: "image/jpeg",
     });
       // console.log(formData, "hello");
-    fetch(`http://192.168.0.39:3000/upload`, {
+    fetch(`http://192.168.42.89:3000/upload`, {
         method: "POST",
         body: formData,
     })
