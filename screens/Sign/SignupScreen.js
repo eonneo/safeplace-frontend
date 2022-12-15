@@ -41,7 +41,7 @@ export default function SignupScreen({ navigation }) {
     }
    
     console.log("Full user infos:", userInfos)
-    fetch(`${fetchUrl}/users/signup`, {
+    fetch(`http://192.168.0.39:3000/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userInfos,),
