@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       opacity: 1,
       position: 'absolute',
-      top: -100,
+      top: -110,
       left: "-27%",
       zIndex: 1,
   

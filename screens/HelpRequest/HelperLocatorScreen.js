@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     map: {
       flex: 1,
-      width: "95%",
+      width: "92%",
     },
     cardContent: {
       width: "100%",
