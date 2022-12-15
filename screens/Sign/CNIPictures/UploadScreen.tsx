@@ -11,10 +11,20 @@ import { SafeAreaView,
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
 export default function UploadScreen({ navigation }) {
 
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <FontAwesome name='arrow-left' size={25} color='#000000' onPress={() => navigation.navigate("Signup")} />
         <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
@@ -24,7 +34,7 @@ export default function UploadScreen({ navigation }) {
       <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('CNIRecto')}>
         <FontAwesome name="arrow-right" size={24} color="white" />
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 

@@ -1,12 +1,37 @@
 import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
+
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
+
+const fetchUrl='https://safeplace-backend.vercel.app'
 
 export default function AccountConfirmScreen({ navigation }) {
 
+  const email = useSelector((state) => state.signup.value.email)
 
+  const handleNext = () => {
+    console.log('btn next')
+    fetch(`http://192.168.0.39:3000/users/isconnected`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, isConnected: true }),
+    }).then(response => response.json())
+      .then(updateStatus => {
+        console.log('status isConnected à jour en bdd')
+        navigation.navigate('TabNavigator', { screen: 'Home' })
+      })
 
+  }
 
-
+  const [isLoaded] = useFonts({
+    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    });
+  if(!isLoaded) {
+    return <AppLoading />
+  }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
@@ -38,7 +63,7 @@ export default function AccountConfirmScreen({ navigation }) {
 
       <View style={styles.container3}>
 
-        <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('TabNavigator', { screen: 'Home' })}>
+        <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => handleNext()}>
 
           <Text style={styles.textButton}>Next</Text>
         </TouchableOpacity>
@@ -66,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     textAlign: 'center',
- },
+  },
 
   container1: {
     flex: 1,
@@ -100,7 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
-    color:'#5CA4A9',
+    color: '#5CA4A9',
 
   },
 

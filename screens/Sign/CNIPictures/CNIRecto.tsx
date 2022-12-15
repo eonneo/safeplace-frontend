@@ -14,9 +14,12 @@ import { addSelfie } from "../../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
-const BACKEND_ADDRESS = "http://192.168.0.39:3000";
+import AppLoading  from 'expo-app-loading';
+import { useFonts } from '@use-expo/font';
 
 export default function CNIRecto({ navigation }) {
+
+    const fetchUrl = "https://safeplace-backend.vercel.app";
 
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
@@ -40,23 +43,27 @@ export default function CNIRecto({ navigation }) {
             exif: false,
             skipProcessing: true,
         });
-        //console.log('onpress ok');
+        console.log('onpress ok');
 
     const formData: any = new FormData();
-    //console.log("uri", photo.uri);
+    
+    
+    
+    console.log("uri", photo.uri);
 
     formData.append("photoFromFront", {
         uri: photo.uri,
         name: "photo.jpg",
         type: "image/jpeg",
     });
-    fetch(`${BACKEND_ADDRESS}/upload`, {
+    console.log('formdata ok');
+    fetch(`http://192.168.0.39:3000/upload`, {
         method: "POST",
         body: formData,
     })
     .then((response) => response.json())
     .then((data) => {
-        //console.log('test CNI recto');
+        console.log('test CNI recto');
         if (data.result) {
             data.result && dispatch(addSelfie(data.url));
             navigation.navigate('CNIVerso');
@@ -64,10 +71,13 @@ export default function CNIRecto({ navigation }) {
     });
     };
     
-    if (!hasPermission || !isFocused) {
-        return <View />;
+    const [isLoaded] = useFonts({
+        'OpenSans': require("../../../assets/OpenSans/OpenSans-Regular.ttf"),
+        'Raleway': require('../../../assets/Raleway/static/Raleway-Regular.ttf')
+        });
+    if (!hasPermission || !isFocused || !isLoaded) {
+        return <AppLoading />;
     }
-
     return (
         <View style={styles.container}>
             <View style={styles.topContent}>
@@ -96,6 +106,7 @@ export default function CNIRecto({ navigation }) {
                 flashMode={flashMode}
                 ref={(ref: any) => (cameraRef = ref)}
                 style={styles.camera}
+                autoFocus={true}
             >
                 <View style={styles.buttonsContainer}>
                     <TouchableOpacity
