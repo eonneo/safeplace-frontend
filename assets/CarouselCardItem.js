@@ -13,9 +13,10 @@ const CarouselCardItem = ({ item, index }) => {
   // if (!isLoaded) {
   //   return <AppLoading />;
   // }
+
   return (
     <View style={styles.container} key={index}>
-      <Image source={{ uri: item.imgUrl }} style={styles.image} />
+      <Image source={item.imgUrl} style={styles.image} />
       <Text style={styles.header}>{item.title}</Text>
       <Text style={styles.body}>{item.body}</Text>
     </View>
@@ -36,12 +37,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     elevation: 7,
+    
 
   },
   image: {
     width: ITEM_WIDTH,
     height: 300,
-    alignItems:'center'
+    alignItems:'center',
+    resizeMode: 'contain',
+    // alignSelf: 'center',
+    // justifySelf: 'center,'
+
   },
   header: {
     color: "#5CA4A9",
