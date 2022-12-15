@@ -1,117 +1,114 @@
-import { Image, 
-  Button, 
-  StyleSheet, 
-  Text, 
-  View, 
-  KeyboardAvoidingView,  
-  TextInput, 
+import {
+  Image,
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  TextInput,
   TouchableOpacity,
-  ScrollView } from 'react-native';
-
-  import AppLoading  from 'expo-app-loading';
-import { useFonts } from '@use-expo/font';
+  ScrollView,
+} from "react-native";
+import React from "react";
+import AppLoading from "expo-app-loading";
+import { useFonts } from "@use-expo/font";
+import Carousel, { Pagination } from "react-native-snap-carousel";
+import CarouselCardItem, {
+  SLIDER_WIDTH,
+  ITEM_WIDTH,
+} from "../../assets/CarouselCardItem";
+import data from "../../assets/data";
 
 export default function CarrouselScreen({ navigation }) {
-
-  // const imagesData = [
-  //   "https://unsplash.com/fr/photos/Zyx1bK9mqmA",
-  //   "https://unsplash.com/fr/photos/p7XunYuC17Q",
-  //   "https://unsplash.com/fr/photos/D1E7W9AHE40",
-  //   "https://unsplash.com/fr/photos/UOwvwZ9Dy6w",
-  //   "https://unsplash.com/fr/photos/ATlRqTCbvV4",
-  // ]
-
-  // const images = imagesData.map((data, i) => {
-  //   //console.log(data);
-  //   return (
-  //     <Image
-  //       key={i}
-  //       source={{uri: data}}
-  //       style={styles.image}>
-  //     </Image>
-  //   );
-  // });
-  // console.log(images)
-
+  const isCarousel = React.useRef(null);
+  const [index, setIndex] = React.useState(0);
   const [isLoaded] = useFonts({
-    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
-    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
-  if(!isLoaded) {
-    return <AppLoading />
+    OpenSans: require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
+  });
+  if (!isLoaded) {
+    return <AppLoading />;
   }
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Text style={styles.title}>Welcome to SAFE PLACE</Text>
-      {/* <View style={styles.carouselContainer}>
-        <ScrollView 
-          pagingEnabled
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.carousel} >
-              {images}
-        </ScrollView>
-      </View> */}
-      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.textButton}>Naviguer jusqu'a la page Login</Text>
+    <View
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View style={styles.carouselContainer}>
+      <Carousel
+        layout="tinder"
+        layoutCardOffset={9}
+        ref={isCarousel}
+        data={data}
+        renderItem={CarouselCardItem}
+        sliderWidth={SLIDER_WIDTH}
+        itemWidth={ITEM_WIDTH}
+        onSnapToItem={(index) => setIndex(index)}
+        useScrollView={true}
+      />
+        <Pagination
+        dotsLength={data.length}
+        activeDotIndex={index}
+        carouselRef={isCarousel}
+        dotStyle={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.92)'
+        }}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+        tappableDots={true}
+      />
+      </View>
+      <TouchableOpacity style={styles.button4}>
+        <Text style={styles.text4} onPress={() => navigation.navigate("Login")}>Login</Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+      {/* <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.9}
+        
+      >
+        <Text style={styles.textButton}>Naviguer jusqu'a la page Login</Text>
+      </TouchableOpacity> */}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#ffffff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    carouselContainer: {
-      flex: 1,
-      width: "100%",
-      height: "70%",
-      borderColor: "#05286F",
-      borderStyle: "solid",
-      borderWidth: 2,
-      padding: 10,
-    },
-    carousel: {
-      flex: 1,
-      borderColor: "#DC0F0F",
-      borderStyle: "solid",
-      borderWidth: 2,
-    },
-    image: {
-      borderColor: "#0FDB94",
-      borderStyle: "solid",
-      borderWidth: 2,
-    },
-    title: {
-      width: '80%',
-      fontSize: 36,
-      fontWeight: '600',
-    },
-    input: {
-      width: '80%',
-      marginTop: 25,
-      borderBottomColor: 'vl',
-      borderBottomWidth: 1,
-      fontSize: 20,
-    },
-    button: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingTop: 8,
-      width: '80%',
-      marginTop: 30,
-      backgroundColor: 'blue',
-      borderRadius: 10,
-      marginBottom: 80,
-    },
-    textButton: {
-      color: '#ffffff',
-      height: 30,
-      fontWeight: '600',
-      fontSize: 16,
-    },
-   });
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  carouselContainer: {
+    fontFamily: 'OpenSans',
+    flex: 1,
+    width: "100%",
+    height: "70%",
+    borderColor: "#05286F",
+    marginTop: 40,
+    padding: 10,
+    alignItems: 'center',
+    
+  },
+
+  button4: {
+    marginTop: 10,
+    width: 213,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: "#5CA4A9",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 70,
+  },
+  text4: {
+    color: "#FFFFFF",
+    fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+});

@@ -51,7 +51,7 @@ export default function SelfieScreen({ navigation }) {
       type: "image/jpeg",
     });
 
-    fetch(`http://192.168.0.39:3000/upload`, {
+    fetch(`http://192.168.161.148:3000/upload`, {
       method: "POST",
       body: formData,
     })
