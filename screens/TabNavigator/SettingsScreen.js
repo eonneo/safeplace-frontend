@@ -1,19 +1,21 @@
 import { Switch, StyleSheet, Text, View, ScrollView, KeyboardAvoidingView, TextInput, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../../reducers/users';
 import React from 'react';
 
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
-
+import IP from '../../IPAdress';
 
 const PlaceholderImage = require("../../assets/Vector.png");
 
 
 export default function SettingsScreen({ navigation }) {
-
+  
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
 
 
@@ -22,6 +24,24 @@ export default function SettingsScreen({ navigation }) {
   const [isReadyToAccomodate, setisReadyToAccomodate] = React.useState(false);
   const [isReadyToLift, setisReadyToLift] = React.useState(false);
   const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
+
+  const handleLogout = () => {
+    console.log('btnlogout')
+    console.log(user)
+
+     //  update isconnecte in database
+     fetch(`http://${IP}:3000/users/isconnected`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email, isConnected: false }),
+  }).then(response => response.json())
+      .then(updateStatus => {
+          console.log('status isConnected à jour en bdd : user logged out')
+          dispatch(login({isConnected : false, email: user.email, prenom: user.prenom}))
+          navigation.navigate('Carrousel')
+      })
+    
+  }
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -125,6 +145,10 @@ export default function SettingsScreen({ navigation }) {
 
           </View>
           <Text style={styles.smallText} >Texte setting</Text>
+
+          <TouchableOpacity style={styles.buttonRed} activeOpacity={0.9} onPress={() => handleLogout()}>
+        <Text style={styles.text5}>Se déconnecter</Text>
+      </TouchableOpacity>
         </ScrollView>
       </View>
 
@@ -228,21 +252,27 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     fontSize: 20,
   },
-  button: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingTop: 8,
-    width: '80%',
-    marginTop: 30,
-    backgroundColor: 'blue',
+  buttonRed: {
+    marginTop: 10,
+    width: 176,
+    height: 48,
     borderRadius: 10,
-    marginBottom: 80,
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf:'center'
   },
   textButton: {
     color: '#ffffff',
     height: 30,
     fontWeight: '600',
     fontSize: 16,
+  },
+  text5: {
+    color: "#FFFFFF",
+    fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    fontSize: 20,
   },
 
   lineStyle: {
