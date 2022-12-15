@@ -5,7 +5,7 @@ import React from 'react';
 import { useSelector, } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import AppLoading  from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 
@@ -16,7 +16,7 @@ const PlaceholderImage = require("../../assets/Vector.png");
 
 export default function SettingsScreen({ navigation }) {
 
-const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user.value);
 
 
   // Controle des switchs
@@ -28,8 +28,8 @@ const user = useSelector((state) => state.user.value);
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
-  if(!isLoaded) {
+  });
+  if (!isLoaded) {
     return <AppLoading />
   }
   return (
@@ -38,15 +38,12 @@ const user = useSelector((state) => state.user.value);
         <View>
           <Text style={styles.profilName}> {user.prenom}</Text>
         </View>
+
         <View>
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-
-          <Image source={PlaceholderImage} style={styles.profilePic}/>
-
+            <Image source={PlaceholderImage} style={styles.profilePic} />
           </TouchableOpacity>
-
         </View>
-
       </View>
 
       <View style={styles.profilContainer}>
@@ -64,15 +61,16 @@ const user = useSelector((state) => state.user.value);
 
           </View>
           <View>
-            <Text style={styles.subtitle}>     Je suis disponible pour aider</Text>
+            <Text style={styles.subtitle}>Je suis disponible pour aider</Text>
           </View>
         </View>
+
         <View style={styles.lineStyle} />
 
         <View style={styles.optionhelpcontainer}>
 
           <View>
-            <Text style={styles.subtitle}>HEBERGEMENT                                 </Text>
+            <Text style={styles.subtitle}>HEBERGEMENT</Text>
           </View>
 
           <View>
@@ -86,13 +84,13 @@ const user = useSelector((state) => state.user.value);
           </View>
 
         </View>
-        <Text style={styles.smallText} > Je peux héberger une personne en cas d'urgence</Text>
+        <Text style={styles.smallText} >Je peux héberger une personne en cas d'urgence</Text>
 
 
         <View style={styles.optionhelpcontainer}>
 
           <View>
-            <Text style={styles.subtitle}>TRANSPORT                                      </Text>
+            <Text style={styles.subtitle}>TRANSPORT</Text>
           </View>
 
           <View>
@@ -106,13 +104,13 @@ const user = useSelector((state) => state.user.value);
           </View>
 
         </View>
-        <Text style={styles.smallText}> Je peux véhiculer une personne en cas d'urgence</Text>
+        <Text style={styles.smallText}>Je peux véhiculer une personne en cas d'urgence</Text>
 
 
         <View style={styles.optionhelpcontainer}>
 
           <View>
-            <Text style={styles.subtitle}>ACCOMPAGNEMENT                        </Text>
+            <Text style={styles.subtitle}>ACCOMPAGNEMENT</Text>
           </View>
 
           <View>
@@ -126,19 +124,14 @@ const user = useSelector((state) => state.user.value);
           </View>
 
         </View>
-        <Text style={styles.smallText} > Je peux assister une personne en cas d'urgence</Text>
+        <Text style={styles.smallText} >Je peux assister une personne en cas d'urgence</Text>
 
       </View>
 
       <View style={styles.lineStyle} />
 
-
-
-
-
-
       <View style={styles.userBadgeContainer}>
-        <Text style={styles.subtitle}> MES BADGES :</Text>
+        <Text style={styles.subtitle}>MES BADGES :</Text>
 
         <View style={styles.badgeContainer}>
           <FontAwesome name='trophy' size={40} color='green' />
@@ -160,11 +153,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 
   topprofilContainer: {
     flex: 1,
-    //backgroundColor: '#ccc',
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
@@ -185,43 +179,40 @@ const styles = StyleSheet.create({
   ,
   profilContainer: {
     flex: 4,
-    // backgroundColor: 'green',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '90%',
+    width: '100%',
   },
 
   readytohelpcontainer: {
-    height: 50,
     flexDirection: 'row',
-    //backgroundColor: 'red',
-    width: '90%',
-
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: "center",
   },
 
   optionhelpcontainer: {
-    height: 30,
     flexDirection: 'row',
-    // backgroundColor: 'yellow',
-    width: '90%',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: "center",
   },
 
   userBadgeContainer: {
     flex: 1,
-    // backgroundColor: 'grey',
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
-
   },
 
   badgeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     margin: 10,
-    //backgroundColor: 'grey',
-    width: '50%',
+    width: '70%',
   },
 
   image: {
@@ -239,12 +230,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#5CA4A9',
-
   },
 
   smallText: {
     fontSize: 14,
-    margin: 0,
+    marginBottom: 20,
     textAlign: 'left',
     backgroundColor: 'white',
     width: '90%',
@@ -280,6 +270,6 @@ const styles = StyleSheet.create({
     width: '80%',
     borderColor: 'black',
     margin: 10,
-
+    alignSelf: 'center'
   },
 });
