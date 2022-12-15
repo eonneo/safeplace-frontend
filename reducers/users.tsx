@@ -5,6 +5,7 @@ export type UserState = {
         email: string | null;
         prenom: string | null;
         isConnected: boolean;
+        isAvaible: boolean;
     };
 };
 
@@ -13,6 +14,7 @@ const initialState: UserState = {
         email: null,
         prenom: null,
         isConnected: false,
+        isAvaible: false,
     },
 };
 
@@ -26,8 +28,12 @@ export const userSlice = createSlice({
             state.value.isConnected = action.payload.isConnected;
             console.log('reducer login:',action.payload);
         },
+        handleAvaible: (state, action) => {
+            state.value.isAvaible = action.payload.isAvaible;
+            console.log('isAvaible reducer:' , action.payload);
+        }
     },
 });
 
-export const { login } = userSlice.actions;
+export const { login, handleAvaible } = userSlice.actions;
 export default userSlice.reducer;

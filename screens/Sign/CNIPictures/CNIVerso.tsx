@@ -28,7 +28,7 @@ export default function CNIVerso({ navigation }) {
     const [flashMode, setFlashMode] = useState(FlashMode.off);
 
     let cameraRef: any = useRef(null);
-
+ 
     useEffect(() => {
         (async () => {
             const { status } = await Camera.requestCameraPermissionsAsync();

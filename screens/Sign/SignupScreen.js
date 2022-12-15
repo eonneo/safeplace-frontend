@@ -50,9 +50,12 @@ export default function SignupScreen({ navigation }) {
         if (user.result) {
           console.log('okposted')
           dispatch(getRestSignupFields(userInfos))
+          navigation.navigate('Upload')
+        }else{
+          console.log('email already exist')
         }
       })
-    navigation.navigate('Upload')
+    
   }
 
   const [isLoaded] = useFonts({
