@@ -1,5 +1,6 @@
 import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
+import {Linking} from 'react-native'
 
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
@@ -34,6 +35,12 @@ export default function PoliceScreen({ navigation }) {
   
   };
 
+const number ={
+  policeNumber:'17'
+}
+
+
+
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
@@ -56,6 +63,21 @@ export default function PoliceScreen({ navigation }) {
      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => sendSms()}>
        <Text style={styles.textButton}>Envoyer un message d'urgence</Text>
      </TouchableOpacity>
+
+
+     <View style={styles.container}>
+        <TextInput 
+          onChangeText={(text)=>this.setState({phoneNumber:text})}
+          style={styles.input} 
+          placeholder="911" 
+          keyboardType="number-pad"/>
+        <TouchableOpacity onPress={()=> this.call()}>
+          <Ionicons name="ios-call" style={styles.callTxt}/>
+        </TouchableOpacity>
+      </View>
+
+
+
    </KeyboardAvoidingView>
    
    
