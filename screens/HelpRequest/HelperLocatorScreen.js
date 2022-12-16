@@ -8,7 +8,6 @@ import { addPosition, deletePosition } from '../../reducers/geolocation'
 
 import IP from "../../IPAdress";
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 //imports cards
@@ -68,7 +67,7 @@ export default function HelperLocatorScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
