@@ -4,8 +4,6 @@ import { Button,
   Text, 
   View, 
   KeyboardAvoidingView,  
-  TextInput, 
-  PlaceholderImage,
   TouchableOpacity 
 } from 'react-native';
 import AppLoading  from 'expo-app-loading';
