@@ -36,17 +36,24 @@ export default function HelperLocatorScreen({ navigation }) {
           (location) => {
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-            
+                                                                        //console.log(persistoreasyncstorage)
+            const geolocInfos = {
+              email: req.body.email,
+              lastPosition: {
+                latitude: (currentPosition.latitude),
+                longitude: (currentPosition.longitude),
+              }}
             //envoyer les coordonnées à la bd
-            fetch(`http://${IP}:3000/users/geolocations`, {
-              method: "POST",
-              body: currentPosition
+            fetch(`http://${IP}:3000/users/lastposition`, {
+              method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(geolocInfos),
             })
             .then((response) => response.json())
             .then((data) => {
-              if (data.result) {
-                data.result && dispatch(addPosition(currentPosition));
-              }
+              if (data) {
+                console.log('last position added to DB') && dispatch(addPosition(currentPosition));
+              }else {console.log('error: last position not added to DB')}
             });
           }
         )

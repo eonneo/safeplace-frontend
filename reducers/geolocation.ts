@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type GeolocationState = {
   value: {
-    coords: {};
+    lastPosition: {latitude: string, longitude: string};
   };
 };
 
 const initialState: GeolocationState = {
-  value: { coords: {} },
+  value: { lastPosition: {latitude: null, longitude: null} },
 };
 
 export const geolocationSlice = createSlice({
@@ -15,11 +15,11 @@ export const geolocationSlice = createSlice({
   initialState,
   reducers: {
     addPosition: (state, action: PayloadAction<any>) => {
-      state.value.latitude = (action.payload.latitude);
-      state.value.longitude = (action.payload.longitude);
+      state.value.lastPosition.latitude = (action.payload.latitude);
+      state.value.lastPosition.longitude = (action.payload.longitude);
     },
     deletePosition: (state, action: PayloadAction<string>) => {
-      state.value.coords = {};
+      state.value.lastPosition = {latitude: null, longitude: null};
     },
   },
 });
