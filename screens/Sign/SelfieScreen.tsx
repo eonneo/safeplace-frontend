@@ -28,6 +28,8 @@ export default function SelfieScreen({ navigation }) {
   const [button, setButton] = useState(false);
   let cameraRef: any = useRef(null);
 
+  // cameraRef && isFocused
+ 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -44,9 +46,9 @@ export default function SelfieScreen({ navigation }) {
 
     const formData: any = new FormData();
 
-    formData.append("photoFromFront", {
+    formData.append("photoSelfie", {
       uri: photo.uri,
-      name: "photo.jpg",
+      name: "photoSelfie.jpg",
       type: "image/jpeg",
     });
 
@@ -125,7 +127,7 @@ export default function SelfieScreen({ navigation }) {
         </View>
 
         <View style={styles.snapContainer}>
-          <TouchableOpacity onPress={() => cameraRef && takePicture()}>
+          <TouchableOpacity onPress={() => cameraRef && isFocused && takePicture()}>
             <FontAwesome name="circle-thin" size={95} color="#ffffff" />
           </TouchableOpacity>
         </View>

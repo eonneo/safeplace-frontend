@@ -50,9 +50,9 @@ export default function CNIRecto({ navigation }) {
     
     console.log("uri", photo.uri);
 
-    formData.append("photoFromFront", {
+    formData.append("photoRecto", {
         uri: photo.uri,
-        name: "photo.jpg",
+        name: "photoRecto.jpg",
         type: "image/jpeg",
     });
     console.log('formdata ok');
@@ -132,7 +132,7 @@ export default function CNIRecto({ navigation }) {
                 </View>
 
                 <View style={styles.snapContainer}>
-                    <TouchableOpacity onPress={() => cameraRef && takePicture()}>
+                    <TouchableOpacity onPress={() => cameraRef && isFocused && takePicture()}>
                         <FontAwesome name="circle-thin" size={95} color="#ffffff" />
                     </TouchableOpacity>
                 </View>

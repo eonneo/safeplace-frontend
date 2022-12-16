@@ -45,9 +45,9 @@ export default function CNIVerso({ navigation }) {
 
     const formData: any = new FormData();
 
-    formData.append("photoFromFront", {
+    formData.append("photoVerso", {
         uri: photo.uri,
-        name: "photo.jpg",
+        name: "photoVerso.jpg",
         type: "image/jpeg",
     });
       // console.log(formData, "hello");
@@ -126,7 +126,7 @@ export default function CNIVerso({ navigation }) {
                 </View>
 
                 <View style={styles.snapContainer}>
-                    <TouchableOpacity onPress={() => cameraRef && takePicture()}>
+                    <TouchableOpacity onPress={() => cameraRef && isFocused && takePicture()}>
                         <FontAwesome name="circle-thin" size={95} color="#ffffff" />
                     </TouchableOpacity>
                 </View>
