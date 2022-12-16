@@ -76,7 +76,7 @@ export default function App() {
             iconName = 'book';
           } else if (route.name === 'Police') {
             iconName = 'shield';
-            color='red';
+            color='#E4513D';
           } 
           else if (route.name === 'Profil') {
             iconName = 'user';
@@ -86,7 +86,7 @@ export default function App() {
   
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#e8be4b',
+        tabBarActiveTintColor: '#FFA647',
         tabBarInactiveTintColor: '#b2b2b2',
         headerShown: false,
       })}>
