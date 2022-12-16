@@ -6,6 +6,7 @@ export type UserState = {
         prenom: string | null;
         isConnected: boolean;
         isAvailable: boolean;
+        isReadyToAccomodate: boolean;
     };
 };
 
@@ -15,6 +16,7 @@ const initialState: UserState = {
         prenom: null,
         isConnected: false,
         isAvailable: false,
+        isReadyToAccomodate: false,
     },
 };
 
@@ -31,9 +33,13 @@ export const userSlice = createSlice({
         handleAvailable: (state, action) => {
             state.value.isAvailable = action.payload.isAvailable;
             console.log('isAvailable reducer:' , action.payload);
-        }
+        },
+        handleAccomodate: (state, action) => {
+            state.value.isAvailable = action.payload.isReadyToAccomodate;
+            console.log('isReadyToAccomodate reducer:' , action.payload);
+        },
     },
 });
 
-export const { login, handleAvailable } = userSlice.actions;
+export const { login, handleAvailable, handleAccomodate } = userSlice.actions;
 export default userSlice.reducer;

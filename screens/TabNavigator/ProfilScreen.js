@@ -5,7 +5,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { handleAvailable } from '../../reducers/users';
+import { handleAvailable, handleAccomodate } from '../../reducers/users';
 
 import { useFonts } from '@use-expo/font';
 
@@ -24,13 +24,13 @@ export default function SettingsScreen({ navigation }) {
 
   // Controle des switchs
   const [isAvailable, setIsAvailable] = useState(false);
-  const [isReadyToAccomodate, setisReadyToAccomodat] = React.useState(false);
+  const [isReadyToAccomodate, setisReadyToAccomodate] = useState(false);
   const [isReadyToLift, setisReadyToLift] = React.useState(false);
   const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
 console.log(isAvailable)
 
   const handleIsAvailable = () => {
-    // console.log('switch', isAvaible)
+    // console.log('switch', isAvailable)
     fetch(`http://${IP}:3000/users/isavailable`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -40,6 +40,22 @@ console.log(isAvailable)
       if(updateStatus.result){
         console.log('isavailable updated')
         dispatch(handleAvailable(!isAvailable))
+      }
+
+    })
+  }
+
+  const handleIsReadyToAccomodate = () => {
+    // console.log('switch', isReadyToAccomodate)
+    fetch(`http://${IP}:3000/users/hebergement`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: user.email, hebergement: !isReadyToAccomodate}),
+    }).then(response => response.json())
+    .then(updateStatus => {
+      if(updateStatus.result){
+        console.log('hebergement status updated in DB')
+        dispatch(handleAccomodate(!isReadyToAccomodate))
       }
 
     })
@@ -95,7 +111,7 @@ console.log(isAvailable)
           <View>
             <Switch
               value={isReadyToAccomodate}
-              onValueChange={(value) => setisReadyToAccomodat(value)}
+              onValueChange={(value) => {setisReadyToAccomodate(value), handleIsReadyToAccomodate()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
               thumbColor={isReadyToAccomodate ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
