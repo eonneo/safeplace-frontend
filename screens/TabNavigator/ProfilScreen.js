@@ -2,12 +2,15 @@ import { Switch, StyleSheet, Text, View, Link, TextInput, Image, TouchableOpacit
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
-import { useSelector, } from 'react-redux';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { handleAvaible } from '../../reducers/users';
 
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
+import IP from '../../IPAdress';
 
 
 
@@ -17,14 +20,31 @@ const PlaceholderImage = require("../../assets/Vector.png");
 export default function SettingsScreen({ navigation }) {
 
   const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
 
   // Controle des switchs
-  const [isEnabled, setIsEnabled] = React.useState(false);
+  const [isAvaible, setIsAvaible] = useState(false);
   const [isReadyToAccomodate, setisReadyToAccomodat] = React.useState(false);
   const [isReadyToLift, setisReadyToLift] = React.useState(false);
   const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
+console.log(isAvaible)
 
+  const handleIsAvaible = () => {
+    // console.log('switch', isAvaible)
+    fetch(`http://${IP}:3000/users/isavaible`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: user.email, isAvaible: !isAvaible}),
+    }).then(response => response.json())
+    .then(updateStatus => {
+      if(updateStatus.result){
+        console.log('isavailable updated')
+        dispatch(handleAvaible(!isAvaible))
+      }
+
+    })
+  }
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
@@ -52,10 +72,10 @@ export default function SettingsScreen({ navigation }) {
         <View style={styles.readytohelpcontainer}>
           <View>
             <Switch
-              value={isEnabled}
-              onValueChange={(value) => setIsEnabled(value)}
+              value={isAvaible}
+              onValueChange={(value) => {setIsAvaible(value), handleIsAvaible()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isEnabled ? "white" : "white"}
+              thumbColor={isAvaible ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
 

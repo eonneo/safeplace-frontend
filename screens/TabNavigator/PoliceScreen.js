@@ -77,7 +77,10 @@ const styles = StyleSheet.create({
       width: '80%',
       fontSize: 38,
       fontWeight: '600',
+      fontFamily:'OpenSans',
+      textAlign:'center',
     },
+
     input: {
       width: '80%',
       marginTop: 25,
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
       fontSize: 20,
     },
+    
     button: {
       marginTop: 10,
       width: 300,
@@ -96,6 +100,7 @@ const styles = StyleSheet.create({
     },
     textButton: {
       color: '#ffffff',
+      fontFamily:'Raleway',
       height: 30,
       fontWeight: '600',
       fontSize: 16,

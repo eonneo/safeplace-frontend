@@ -100,10 +100,13 @@ export default function ContactHelperScreen({ navigation }) {
             <Text style={styles.text3}>Ouvrir le chat</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('HelpermoreInfo')}>
+        <Text>Naviguer vers screens Helper</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
-}
+}                                
 
 const styles = StyleSheet.create({
     container: {
@@ -247,10 +250,4 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       fontSize: 20,
     },
-    phone: {
-      paddingRight: 20,
-    },
-    chat: {
-      paddingRight: 20,
-    },
-});
+   });
