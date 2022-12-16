@@ -1,4 +1,13 @@
-import { Switch, StyleSheet, Text, View, Link, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Switch, 
+  StyleSheet, 
+  Text, 
+  View, 
+  Link, 
+  TextInput, 
+  Image, 
+  TouchableOpacity, 
+ScrollView, 
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
@@ -101,116 +110,73 @@ console.log(isAvailable)
   }
   return (
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.topprofilContainer}>
-        <View>
-          <Text style={styles.profilName}> {user.prenom}</Text>
-        </View>
-
-        <View>
-          <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-            <Image source={PlaceholderImage} style={styles.profilePic} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.profilContainer}>
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('settings')}>
+        <Text style={styles.nameText}>{user.prenom}</Text>
+        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+      </TouchableOpacity>
         <Text style={styles.title}>Mon profil</Text>
-
-        <View style={styles.readytohelpcontainer}>
-          <View>
-            <Switch
-              value={isAvailable}
-              onValueChange={(value) => {setIsAvailable(value), handleIsAvailable()}}
-              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isAvailable ? "white" : "white"}
-              ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-
-          </View>
-          <View>
-            <Text style={styles.subtitle}>Je suis disponible pour aider</Text>
-          </View>
+        <View style={styles.availableContainer}>
+          <Switch
+            value={isAvailable}
+            onValueChange={(value) => {setIsAvailable(value), handleIsAvailable()}}
+            trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+            thumbColor={isAvailable ? "white" : "white"}
+            ios_backgroundColor="#e5eadf"
+            style={styles.switch} />
+          <Text style={styles.subtitle}>Je suis disponible pour aider</Text>
         </View>
-
         <View style={styles.lineStyle} />
-
-        <View style={styles.optionhelpcontainer}>
-
-          <View>
-            <Text style={styles.subtitle}>HEBERGEMENT</Text>
-          </View>
-
-          <View>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.subtitle}>Accueil</Text>
+              <Text style={styles.smallText} >Je peux Accueillir une personne en cas d'urgence</Text>
+            </View>
             <Switch
               value={isReadyToAccomodate}
               onValueChange={(value) => {setisReadyToAccomodate(value), handleIsReadyToAccomodate()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
               thumbColor={isReadyToAccomodate ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+              style={styles.switch} />
           </View>
-
-        </View>
-        <Text style={styles.smallText} >Je peux héberger une personne en cas d'urgence</Text>
-
-
-        <View style={styles.optionhelpcontainer}>
-
-          <View>
-            <Text style={styles.subtitle}>TRANSPORT</Text>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.subtitle}>Transport</Text>
+              <Text style={styles.smallText}>Je peux véhiculer une personne en cas d'urgence</Text>
+            </View>
+              <Switch
+                value={isReadyToLift}
+                onValueChange={(value) => {setisReadyToLift(value), handleIsReadyToLift()}}
+                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+                thumbColor={isReadyToLift ? "white" : "white"}
+                ios_backgroundColor="#e5eadf"
+                style={styles.switch} />
           </View>
-
-          <View>
-            <Switch
-              value={isReadyToLift}
-              onValueChange={(value) => {setisReadyToLift(value), handleIsReadyToLift()}}
-              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isReadyToLift ? "white" : "white"}
-              ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-          </View>
-
-        </View>
-        <Text style={styles.smallText}>Je peux véhiculer une personne en cas d'urgence</Text>
-
-
-        <View style={styles.optionhelpcontainer}>
-
-          <View>
-            <Text style={styles.subtitle}>ACCOMPAGNEMENT</Text>
-          </View>
-
-          <View>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.subtitle}>Accompagnement</Text>
+              <Text style={styles.smallText} >Je peux assister une personne en cas d'urgence</Text>
+            </View>
             <Switch
               value={isReadyToAssist}
               onValueChange={(value) => {setisReadyToAssist(value), handleIsReadyToAssist()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
               thumbColor={isReadyToAssist ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
-              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
+              style={styles.switch} />
           </View>
-
-        </View>
-        <Text style={styles.smallText} >Je peux assister une personne en cas d'urgence</Text>
-
-      </View>
-
       <View style={styles.lineStyle} />
 
       <View style={styles.userBadgeContainer}>
         <Text style={styles.subtitle}>MES BADGES :</Text>
 
         <View style={styles.badgeContainer}>
-          <FontAwesome name='trophy' size={40} color='green' />
-          <FontAwesome name='trophy' size={40} color='blue' />
-          <FontAwesome name='trophy' size={40} color='purple' />
-          <FontAwesome name='trophy' size={40} color='gold' />
+          <FontAwesome name='trophy' size={40} color='#33355C' />
+          <FontAwesome name='trophy' size={40} color='#5CA4A9' />
+          <FontAwesome name='trophy' size={40} color='#FFA647' />
         </View>
-      </View>
-
+     </View>
     </SafeAreaView>
-
-
   );
 }
 
@@ -222,121 +188,108 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 20,
     paddingRight: 20,
+    paddingTop: 10,
   },
 
-  topprofilContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '90%',
+  header: {
     flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
   },
-
+  nameText: {
+    width: '80%',
+    fontSize: 24,
+    color: "#33355C",
+    fontWeight: '400',
+    fontFamily: 'Raleway',
+  },
   profilePic: {
     width: 40,
     height: 40,
   },
-
-  profilName: {
-    fontSize: 18,
+  title: {
+    fontSize: 38,
     fontWeight: '600',
-    textAlign: 'left',
-    width: 300,
-  }
-  ,
+    textAlign: 'center',
+    color: "#33355C",
+    fontFamily: 'OpenSans',
+    paddingTop: 20,
+    paddingBottom: 5,
+  },
+  lineStyle: {
+    borderWidth: 0.5,
+    width: '80%',
+    borderColor: "#33355C",
+    margin: 10,
+    alignSelf: 'center',
+    marginTop: 5,
+    marginBottom: 15,
+  },
   profilContainer: {
-    flex: 4,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
     width: '100%',
   },
-
-  readytohelpcontainer: {
+  availableContainer: {
+    flex: 0.5,
+    flexDirection: 'row',
+    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: "center",
+    justifyContent: 'center',
+    paddingBottom: 10,
+  },
+  scrollView: {
+    flex: 1,
+    width: '100%',
+  },
+  optionContainer: {
+    flex: 1,
     flexDirection: 'row',
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center",
   },
-
-  optionhelpcontainer: {
-    flexDirection: 'row',
+  textContainer: {
+    flex: 1,
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: "center",
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
   },
-
+  subtitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    justifyContent: 'flex-start',
+    fontFamily: 'Raleway',
+    color: '#5CA4A9',
+  },
+  smallText: {
+    fontSize: 14,
+    marginBottom: 20,
+    color: "#33355C",
+    width: '100%',
+    fontFamily: 'OpenSans',
+  },
+  switch: {
+    transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }],
+  },
   userBadgeContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
   },
-
   badgeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
     margin: 10,
     width: '70%',
-  },
-
-  image: {
-    width: '100%',
-    height: '50%',
-  },
-  title: {
-    width: '80%',
-    fontSize: 38,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-
-  subtitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#5CA4A9',
-  },
-
-  smallText: {
-    fontSize: 14,
-    marginBottom: 20,
-    textAlign: 'left',
-    backgroundColor: 'white',
-    width: '90%',
-
-  },
-
-  input: {
-    width: '80%',
-    marginTop: 25,
-    borderBottomColor: '#EC6E5B',
-    borderBottomWidth: 1,
-    fontSize: 20,
-  },
-  button: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingTop: 8,
-    width: '80%',
-    marginTop: 30,
-    backgroundColor: 'blue',
-    borderRadius: 10,
-    marginBottom: 80,
-  },
-  textButton: {
-    color: '#ffffff',
-    height: 30,
-    fontWeight: '600',
-    fontSize: 16,
-  },
-
-  lineStyle: {
-    borderWidth: 0.5,
-    width: '80%',
-    borderColor: 'black',
-    margin: 10,
-    alignSelf: 'center'
   },
 });
