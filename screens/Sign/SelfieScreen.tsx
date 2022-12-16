@@ -27,6 +27,7 @@ export default function SelfieScreen({ navigation }) {
   const [button, setButton] = useState(false);
   let cameraRef: any = useRef(null);
 
+  console.log(user)
   // cameraRef && isFocused
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export default function SelfieScreen({ navigation }) {
       skipProcessing: true,
     });
 
+
     const formData: any = new FormData();
 
     formData.append("photoSelfie", {
@@ -58,7 +60,7 @@ export default function SelfieScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          // updating avatarUri to DB
+          // updating avatarUri to db
           fetch(`http://${IP}:3000/users/uri`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
