@@ -5,7 +5,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { handleAvaible } from '../../reducers/users';
+import { handleAvailable } from '../../reducers/users';
 
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
@@ -24,23 +24,23 @@ export default function SettingsScreen({ navigation }) {
 
 
   // Controle des switchs
-  const [isAvaible, setIsAvaible] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(false);
   const [isReadyToAccomodate, setisReadyToAccomodat] = React.useState(false);
   const [isReadyToLift, setisReadyToLift] = React.useState(false);
   const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
-console.log(isAvaible)
+console.log(isAvailable)
 
-  const handleIsAvaible = () => {
+  const handleIsAvailable = () => {
     // console.log('switch', isAvaible)
     fetch(`http://${IP}:3000/users/isavaible`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email: user.email, isAvaible: !isAvaible}),
+      body: JSON.stringify({email: user.email, isAvailable: !isAvailable}),
     }).then(response => response.json())
     .then(updateStatus => {
       if(updateStatus.result){
         console.log('isavailable updated')
-        dispatch(handleAvaible(!isAvaible))
+        dispatch(handleAvailable(!isAvailable))
       }
 
     })
@@ -72,8 +72,8 @@ console.log(isAvaible)
         <View style={styles.readytohelpcontainer}>
           <View>
             <Switch
-              value={isAvaible}
-              onValueChange={(value) => {setIsAvaible(value), handleIsAvaible()}}
+              value={isAvailable}
+              onValueChange={(value) => {setIsAvailable(value), handleIsAvailable()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
               thumbColor={isAvaible ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
