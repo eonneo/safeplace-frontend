@@ -25,6 +25,7 @@ import ProfilScreen from './screens/TabNavigator/ProfilScreen';
 import SettingsScreen from './screens/TabNavigator/SettingsScreen';
 import HelperLocatorScreen from './screens/HelpRequest/HelperLocatorScreen';
 import HelperConfirmRequestScreen from './screens/HelpRequest/HelperConfirmRequestScreen';
+import ChatScreen from './screens/HelpRequest/ChatScreen';
 import ContactHelperScreen from './screens/HelpRequest/ContactHelperScreen';
 import HelperNotificationScreen from './screens/Helper/HelperNotificationScreen';
 import HelperMoreInfoScreen from './screens/Helper/HelperMoreInfoScreen';
@@ -125,6 +126,7 @@ export default function App() {
             <Stack.Screen name="HelperLocation" component={HelperLocatorScreen} />
             <Stack.Screen name="HelperConfirmRequest" component={HelperConfirmRequestScreen} />
             <Stack.Screen name="ContactHelper" component={ContactHelperScreen} />
+            <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="HelperNotification" component={HelperNotificationScreen} />
             <Stack.Screen name="HelpermoreInfo" component={HelperMoreInfoScreen} />
             <Stack.Screen name="HelperConfirmation" component={HelperConfirmationScreen} />
