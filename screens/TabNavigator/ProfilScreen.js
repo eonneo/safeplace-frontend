@@ -31,7 +31,7 @@ console.log(isAvailable)
 
   const handleIsAvailable = () => {
     // console.log('switch', isAvaible)
-    fetch(`http://${IP}:3000/users/isavaible`, {
+    fetch(`http://${IP}:3000/users/isavailable`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({email: user.email, isAvailable: !isAvailable}),
@@ -74,7 +74,7 @@ console.log(isAvailable)
               value={isAvailable}
               onValueChange={(value) => {setIsAvailable(value), handleIsAvailable()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-              thumbColor={isAvaible ? "white" : "white"}
+              thumbColor={isAvailable ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
 

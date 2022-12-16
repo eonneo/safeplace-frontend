@@ -1,6 +1,5 @@
-import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, Text, View, KeyboardAvoidingView,  Linking, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
-import {Linking} from 'react-native'
 
 import { useFonts } from '@use-expo/font';
 import * as SMS from 'expo-sms';
@@ -34,10 +33,18 @@ export default function PoliceScreen({ navigation }) {
   
   };
 
-const number ={
-  policeNumber:'17'
-}
+ const makeCall = () => {
 
+    let phoneNumber = '';
+
+    if (Platform.OS === 'android') {
+      phoneNumber = 'tel:${0666505366}';
+    } else {
+      phoneNumber = 'telprompt:${0666505366}';
+    }
+
+    Linking.openURL(phoneNumber);
+  };
 
 
   const [isLoaded] = useFonts({
@@ -56,17 +63,13 @@ const number ={
        <Text style={styles.textButton}>Envoyer un message d'urgence</Text>
      </TouchableOpacity>
 
-
-     <View style={styles.container}>
-        <TextInput 
-          onChangeText={(text)=>this.setState({phoneNumber:text})}
-          style={styles.input} 
-          placeholder="911" 
-          keyboardType="number-pad"/>
-        <TouchableOpacity onPress={()=> this.call()}>
-          <Ionicons name="ios-call" style={styles.callTxt}/>
+     <View style={styles.container} >
+        <TouchableOpacity onPress={() => makeCall()}activeOpacity={0.7} style={styles.touchableButton} >
+          <Text style={styles.TextStyle}> Click Here To Dial In Dial Screen</Text>
         </TouchableOpacity>
       </View>
+
+   
 
 
 
