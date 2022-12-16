@@ -46,7 +46,27 @@ export default function HomeScreen({ navigation }) {
           (location) => {
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-          });
+
+            const geolocInfos = {
+              email: user.email,
+              lastPosition: {
+                latitude: (currentPosition.latitude),
+                longitude: (currentPosition.longitude),
+              }}
+            //envoyer les coordonnées à la bd
+            fetch(`http://${IP}:3000/users/lastposition`, {
+              method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(geolocInfos),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data) {
+                console.log('last position added to DB') && dispatch(addPosition(currentPosition));
+              }else {console.log('error: last position not added to DB')}
+            });
+          }
+        )
       }
     })();
   }, []);
