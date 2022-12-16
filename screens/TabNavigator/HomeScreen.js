@@ -46,13 +46,14 @@ export default function HomeScreen({ navigation }) {
           (location) => {
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-
+            
             const geolocInfos = {
               email: user.email,
               lastPosition: {
-                latitude: (currentPosition.latitude),
-                longitude: (currentPosition.longitude),
+                latitude: (location.coords.latitude),
+                longitude: (location.coords.longitude),
               }}
+            console.log(geolocInfos)
             //envoyer les coordonnées à la bd
             fetch(`http://${IP}:3000/users/lastposition`, {
               method: 'POST',
