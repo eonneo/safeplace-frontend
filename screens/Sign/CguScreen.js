@@ -2,7 +2,6 @@ import { Button, StyleSheet, Text, View, KeyboardAvoidingView, Switch, Touchable
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 export default function CguScreen({ navigation }) {
@@ -13,7 +12,7 @@ export default function CguScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
 

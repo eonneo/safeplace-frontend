@@ -1,5 +1,4 @@
 import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, TouchableOpacity } from 'react-native';
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 export default function HelperNotificationScreen({ navigation }) {
@@ -9,7 +8,7 @@ export default function HelperNotificationScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

@@ -10,7 +10,6 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import AppLoading from "expo-app-loading";
 import { useFonts } from "@use-expo/font";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import CarouselCardItem, {
@@ -27,7 +26,7 @@ export default function CarrouselScreen({ navigation }) {
     Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
   });
   if (!isLoaded) {
-    return <AppLoading />;
+    return <View />;
   }
   return (
     <View

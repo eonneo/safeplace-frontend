@@ -1,5 +1,4 @@
 import { Image, StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
-import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -41,7 +40,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
   });
   if (!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

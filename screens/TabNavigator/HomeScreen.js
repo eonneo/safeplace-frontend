@@ -12,7 +12,6 @@ import * as Location from 'expo-location';
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import HelperConfirmRequestScreen from '../HelpRequest/HelperConfirmRequestScreen';
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 import IP from "../../IPAdress";
 
@@ -84,7 +83,7 @@ export default function HomeScreen({ navigation }) {
     });
   
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
 
     return (

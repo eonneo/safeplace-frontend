@@ -11,7 +11,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getFirstSignupFields } from "../../reducers/signup";
 
-import AppLoading from "expo-app-loading";
 import { useFonts } from "@use-expo/font";
 
 import IP from "../../IPAdress";
@@ -65,7 +64,7 @@ export default function LoginScreen({ navigation }) {
     Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
   });
   if (!isLoaded) {
-    return <AppLoading />;
+    return <View />;
   }
   return (
     <KeyboardAvoidingView
