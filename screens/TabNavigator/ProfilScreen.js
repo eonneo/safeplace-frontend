@@ -5,7 +5,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { handleAvailable, handleAccomodate } from '../../reducers/users';
+import { handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist } from '../../reducers/users';
 
 import { useFonts } from '@use-expo/font';
 
@@ -25,8 +25,8 @@ export default function SettingsScreen({ navigation }) {
   // Controle des switchs
   const [isAvailable, setIsAvailable] = useState(false);
   const [isReadyToAccomodate, setisReadyToAccomodate] = useState(false);
-  const [isReadyToLift, setisReadyToLift] = React.useState(false);
-  const [isReadyToAssist, setisReadyToAssist] = React.useState(false);
+  const [isReadyToLift, setisReadyToLift] = useState(false);
+  const [isReadyToAssist, setisReadyToAssist] = useState(false);
 console.log(isAvailable)
 
   const handleIsAvailable = () => {
@@ -56,6 +56,38 @@ console.log(isAvailable)
       if(updateStatus.result){
         console.log('hebergement status updated in DB')
         dispatch(handleAccomodate(!isReadyToAccomodate))
+      }
+
+    })
+  }
+
+  const handleIsReadyToLift = () => {
+    // console.log('switch', isReadyToLift)
+    fetch(`http://${IP}:3000/users/transport`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: user.email, transport: !isReadyToLift}),
+    }).then(response => response.json())
+    .then(updateStatus => {
+      if(updateStatus.result){
+        console.log('transport status updated in DB')
+        dispatch(handleReadyToLift(!isReadyToLift))
+      }
+
+    })
+  }
+
+  const handleIsReadyToAssist = () => {
+    // console.log('switch', isReadyToAssist)
+    fetch(`http://${IP}:3000/users/accompagnementdistance`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: user.email, accompagnementDistance: !isReadyToAssist}),
+    }).then(response => response.json())
+    .then(updateStatus => {
+      if(updateStatus.result){
+        console.log('accompagnementdistance status updated in DB')
+        dispatch(handleReadyToAssist(!isReadyToAssist))
       }
 
     })
@@ -131,7 +163,7 @@ console.log(isAvailable)
           <View>
             <Switch
               value={isReadyToLift}
-              onValueChange={(value) => setisReadyToLift(value)}
+              onValueChange={(value) => {setisReadyToLift(value), handleIsReadyToLift()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
               thumbColor={isReadyToLift ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
@@ -151,7 +183,7 @@ console.log(isAvailable)
           <View>
             <Switch
               value={isReadyToAssist}
-              onValueChange={(value) => setisReadyToAssist(value)}
+              onValueChange={(value) => {setisReadyToAssist(value), handleIsReadyToAssist()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
               thumbColor={isReadyToAssist ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
