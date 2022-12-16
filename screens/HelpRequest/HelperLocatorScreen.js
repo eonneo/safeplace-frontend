@@ -38,7 +38,7 @@ export default function HelperLocatorScreen({ navigation }) {
             setCurrentPosition(location.coords);
                                                                         //console.log(persistoreasyncstorage)
             const geolocInfos = {
-              email: req.body.email,
+              email: user.email,
               lastPosition: {
                 latitude: (currentPosition.latitude),
                 longitude: (currentPosition.longitude),
