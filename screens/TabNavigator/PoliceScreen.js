@@ -1,5 +1,6 @@
-import { Platform, StyleSheet, Text, View, KeyboardAvoidingView,  Linking, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, Text, View, SafeAreaView,  Linking, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import { useFonts } from '@use-expo/font';
 import * as SMS from 'expo-sms';
@@ -8,6 +9,7 @@ import { useSelector, } from 'react-redux';
 export default function PoliceScreen({ navigation }) {
   const [isAvailable, setIsAvailable] = useState(false);
   const user = useSelector((state) => state.user.value);
+  const PlaceholderImage = require("../../assets/Vector.png");
 
 // pour utilisation installer d'abord => expo install expo-sms
  
@@ -55,7 +57,7 @@ export default function PoliceScreen({ navigation }) {
     return <View />
   }
     return (
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
      <Text style={styles.title}> Emergency page  </Text>
 
      
@@ -63,17 +65,14 @@ export default function PoliceScreen({ navigation }) {
        <Text style={styles.textButton}>Envoyer un message d'urgence</Text>
      </TouchableOpacity>
 
-     <View style={styles.container} >
-        <TouchableOpacity onPress={() => makeCall()}activeOpacity={0.7} style={styles.touchableButton} >
-          <Text style={styles.TextStyle}> Click Here To Dial In Dial Screen</Text>
-        </TouchableOpacity>
-      </View>
-
+     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('EmergencyNumbScreen')}>
+       <Text style={styles.textButton}>Test affichage numéros d'urgences</Text>
+     </TouchableOpacity>
    
 
 
 
-   </KeyboardAvoidingView>
+   </SafeAreaView>
    
    
    );
