@@ -58,22 +58,22 @@ export default function HelperMoreInfoScreen({ navigation }) {
       <View style={styles.topContainer}>
 
         <View>
-            <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
+          <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
         </View>
-      
+
         <View>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-               <Image source={PlaceholderImage} style={styles.profilePic} />
-            </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
+            <Image source={PlaceholderImage} style={styles.profilePic} />
+          </TouchableOpacity>
         </View>
 
-        </View>
-            <View style={styles.containerTextNotification}>
-             <Text style={styles.title}>Jane a besoin de ton aide</Text>
-        </View>
+      </View>
+      <View style={styles.containerTextNotification}>
+        <Text style={styles.title}>Jane a besoin de ton aide</Text>
+      </View>
 
 
-        <View style={styles.mapContainer}>
+      <View style={styles.mapContainer}>
         {currentPosition && <MapView mapType="standard"
           showsUserLocation={true}
           followsUserLocation={true}
@@ -83,9 +83,9 @@ export default function HelperMoreInfoScreen({ navigation }) {
             latitudeDelta: 0.05,
             longitudeDelta: 0.05,
           }}
-        style={styles.map}>
+          style={styles.map}>
         </MapView>}
-        </View>
+      </View>
 
       <Text style={styles.textDistance}> Distance: 300 mètres</Text>
 
@@ -103,8 +103,8 @@ export default function HelperMoreInfoScreen({ navigation }) {
               thumbColor={isEnabled ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
           </View>
+        </View>
 
 
         <View style={styles.optionhelpcontainer}>
@@ -158,7 +158,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
       </View>
 
       <View style={styles.buttonsContainer} >
-        
+
         <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate("HelperConfirmation")}>
           <Text style={styles.textButton}>Aider Jane</Text>
         </TouchableOpacity>
@@ -199,7 +199,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: 'Raleway',
     color: '#33355C',
-
   }
   ,
 
@@ -260,7 +259,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 5,
   },
- 
+
   subtitle: {
     fontSize: 16,
     fontWeight: '600',
@@ -304,11 +303,11 @@ const styles = StyleSheet.create({
 
   },
 
-     textButton: {
+  textButton: {
     color: "#FFFFFF",
     fontFamily: 'OpenSans',
     fontWeight: "bold",
     fontSize: 24,
   },
-  
+
 }); 
