@@ -97,154 +97,157 @@ export default function ContactHelperScreen({ navigation }) {
             <Text style={styles.text3}>Ouvrir le chat</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('HelpermoreInfo')}>
-        <Text>Naviguer vers screens Helper</Text>
-        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 }                                
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#ffffff',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      paddingTop: 35,
-    },
-    header: {
-      flexDirection: 'row',
-      width: '100%',
-      alignItems: "center",
-      justifyContent: 'space-between',
-      paddingLeft: 15,
-      paddingRight: 15,
-    },
-    nameText: {
-      width: '80%',
-      fontSize: 24,
-      color: "#33355C",
-      fontWeight: '400',
-      fontFamily: 'Raleway',
-    },
-    profilePic: {
-      width: 40,
-      height: 40,
-    },
-    titlesContainer: {
-      alignItems: 'flex-start',
-      justifyContent: 'flex-start',
-      width: "100%",
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingLeft: 15,
-      paddingRight: 15,
-    },
-    title: {
-      width: '80%',
-      fontSize: 18,
-      color: "#33355C",
-      fontWeight: '400',
-      fontFamily: 'Raleway',
-    },
-    map: {
-      flex: 1,
-      width: "92%",
-    },
-    cardContent: {
-      width: "100%",
-      height: 70,
-      marginTop: 5,
-      marginBottom: 5,
-      backgroundColor: "white",
-      flexDirection: "row",
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    middleContent: {
-      marginLeft: 15,
-      color: '#33355C'
-    },
-    leftContent: {
-      flexDirection: "row",
-      alignItems: "center",
-    },
-    rightContent: {
-      flexDirection: "row",
-      marginLeft: 140,
-      alignItems: 'center',
-      marginBottom: 20,
-    },
-    profilePic: {
-      width: 40,
-      height: 40,
-    },
-    name: {
-      fontSize: 20,
-      color: "#5CA4A9",
-      fontFamily: 'Raleway',
-    },
-    description: {
-      fontSize: 16,
-      color: "#33355C",
-      fontFamily: 'Raleway',
-    },
-    distance: {
-      fontSize: 16,
-      color: "#33355C",
-      fontFamily: 'Raleway',
-    },
-    isFavorite: {
-      marginRight: 20,
-    },
-  bottomContainer: {
-    alignItems: 'flex-start',
-      justifyContent: 'flex-start',
-      width: "100%",
-      heigth: 250,
-      paddingTop: 10,
-      paddingBottom: 50,
-      paddingLeft: 15,
-      paddingRight: 15,
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 35,
   },
-    buttonsContainer: {
-      flex: 1,
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingTop: 70,
-      paddingBottom: 20,
-    },
-    buttonCall: {
-      marginTop: 5,
-      marginBottom: 15,
-      width: 213,
-      height: 48,
-      borderRadius: 10,
-      backgroundColor: "#33355C",
-      alignItems: "center",
-      flexDirection: 'row',
-      justifyContent: 'center',
-      paddingRight: 20,
-    },
-    buttonChat: {
-      marginTop: 5,
-      marginBottom: 15,
-      width: 213,
-      height: 48,
-      borderRadius: 10,
-      backgroundColor: "#33355C",
-      alignItems: "center",
-      flexDirection: 'row',
-      justifyContent: 'center',
-    },
-    text3: {
-      color: "white",
-      fontFamily: 'OpenSans',
-      fontWeight: "bold",
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: 20,
-    },
-   });
+  header: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  nameText: {
+    width: '80%',
+    fontSize: 24,
+    color: "#33355C",
+    fontWeight: '400',
+    fontFamily: 'Raleway',
+  },
+  profilePic: {
+    width: 40,
+    height: 40,
+  },
+  titlesContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: "100%",
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  title: {
+    width: '80%',
+    fontSize: 18,
+    color: "#33355C",
+    fontWeight: '400',
+    fontFamily: 'Raleway',
+  },
+  map: {
+    flex: 1,
+    width: "92%",
+  },
+  cardContent: {
+    width: "100%",
+    height: 70,
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: "white",
+    flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  middleContent: {
+    marginLeft: 15,
+    color: '#33355C'
+  },
+  leftContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rightContent: {
+    flexDirection: "row",
+    marginLeft: 140,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  profilePic: {
+    width: 40,
+    height: 40,
+  },
+  name: {
+    fontSize: 20,
+    color: "#5CA4A9",
+    fontFamily: 'Raleway',
+  },
+  description: {
+    fontSize: 16,
+    color: "#33355C",
+    fontFamily: 'Raleway',
+  },
+  distance: {
+    fontSize: 16,
+    color: "#33355C",
+    fontFamily: 'Raleway',
+  },
+  isFavorite: {
+    marginRight: 20,
+  },
+bottomContainer: {
+  alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: "100%",
+    heigth: 250,
+    paddingTop: 10,
+    paddingBottom: 50,
+    paddingLeft: 15,
+    paddingRight: 15,
+},
+  buttonsContainer: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 70,
+    paddingBottom: 20,
+  },
+  buttonCall: {
+    marginTop: 5,
+    marginBottom: 15,
+    width: 213,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: "#33355C",
+    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingRight: 15,
+  },
+  buttonChat: {
+    marginTop: 5,
+    marginBottom: 15,
+    width: 213,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: "#33355C",
+    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  text3: {
+    color: "white",
+    fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 20,
+  },
+  phone: {
+    paddingRight: 10,
+  },
+  chat: {
+    paddingRight: 10,
+  },
+});

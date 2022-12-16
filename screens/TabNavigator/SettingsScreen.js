@@ -29,7 +29,7 @@ export default function SettingsScreen({ navigation }) {
     console.log(user)
 
      //  update isconnecte in database
-     fetch(`http://${IP}:3000/users/isconnected`, {
+    fetch(`http://${IP}:3000/users/isconnected`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: user.email, isConnected: false }),
@@ -51,108 +51,72 @@ export default function SettingsScreen({ navigation }) {
   }
   return (
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.topprofilContainer}>
-        <View>
-          <Text style={styles.profilName}>  {user.prenom}</Text>
-        </View>
-        <View>
-          <Image source={PlaceholderImage} style={styles.profilePic}></Image>
-        </View>
-
-      </View>
-
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+        <Text style={styles.nameText}>{user.prenom}</Text>
+        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+      </TouchableOpacity>
       <View style={styles.profilContainer}>
         <Text style={styles.title}>Paramètres</Text>
-
-        <View style={styles.lineStyle} />
-        <ScrollView>
-
-          <View style={styles.optionhelpcontainer}>
-            <View>
+        <View style={styles.lineStyle}/>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
               <Text style={styles.subtitle}>Notifications</Text>
+              <Text style={styles.smallText} >Je permets à l'équipe de Safe Place de m'envoyer des notifications</Text>
             </View>
-
-            <View>
-              <Switch
+            <Switch
                 value={isEnabled}
                 onValueChange={(value) => setIsEnabled(value)}
                 trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
                 thumbColor={isEnabled ? "white" : "white"}
                 ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
-
+                style={styles.switch} />
           </View>
-          <Text style={styles.smallText} >Je permets à l'équipe de Safe Place de m'envoyer des notifications</Text>
-
-
-          <View style={styles.optionhelpcontainer}>
-
-            <View>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
               <Text style={styles.subtitle}>Setting 1</Text>
+              <Text style={styles.smallText}>Texte setting</Text>
             </View>
-
-            <View>
               <Switch
                 value={isReadyToAccomodate}
                 onValueChange={(value) => setisReadyToAccomodate(value)}
                 trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
                 thumbColor={isReadyToAccomodate ? "white" : "white"}
                 ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
-
+                style={styles.switch} />
           </View>
-          <Text style={styles.smallText}>Texte setting</Text>
-
-
-          <View style={styles.optionhelpcontainer}>
-
-            <View>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
               <Text style={styles.subtitle}>Setting 2</Text>
+              <Text style={styles.smallText}>Texte setting</Text>
             </View>
-
-            <View>
-              <Switch
-                value={isReadyToLift}
-                onValueChange={(value) => setisReadyToLift(value)}
-                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-                thumbColor={isReadyToLift ? "white" : "white"}
-                ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
-
+            <Switch
+              value={isReadyToLift}
+              onValueChange={(value) => setisReadyToLift(value)}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={isReadyToLift ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={styles.switch} />
           </View>
-          <Text style={styles.smallText} >Texte setting</Text>
-
-
-          <View style={styles.optionhelpcontainer}>
-
-            <View>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
               <Text style={styles.subtitle}>Setting 3</Text>
+              <Text style={styles.smallText}>Texte setting</Text>
             </View>
-
-            <View>
-              <Switch
-                value={isReadyToAssist}
-                onValueChange={(value) => setisReadyToAssist(value)}
-                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-                thumbColor={isReadyToAssist ? "white" : "white"}
-                ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
-
+            <Switch
+              value={isReadyToAssist}
+              onValueChange={(value) => setisReadyToAssist(value)}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={isReadyToAssist ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={styles.switch} />
           </View>
-          <Text style={styles.smallText} >Texte setting</Text>
-
-          <TouchableOpacity style={styles.buttonRed} activeOpacity={0.9} onPress={() => handleLogout()}>
-        <Text style={styles.text5}>Se déconnecter</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.disconnectButton} activeOpacity={0.9} onPress={() => handleLogout()}>
+            <Text style={styles.disconnectText}>Se déconnecter</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
-
     </SafeAreaView>
-
   );
 }
 
@@ -161,124 +125,100 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
+    justifyContent: 'flex-start',
+    paddingTop: 10,
   },
-
-  topprofilContainer: {
-    flex: 1,
-    alignItems: 'center',
-    width: '100%',
+  header: {
     flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
     justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
   },
-
+  nameText: {
+    width: '80%',
+    fontSize: 24,
+    color: "#33355C",
+    fontWeight: '400',
+    fontFamily: 'Raleway',
+  },
   profilePic: {
     width: 40,
     height: 40,
   },
-
-  profilName: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'left',
-  }
-  ,
   profilContainer: {
     flex: 4,
     width: '100%',
-  },
-
-  readytohelpcontainer: {
-    height: 50,
-    flexDirection: 'row',
-    backgroundColor: 'red',
-    width: '100%',
-  },
-
-  optionhelpcontainer: {
-    flexDirection: 'row',
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: "center",
-  },
-
-  userBadgeContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-
-  badgeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    margin: 10,
-    width: '50%',
-  },
-
-  image: {
-    width: '100%',
-    height: '50%',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   title: {
     fontSize: 38,
     fontWeight: '600',
     textAlign: 'center',
+    color: "#33355C",
+    fontFamily: 'OpenSans',
+    paddingTop: 20,
   },
-
+  lineStyle: {
+    borderWidth: 0.5,
+    width: '80%',
+    borderColor: "#33355C",
+    margin: 10,
+    alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 40,
+  },
+  scrollView: {
+    flex: 1,
+    width: '100%',
+  },
+  optionContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: "center",
+    paddingTop: 15,
+  },
+  textContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
   subtitle: {
     fontSize: 18,
     fontWeight: '600',
+    justifyContent: 'flex-start',
+    fontFamily: 'Raleway',
     color: '#5CA4A9',
   },
-
   smallText: {
     fontSize: 14,
     marginBottom: 20,
-    textAlign: 'left',
-    backgroundColor: 'white',
-    width: '80%',
+    color: "#33355C",
+    width: '100%',
+    fontFamily: 'OpenSans',
   },
-
-  input: {
-    width: '80%',
-    marginTop: 25,
-    borderBottomColor: '#EC6E5B',
-    borderBottomWidth: 1,
-    fontSize: 20,
+  switch: {
+    transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }],
   },
-  buttonRed: {
-    marginTop: 10,
+  disconnectButton: {
+    marginTop: 20,
     width: 176,
     height: 48,
     borderRadius: 10,
-    backgroundColor: "red",
+    backgroundColor: "#E4513D",
     alignItems: "center",
     justifyContent: "center",
     alignSelf:'center'
   },
-  textButton: {
-    color: '#ffffff',
-    height: 30,
-    fontWeight: '600',
-    fontSize: 16,
-  },
-  text5: {
+  disconnectText: {
     color: "#FFFFFF",
     fontFamily: 'OpenSans',
     fontWeight: "bold",
     fontSize: 20,
-  },
-
-  lineStyle: {
-    borderWidth: 0.5,
-    width: '80%',
-    borderColor: 'black',
-    margin: 10,
-    alignSelf: 'center'
   },
 });

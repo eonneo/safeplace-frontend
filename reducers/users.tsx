@@ -6,6 +6,9 @@ export type UserState = {
         prenom: string | null;
         isConnected: boolean;
         isAvailable: boolean;
+        isReadyToAccomodate: boolean;
+        isReadyToLift: boolean;
+        isReadyToAssist: boolean;
     };
 };
 
@@ -15,6 +18,9 @@ const initialState: UserState = {
         prenom: null,
         isConnected: false,
         isAvailable: false,
+        isReadyToAccomodate: false,
+        isReadyToLift: false,
+        isReadyToAssist: false,
     },
 };
 
@@ -31,9 +37,21 @@ export const userSlice = createSlice({
         handleAvailable: (state, action) => {
             state.value.isAvailable = action.payload.isAvailable;
             console.log('isAvailable reducer:' , action.payload);
-        }
+        },
+        handleAccomodate: (state, action) => {
+            state.value.isReadyToAccomodate = action.payload.isReadyToAccomodate;
+            console.log('isReadyToAccomodate reducer:' , action.payload);
+        },
+        handleReadyToLift: (state, action) => {
+            state.value.isAvailable = action.payload.isReadyToLift;
+            console.log('isReadyToLift reducer:' , action.payload);
+        },
+        handleReadyToAssist: (state, action) => {
+            state.value.isReadyToAssist = action.payload.isReadyToAssist;
+            console.log('isReadyToAssist reducer:' , action.payload);
+        },
     },
 });
 
-export const { login, handleAvailable } = userSlice.actions;
+export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist } = userSlice.actions;
 export default userSlice.reducer;
