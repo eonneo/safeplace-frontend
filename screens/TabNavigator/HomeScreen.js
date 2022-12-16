@@ -14,12 +14,25 @@ import React from "react";
 import HelperConfirmRequestScreen from '../HelpRequest/HelperConfirmRequestScreen';
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
+import IP from "../../IPAdress";
+
 
 export default function HomeScreen({ navigation }) {
 
   const user = useSelector((state) => state.user.value);
 
+  const [totalUsers, setTotalUsers] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://${IP}:3000/users`)
+      .then(response => response.json())
+      .then(data => {
+        setTotalUsers(data.users.length);
+      });
+  }, []);
+
+
 
   //récupérer les données de géolocalisation
   useEffect(() => {
@@ -56,7 +69,7 @@ export default function HomeScreen({ navigation }) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Text style={styles.title1}>Bonjour {user.prenom}</Text>
-          <Text style={styles.title2}>x utilisateurs autour de toi</Text>
+          <Text style={styles.title2}>{totalUsers} utilisateurs autour de toi</Text>
           <Text style={styles.title2}>Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place</Text>
           <Image source={homePic} style={styles.homePic}></Image>
           <TouchableOpacity onPress={() => HelpeRequest()}>
