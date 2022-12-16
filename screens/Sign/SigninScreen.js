@@ -75,13 +75,17 @@ export default function SigninScreen({ navigation }) {
                     placeholder="jane@exemple.com"
                     placeholderTextColor='#C9D6DF'
                     autoCapitalize="none"
+                    clearButtonMode='while-editing'
+                    keyboardType='email-address'
                     onChangeText={(value) => setEmail(value)}
                 />
                 {emailError && <Text style={styles.error}>Invalid email address</Text>}
                 <Text style={styles.text}>Mot de passe</Text>
                 <TextInput
                     style={styles.input}
+                    clearButtonMode='while-editing'
                     placeholder="******"
+                    secureTextEntry={true}
                     placeholderTextColor='#C9D6DF'
                     autoCapitalize="none"
                     onChangeText={(value) => setPassword(value)}
