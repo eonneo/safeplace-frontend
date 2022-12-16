@@ -32,6 +32,8 @@ import HelperConfirmationScreen from './screens/Helper/HelperConfirmationScreen'
 import HelperDeclineScreen from './screens/Helper/HelperDeclineScreen';
 import HelperAcceptScreen from './screens/Helper/HelperAcceptScreen';
 import HelperContactScreen from './screens/Helper/HelperContactScreen';
+import EmergencyNumbScreen from './screens/HelpRequest/EmergencyNumbScreen';
+
 
 // redux imports
 import { Provider } from 'react-redux';
@@ -133,6 +135,8 @@ export default function App() {
             <Stack.Screen name="HelperContact" component={HelperContactScreen}  />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="ProfilStack" component={ProfilScreen} />
+            <Stack.Screen name="EmergencyNumbScreen" component={EmergencyNumbScreen} />
+
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
