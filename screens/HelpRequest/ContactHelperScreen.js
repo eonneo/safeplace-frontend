@@ -92,7 +92,7 @@ export default function ContactHelperScreen({ navigation }) {
             <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
             <Text style={styles.text3}>Appeler X</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('ContactHelper')}>
+          <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('Chat')}>
             <Entypo name="chat" size={24} color="white" style={styles.chat}/>
             <Text style={styles.text3}>Ouvrir le chat</Text>
           </TouchableOpacity>
