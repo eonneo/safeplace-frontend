@@ -1,9 +1,12 @@
-import { SafeAreaView, Image, Button, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { Image, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { addPosition, deletePosition } from '../../reducers/geolocation'
+
+import IP from "../../IPAdress";
 
 import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
@@ -13,6 +16,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 const PlaceholderImage = require("../../assets/Vector.png");
 
 export default function HelperLocatorScreen({ navigation }) {
+
+  const dispatch = useDispatch();
 
   //récupérer les données du store
   const user = useSelector((state) => state.user.value);
@@ -31,7 +36,27 @@ export default function HelperLocatorScreen({ navigation }) {
           (location) => {
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-          });
+            console.log(currentPosition.latitude)
+            const geolocInfos = {
+              email: user.email,
+              lastPosition: {
+                latitude: (currentPosition.latitude),
+                longitude: (currentPosition.longitude),
+              }}
+            //envoyer les coordonnées à la bd
+            fetch(`http://${IP}:3000/users/lastposition`, {
+              method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(geolocInfos),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data) {
+                console.log('last position added to DB') && dispatch(addPosition(currentPosition));
+              }else {console.log('error: last position not added to DB')}
+            });
+          }
+        )
       }
     })();
   }, []);

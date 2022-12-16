@@ -1,82 +1,102 @@
-import { Button, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getFirstSignupFields } from '../../reducers/signup';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getFirstSignupFields } from "../../reducers/signup";
 
-import AppLoading from 'expo-app-loading';
-import { useFonts } from '@use-expo/font';
+import AppLoading from "expo-app-loading";
+import { useFonts } from "@use-expo/font";
 
-import IP from '../../IPAdress';
+import IP from "../../IPAdress";
 
 export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
   const [existantUser, setExistantUser] = useState(false);
-  const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const EMAIL_REGEX =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  
   const handleSubmit = () => {
     if (EMAIL_REGEX.test(email) && password === passwordConfirmation) {
-      setPasswordMatch(true)
+      setPasswordMatch(true);
 
       const loginInfos = {
         email: email,
-        password: password
-      }
+        password: password,
+      };
 
       fetch(`http://${IP}:3000/users/checkemail`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({email: loginInfos.email}),
-      }).then(response => response.json())
-        .then(user => {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: loginInfos.email }),
+      })
+        .then((response) => response.json())
+        .then((user) => {
           if (user.result) {
-            console.log('email already exist')
+            console.log("email already exist");
             // message d'erreur email existant
-            setExistantUser(true)
+            setExistantUser(true);
           } else {
             dispatch(getFirstSignupFields(loginInfos));
-            console.log(loginInfos)
-            navigation.navigate('Cgu')
+            console.log(loginInfos);
+            navigation.navigate("Cgu");
           }
-        })
+        });
     } else {
       setEmailError(true);
     }
   };
 
   const [isLoaded] = useFonts({
-    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
-    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
+    OpenSans: require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
   });
   if (!isLoaded) {
-    return <AppLoading />
+    return <AppLoading />;
   }
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <Text style={styles.title}>Bienvenue sur SAFE PLACE Inscription</Text>
       <View style={styles.inputGroup}>
         <Text style={styles.text}>Email</Text>
         <TextInput
           style={styles.input}
           placeholder="jane@exemple.com"
-          placeholderTextColor='#C9D6DF'
+          placeholderTextColor="#C9D6DF"
           autoCapitalize="none"
+          clearButtonMode="while-editing"
+          keyboardType="email-address"
           onChangeText={(value) => setEmail(value)}
         />
         {emailError && <Text style={styles.error}>Invalid email address</Text>}
-        {existantUser && <Text style={styles.error}>Vous avez déjà créé un compte via cette adresse email</Text>}
+        {existantUser && (
+          <Text style={styles.error}>
+            Vous avez déjà créé un compte via cette adresse email
+          </Text>
+        )}
         <Text style={styles.text}>Mot de passe</Text>
         <TextInput
           style={styles.input}
           placeholder="******"
-          placeholderTextColor='#C9D6DF'
+          placeholderTextColor="#C9D6DF"
+          clearButtonMode='while-editing'
+          secureTextEntry={true}
           autoCapitalize="none"
           onChangeText={(value) => setPassword(value)}
         />
@@ -85,45 +105,48 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="******"
-          placeholderTextColor='#C9D6DF'
+          placeholderTextColor="#C9D6DF"
+          clearButtonMode='while-editing'
+          secureTextEntry={true}
           autoCapitalize="none"
           onChangeText={(value) => setPasswordConfirmation(value)}
-
         />
       </View>
-      <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit()}>
+      <TouchableOpacity
+        style={styles.button5}
+        activeOpacity={0.9}
+        onPress={() => handleSubmit()}
+      >
         <Text style={styles.text5}>S'inscrire</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
-
-
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   image: {
-    width: '100%',
-    height: '50%',
+    width: "100%",
+    height: "50%",
   },
   title: {
-    width: '80%',
+    width: "80%",
     fontSize: 38,
-    fontWeight: '600',
-    textAlign: 'center'
+    fontWeight: "600",
+    textAlign: "center",
   },
   inputGroup: {
     marginTop: 60,
-    display: 'flex',
-    justifyContent: 'space-around',
+    display: "flex",
+    justifyContent: "space-around",
   },
   text: {
-    color: '#5CA4A9',
+    color: "#5CA4A9",
     fontSize: 12,
     marginTop: 30,
   },
@@ -135,12 +158,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     paddingTop: 8,
-    width: '80%',
+    width: "80%",
     marginTop: 30,
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     borderRadius: 10,
     marginBottom: 80,
   },
@@ -155,14 +178,14 @@ const styles = StyleSheet.create({
   },
   text5: {
     color: "#FFFFFF",
-    fontFamily: 'OpenSans',
+    fontFamily: "OpenSans",
     fontWeight: "bold",
     fontSize: 20,
   },
   textButton: {
-    color: '#ffffff',
+    color: "#ffffff",
     height: 30,
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 16,
   },
 });
