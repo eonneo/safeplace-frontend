@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../reducers/users';
 import React from 'react';
 
-import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 import IP from '../../IPAdress';
@@ -48,7 +47,7 @@ export default function SettingsScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
   });
   if (!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

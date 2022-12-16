@@ -2,7 +2,6 @@ import { Button, StyleSheet, Text, View, KeyboardAvoidingView,  TextInput, Touch
 import { useEffect, useState } from 'react';
 import {Linking} from 'react-native'
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 import * as SMS from 'expo-sms';
 import { useSelector, } from 'react-redux';
@@ -46,15 +45,8 @@ const number ={
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
-
-
-
-
-
-
-
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
      <Text style={styles.title}> Emergency page  </Text>

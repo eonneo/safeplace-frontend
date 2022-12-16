@@ -8,7 +8,6 @@ import { addPosition, deletePosition } from '../../reducers/geolocation'
 
 import IP from "../../IPAdress";
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 //imports cards
@@ -34,15 +33,17 @@ export default function HelperLocatorScreen({ navigation }) {
         //récupérer la localisation tous les 20m
         Location.watchPositionAsync({ distanceInterval: 20 },
           (location) => {
+            console.log(location)
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-            console.log(currentPosition.latitude)
+
             const geolocInfos = {
               email: user.email,
               lastPosition: {
-                latitude: (currentPosition.latitude),
-                longitude: (currentPosition.longitude),
+                latitude: (location.coords.latitude),
+                longitude: (location.coords.longitude),
               }}
+              console.log(geolocInfos)
             //envoyer les coordonnées à la bd
             fetch(`http://${IP}:3000/users/lastposition`, {
               method: 'POST',
@@ -66,7 +67,7 @@ export default function HelperLocatorScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

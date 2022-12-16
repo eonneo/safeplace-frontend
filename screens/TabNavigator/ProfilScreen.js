@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { handleAvaible } from '../../reducers/users';
 
-import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 import IP from '../../IPAdress';
@@ -50,7 +49,7 @@ console.log(isAvaible)
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
   });
   if (!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

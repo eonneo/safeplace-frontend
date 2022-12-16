@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRestSignupFields } from '../../reducers/signup';
 import DateField from 'react-native-datefield';
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 import IP from '../../IPAdress';
@@ -63,7 +62,7 @@ export default function SignupScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

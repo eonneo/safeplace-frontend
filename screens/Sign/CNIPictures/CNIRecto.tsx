@@ -15,7 +15,6 @@ import { addSelfie } from "../../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 export default function CNIRecto({ navigation }) {
@@ -75,7 +74,7 @@ export default function CNIRecto({ navigation }) {
         'Raleway': require('../../../assets/Raleway/static/Raleway-Regular.ttf')
         });
     if (!hasPermission || !isFocused || !isLoaded) {
-        return <AppLoading />;
+        return <View />;
     }
     return (
         <View style={styles.container}>

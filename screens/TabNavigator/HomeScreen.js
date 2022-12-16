@@ -12,7 +12,6 @@ import * as Location from 'expo-location';
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import HelperConfirmRequestScreen from '../HelpRequest/HelperConfirmRequestScreen';
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 import IP from "../../IPAdress";
 
@@ -46,13 +45,14 @@ export default function HomeScreen({ navigation }) {
           (location) => {
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-
+            
             const geolocInfos = {
               email: user.email,
               lastPosition: {
-                latitude: (currentPosition.latitude),
-                longitude: (currentPosition.longitude),
+                latitude: (location.coords.latitude),
+                longitude: (location.coords.longitude),
               }}
+            console.log(geolocInfos)
             //envoyer les coordonnées à la bd
             fetch(`http://${IP}:3000/users/lastposition`, {
               method: 'POST',
@@ -83,7 +83,7 @@ export default function HomeScreen({ navigation }) {
     });
   
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
 
     return (

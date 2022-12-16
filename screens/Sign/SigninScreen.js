@@ -3,7 +3,6 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoid
 import { login } from '../../reducers/users';
 import { useDispatch, useSelector } from 'react-redux';
 
-import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 import IP from '../../IPAdress';
@@ -63,7 +62,7 @@ export default function SigninScreen({ navigation }) {
         'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
     if (!isLoaded) {
-        return <AppLoading />
+        return <View />
     }
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

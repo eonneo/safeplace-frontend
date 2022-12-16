@@ -1,5 +1,4 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 import { useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,7 +14,7 @@ export default function HelperConfirmationScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
   });
   if (!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
 

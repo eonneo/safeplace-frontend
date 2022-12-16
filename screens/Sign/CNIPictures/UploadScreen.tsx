@@ -11,7 +11,6 @@ import { SafeAreaView,
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 export default function UploadScreen({ navigation }) {
@@ -21,7 +20,7 @@ export default function UploadScreen({ navigation }) {
     'Raleway': require('../../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
   return (
     <View style={styles.container}>

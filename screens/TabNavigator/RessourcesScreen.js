@@ -1,12 +1,7 @@
 import { StyleSheet, Text, View, KeyboardAvoidingView,   TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import AppLoading  from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
-
-
-
-
 
 export default function RessourcesScreen({ navigation }) {
 
@@ -15,7 +10,7 @@ export default function RessourcesScreen({ navigation }) {
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
   if(!isLoaded) {
-    return <AppLoading />
+    return <View />
   }
     return (
         <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
