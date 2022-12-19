@@ -6,6 +6,7 @@ export type SignupState = {
         password: string | null;
         nom: string | null;
         prenom: string | null;
+        avatarUri: string | null;
         naissance: any | null;
         telephone: string | null;
         numeroRue: string | null;
@@ -21,6 +22,7 @@ const initialState: SignupState = {
         password: null,
         nom: null,
         prenom: null,
+        avatarUri: null,
         naissance: null,
         telephone: null,
         numeroRue: null,
@@ -49,7 +51,8 @@ export const userSlice = createSlice({
             state.value.codePostal = action.payload.codePostal;
             state.value.ville = action.payload.ville;
             console.log('full reducer:', action.payload)
-        }
+        },
+        
     },
 });
 
