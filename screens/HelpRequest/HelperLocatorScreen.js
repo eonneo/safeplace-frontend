@@ -33,10 +33,10 @@ export default function HelperLocatorScreen({ navigation }) {
         //récupérer la localisation tous les 20m
         Location.watchPositionAsync({ distanceInterval: 20 },
           (location) => {
-            console.log(location)
+            console.log('location', location)
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-            console.log(currentPosition)
+            console.log('position', currentPosition)
             const geolocInfos = {
               email: user.email,
               lastPosition: {
@@ -62,20 +62,19 @@ export default function HelperLocatorScreen({ navigation }) {
             .then((response) => response.json())
             .then((data) => {
               if (data) {
-                console.log(data);
-                let usersGeoloc = [];
-                for (let i = 0; i < data.length; i++) {
-                  const NewuserGeoloc = {
-                    name: data.prenom,
-                    latitude: data.lastPosition.latitude,
-                    longitude: data.lastPosition.longitude,
-                    isAvailable: data.isAvailable,
-                  };
-                  users.push(NewuserGeoloc);
+                console.log('data:', data);
+                for (let item of data) {
+                  console.log('item:', item.isAvailable)
                 }
-                return usersGeoloc;
+
+                /*const usersGeoloc = [];
+                for (let i = 0; i < data.length; i++) {
+                  const availableUser = data.filter(data[i].isAvailable === true);
+                  usersGeoloc.push(availableUser);
+                  return usersGeoloc;
+                }
+                console.log(usersGeoloc);*/
               }
-              console.log(usersGeoloc);
             })
           }
         )
