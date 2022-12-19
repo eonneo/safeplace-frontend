@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { addPosition, deletePosition } from '../../reducers/geolocation'
+import { addPosition, deletePosition } from '../../reducers/geolocation';
 
 import IP from "../../IPAdress";
 
@@ -56,11 +56,33 @@ export default function HelperLocatorScreen({ navigation }) {
                 console.log('last position added to DB') && dispatch(addPosition(currentPosition));
               }else {console.log('error: last position not added to DB')}
             });
+
+            //récupération des infos des helpers autour
+            fetch(`http://${IP}:3000/users`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data) {
+                console.log(data);
+                let usersGeoloc = [];
+                for (let i = 0; i < data.length; i++) {
+                  const NewuserGeoloc = {
+                    name: data.prenom,
+                    latitude: data.lastPosition.latitude,
+                    longitude: data.lastPosition.longitude,
+                    isAvailable: data.isAvailable,
+                  };
+                  users.push(NewuserGeoloc);
+                }
+                return usersGeoloc;
+              }
+              console.log(usersGeoloc);
+            })
           }
         )
       }
     })();
   }, []);
+
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
