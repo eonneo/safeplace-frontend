@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -21,10 +21,17 @@ export default function ChatScreen({ navigation, route: { params } }) {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState("");
 
-  const user = useSelector((state) => state.user.value)
+
+
+  const scrollViewRef = useRef(null);
+  const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
     fetch(`http://${IP}:3000/users/${user.token}`, { method: "PUT" });
+    
+    fetch(`http://${IP}:3000/users/message`)
+    .then (res => res.json())
+    .then(data=> setMessages(data))
 
     const subscription = pusher.subscribe("chat");
     subscription.bind("pusher:subscription_succeeded", () => {
@@ -37,6 +44,11 @@ export default function ChatScreen({ navigation, route: { params } }) {
       });
   }, [user.token]);
 
+  const goBack = () => {
+    pusher.unsubscribe("chat");
+    navigation.goBack();
+  };
+
   const handleReceiveMessage = (data) => {
     setMessages((messages) => [...messages, data]);
   };
@@ -47,6 +59,7 @@ export default function ChatScreen({ navigation, route: { params } }) {
     }
 
     const payload = {
+      token: user.token,
       text: messageText,
       prenom: user.prenom,
       createdAt: new Date(),
@@ -62,6 +75,8 @@ export default function ChatScreen({ navigation, route: { params } }) {
     setMessageText("");
   };
 
+
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -72,13 +87,19 @@ export default function ChatScreen({ navigation, route: { params } }) {
           name="keyboard-backspace"
           color="#ffffff"
           size={24}
-          onPress={() => navigation.goBack()}
+          onPress={() => goBack()}
         />
         <Text style={styles.greetingText}>Welcome {user.prenom} 👋</Text>
       </View>
 
       <View style={styles.inset}>
-        <ScrollView style={styles.scroller}>
+        <ScrollView
+          style={styles.scroller}
+          ref={scrollViewRef}
+          onContentSizeChange={() => {
+            scrollViewRef.current.scrollToEnd();
+          }}
+        >
           {messages.map((message, i) => (
             <View
               key={i}
@@ -91,6 +112,7 @@ export default function ChatScreen({ navigation, route: { params } }) {
                 },
               ]}
             >
+              <Text style={styles.nameText}>{user.prenom}</Text>
               <View
                 style={[
                   styles.message,
@@ -144,7 +166,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: "#F5F7F3",
+    // opacity: 0.9,
     width: "100%",
     paddingTop: 20,
     position: "relative",
@@ -179,7 +202,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
     maxWidth: "65%",
-    shadowColor: "#000",
+    shadowColor: "#000#",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -193,18 +216,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   messageRecieved: {
-    alignSelf: "flex-end",
-    alignItems: "flex-end",
-  },
-  messageSent: {
     alignSelf: "flex-start",
     alignItems: "flex-start",
   },
+  messageSent: {
+    alignSelf: "flex-end",
+    alignItems: "flex-end",
+  },
   messageSentBg: {
-    backgroundColor: "#ffad99",
+    backgroundColor: "#FFA647",
   },
   messageRecievedBg: {
-    backgroundColor: "#d6fff9",
+    backgroundColor: "#EAE2B7",
   },
   messageText: {
     color: "#506568",
@@ -229,7 +252,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   input: {
-    backgroundColor: "#E6EBE0",
+    backgroundColor: "white",
     width: "80%",
     padding: 14,
     borderRadius: 30,
@@ -266,5 +289,12 @@ const styles = StyleSheet.create({
   scroller: {
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  nameText: {
+    color: "#506568",
+    opacity: 0.5,
+    fontSize: 12,
+    marginTop: 2,
+    // marginRight: 30,
   },
 });
