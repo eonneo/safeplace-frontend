@@ -9,6 +9,7 @@ export type UserState = {
         isReadyToAccomodate: boolean;
         isReadyToLift: boolean;
         isReadyToAssist: boolean;
+        token: string | null;
     };
 };
 
@@ -21,6 +22,7 @@ const initialState: UserState = {
         isReadyToAccomodate: false,
         isReadyToLift: false,
         isReadyToAssist: false,
+        token: null,
     },
 };
 
@@ -32,6 +34,7 @@ export const userSlice = createSlice({
             state.value.email = action.payload.email;
             state.value.prenom = action.payload.prenom;
             state.value.isConnected = action.payload.isConnected;
+            state.value.token = action.payload.token;
             console.log('reducer login:',action.payload);
         },
         handleAvailable: (state, action) => {

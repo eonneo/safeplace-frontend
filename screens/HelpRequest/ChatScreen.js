@@ -11,52 +11,56 @@ import {
 } from "react-native";
 import { useFonts } from "@use-expo/font";
 import { useSelector } from "react-redux";
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Pusher from "pusher-js/react-native";
 import IP from "../../IPAdress";
+
+const pusher = new Pusher("66ce8f54593d65620bf6", { cluster: "eu" });
 
 export default function ChatScreen({ navigation, route: { params } }) {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState("");
 
-//   useEffect(() => {
-//     fetch(`http://${IP}:3000/users/${params.username}`, { method: "PUT" });
+  const user = useSelector((state) => state.user.value)
 
-//     const subscription = pusher.subscribe("chat");
-//     subscription.bind("pusher:subscription_succeeded", () => {
-//       subscription.bind("message", handleReceiveMessage);
-//     });
+  useEffect(() => {
+    fetch(`http://${IP}:3000/users/${user.token}`, { method: "PUT" });
 
-//     return () =>
-//       fetch(`${BACKEND_ADDRESS}/users/${params.username}`, {
-//         method: "DELETE",
-//       });
-//   }, [params.username]);
+    const subscription = pusher.subscribe("chat");
+    subscription.bind("pusher:subscription_succeeded", () => {
+      subscription.bind("message", handleReceiveMessage);
+    });
 
-//   const handleReceiveMessage = (data) => {
-//     setMessages((messages) => [...messages, data]);
-//   };
+    return () =>
+      fetch(`http://${IP}:3000/users/${user.token}`, {
+        method: "DELETE",
+      });
+  }, [user.token]);
 
-//   const handleSendMessage = () => {
-//     if (!messageText) {
-//       return;
-//     }
+  const handleReceiveMessage = (data) => {
+    setMessages((messages) => [...messages, data]);
+  };
 
-//     const payload = {
-//       text: messageText,
-//       username: params.username,
-//       createdAt: new Date(),
-//       id: Math.floor(Math.random() * 100000),
-//     };
+  const handleSendMessage = () => {
+    if (!messageText) {
+      return;
+    }
 
-//     fetch(`${BACKEND_ADDRESS}/message`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(payload),
-//     });
+    const payload = {
+      text: messageText,
+      prenom: user.prenom,
+      createdAt: new Date(),
+      id: Math.floor(Math.random() * 100000),
+    };
 
-//     setMessageText("");
-//   };
+    fetch(`http://${IP}:3000/users/message`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    setMessageText("");
+  };
 
   return (
     <KeyboardAvoidingView
@@ -70,7 +74,7 @@ export default function ChatScreen({ navigation, route: { params } }) {
           size={24}
           onPress={() => navigation.goBack()}
         />
-        <Text style={styles.greetingText}>Welcome 👋</Text>
+        <Text style={styles.greetingText}>Welcome {user.prenom} 👋</Text>
       </View>
 
       <View style={styles.inset}>
@@ -81,7 +85,7 @@ export default function ChatScreen({ navigation, route: { params } }) {
               style={[
                 styles.messageWrapper,
                 {
-                  ...(message.username === params.username
+                  ...(message.prenom === user.prenom
                     ? styles.messageSent
                     : styles.messageRecieved),
                 },
@@ -91,7 +95,7 @@ export default function ChatScreen({ navigation, route: { params } }) {
                 style={[
                   styles.message,
                   {
-                    ...(message.username === params.username
+                    ...(message.prenom === user.prenom
                       ? styles.messageSentBg
                       : styles.messageRecievedBg),
                   },
@@ -150,7 +154,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 4,
     borderRightWidth: 0.1,
     borderLeftWidth: 0.1,
-    
   },
   banner: {
     width: "100%",
