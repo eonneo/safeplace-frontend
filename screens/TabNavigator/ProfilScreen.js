@@ -27,6 +27,8 @@ const PlaceholderImage = require("../../assets/Vector.png");
 export default function SettingsScreen({ navigation }) {
 
   const user = useSelector((state) => state.user.value);
+ console.log(user.avatarUri)
+ 
   const dispatch = useDispatch();
 
 

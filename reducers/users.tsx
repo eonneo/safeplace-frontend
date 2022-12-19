@@ -4,6 +4,7 @@ export type UserState = {
     value: {
         email: string | null;
         prenom: string | null;
+        avatarUri: string | null;
         isConnected: boolean;
         isAvailable: boolean;
         isReadyToAccomodate: boolean;
@@ -16,6 +17,7 @@ const initialState: UserState = {
     value: {
         email: null,
         prenom: null,
+        avatarUri: null,
         isConnected: false,
         isAvailable: false,
         isReadyToAccomodate: false,
@@ -32,6 +34,7 @@ export const userSlice = createSlice({
             state.value.email = action.payload.email;
             state.value.prenom = action.payload.prenom;
             state.value.isConnected = action.payload.isConnected;
+            state.value.avatarUri = action.payload.avatarUri;
             console.log('reducer login:',action.payload);
         },
         handleAvailable: (state, action) => {
