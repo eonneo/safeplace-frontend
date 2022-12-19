@@ -23,6 +23,27 @@ export default function HelperLocatorScreen({ navigation }) {
 
   const [currentPosition, setCurrentPosition] = useState(null);
 
+  //calcul d'une distance en km
+  function distance(latHelper, lonHelper, latRequest, lonRequest) {
+    if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
+      return 0;
+    }
+    else {
+      const radlatHelper = Math.PI * latHelper/180;
+      const radlatRequest = Math.PI * latRequest/180;
+      const theta = lonHelper-lonRequest;
+      const radtheta = Math.PI * theta/180;
+      const dist = Math.sin(radlatHelper) * Math.sin(radlatRequest) + Math.cos(radlatHelper) * Math.cos(radlatRequest) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      dist = Math.acos(dist);
+      dist = dist * 180/Math.PI;
+      dist = dist * 1.609344;
+      return dist;
+    }
+  }
+
   //récupérer les données de géolocalisation
   useEffect(() => {
     (async () => {
@@ -63,17 +84,46 @@ export default function HelperLocatorScreen({ navigation }) {
             .then((data) => {
               if (data) {
                 console.log('data:', data);
+                let usersGeoloc= [];
                 for (let item of data) {
-                  console.log('item:', item.isAvailable)
+                  //tri sur les helpers disponibles
+                  if (item.isAvailable) {
+                    //récupération des infos utiles
+                    const itemInfos = {
+                      prenom: item.prenom,
+                      coordonneesGPS: item.lastPosition,
+                      settings: item.userActions,
+                      connected: item.isConnected,
+                    }
+                    usersGeoloc.push(itemInfos);
+                  }
                 }
-
-                /*const usersGeoloc = [];
-                for (let i = 0; i < data.length; i++) {
-                  const availableUser = data.filter(data[i].isAvailable === true);
-                  usersGeoloc.push(availableUser);
-                  return usersGeoloc;
-                }
-                console.log(usersGeoloc);*/
+                console.log('users:', usersGeoloc);
+                //maper sur la data du store pour afficher les helpers disponibles
+                const helpers = usersGeoloc.map((data, i) => {
+                  //calculer la distance
+                  distance(data.lastPosition.latitude, data.lastPosition.longitude, currentPosition.latitude, currentPosition.longitude);
+                  return (
+                      <TouchableOpacity key={i} style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+          <View style={styles.leftContent}>
+            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+            <View style={styles.middleContent}>
+              <Text style={styles.name}>${data.prenom}</Text>
+              <Text style={styles.description}>accueillir: ${data.userActions.hebergement}, transporter: ${data.userActions.transport}, accompagner: ${data.userActions.accompagnementDistance}</Text>
+              <Text style={styles.distance}>${dist}</Text>
+            </View>
+          </View>
+          <View style={styles.rightContent}>
+            <View style={styles.isFavorite}>
+              <FontAwesome name="heart" size={20} color="#ec6e5b" />
+            </View>
+            <View style={styles.isConnected}>
+              <FontAwesome name="circle" size={20} color="#5CA4A9" />
+            </View>
+          </View>
+        </TouchableOpacity>
+                  );
+                });
               }
             })
           }
@@ -109,42 +159,7 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
-        <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-          <View style={styles.leftContent}>
-            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
-            <View style={styles.middleContent}>
-              <Text style={styles.name}>Name</Text>
-              <Text style={styles.description}>Description</Text>
-              <Text style={styles.distance}>Distance</Text>
-            </View>
-          </View>
-          <View style={styles.rightContent}>
-            <View style={styles.isFavorite}>
-              <FontAwesome name="heart" size={20} color="#ec6e5b" />
-            </View>
-            <View style={styles.isConnected}>
-              <FontAwesome name="circle" size={20} color="#5CA4A9" />
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-          <View style={styles.leftContent}>
-            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
-            <View style={styles.middleContent}>
-              <Text style={styles.name}>Name</Text>
-              <Text style={styles.description}>Description</Text>
-              <Text style={styles.distance}>Distance</Text>
-            </View>
-          </View>
-          <View style={styles.rightContent}>
-            <View style={styles.isFavorite}>
-              <FontAwesome name="heart" size={20} color="#ec6e5b" />
-            </View>
-            <View style={styles.isConnected}>
-              <FontAwesome name="circle" size={20} color="#5CA4A9" />
-            </View>
-          </View>
-        </TouchableOpacity>
+        {helpers}
     </KeyboardAvoidingView>
     
   );
