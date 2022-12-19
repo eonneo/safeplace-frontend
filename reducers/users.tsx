@@ -10,6 +10,8 @@ export type UserState = {
         isReadyToAccomodate: boolean;
         isReadyToLift: boolean;
         isReadyToAssist: boolean;
+        isReadyToMove: boolean;
+        mustComeToMe: boolean;
         token: string | null;
     };
 };
@@ -24,6 +26,8 @@ const initialState: UserState = {
         isReadyToAccomodate: false,
         isReadyToLift: false,
         isReadyToAssist: false,
+        isReadyToMove: false,
+        mustComeToMe: false,
         token: null,
     },
 };
@@ -56,12 +60,21 @@ export const userSlice = createSlice({
             state.value.isReadyToAssist = action.payload.isReadyToAssist;
             console.log('isReadyToAssist reducer:' , action.payload);
         },
+        handleReadyToMove: (state, action) => {
+            state.value.isReadyToMove = action.payload;
+            console.log('isReadyToMove reducer:', action.payload)
+        },
+        handleComeToMe: (state, action) => {
+            state.value.mustComeToMe = action.payload;
+            console.log('mustComeToMe reducer:', action.payload)
+        },
         addSelfie: (state, action) => {
             state.value.avatarUri = action.payload;
             console.log('addSelfie:', action.payload)
-        }
+        },
+        
     },
 });
 
-export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, addSelfie } = userSlice.actions;
+export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, handleReadyToMove, handleComeToMe, addSelfie } = userSlice.actions;
 export default userSlice.reducer;
