@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
     fetch(`http://${IP}:3000/users`)
       .then(response => response.json())
       .then(data => {
-        setTotalUsers(data.users.length);
+        setTotalUsers(data.length);
       });
   }, []);
 
