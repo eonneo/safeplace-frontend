@@ -13,7 +13,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist } from '../../reducers/users';
+import { handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, handleReadyToMove, handleComeToMe } from '../../reducers/users';
 
 import { useFonts } from '@use-expo/font';
 
@@ -38,6 +38,8 @@ export default function SettingsScreen({ navigation }) {
   const [isReadyToAccomodate, setisReadyToAccomodate] = useState(false);
   const [isReadyToLift, setisReadyToLift] = useState(false);
   const [isReadyToAssist, setisReadyToAssist] = useState(false);
+  const [isReadyToMove, setisReadyToMove] = useState(false);
+  const [mustComeToMe, setMustComeToMe] = useState(false);
 console.log(isAvailable)
 
   const handleIsAvailable = () => {
@@ -103,6 +105,38 @@ console.log(isAvailable)
 
     })
   }
+
+  const handleIsReadyToMove = () => {
+    // console.log('switch', isReadyToMove)
+    fetch(`http://${IP}:3000/users/aller`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: user.email, aller: !isReadyToMove}),
+    }).then(response => response.json())
+    .then(updateStatus => {
+      if(updateStatus.result){
+        console.log('aller status updated in DB')
+        dispatch(handleReadyToMove(!isReadyToMove))
+      }
+
+    })
+  }
+
+  const handleMustComeToMe = () => {
+    // console.log('switch', mustComeToMe)
+    fetch(`http://${IP}:3000/users/venir`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: user.email, venir: !mustComeToMe}),
+    }).then(response => response.json())
+    .then(updateStatus => {
+      if(updateStatus.result){
+        console.log('venir status updated in DB')
+        dispatch(handleComeToMe(!mustComeToMe))
+      }
+
+    })
+  }
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
@@ -130,8 +164,8 @@ console.log(isAvailable)
         <View style={styles.lineStyle} />
           <View style={styles.optionContainer}>
             <View style={styles.textContainer}>
-              <Text style={styles.subtitle}>Accueil</Text>
-              <Text style={styles.smallText} >Je peux Accueillir une personne en cas d'urgence</Text>
+              <Text style={styles.subtitle}>Accueil à domicile</Text>
+              <Text style={styles.smallText} >Je peux accueillir une personne en cas d'urgence</Text>
             </View>
             <Switch
               value={isReadyToAccomodate}
@@ -156,7 +190,7 @@ console.log(isAvailable)
           </View>
           <View style={styles.optionContainer}>
             <View style={styles.textContainer}>
-              <Text style={styles.subtitle}>Accompagnement</Text>
+              <Text style={styles.subtitle}>Accompagnement à distance</Text>
               <Text style={styles.smallText} >Je peux assister une personne en cas d'urgence</Text>
             </View>
             <Switch
@@ -164,6 +198,32 @@ console.log(isAvailable)
               onValueChange={(value) => {setisReadyToAssist(value), handleIsReadyToAssist()}}
               trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
               thumbColor={isReadyToAssist ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={styles.switch} />
+          </View>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.subtitle}>Déplacement</Text>
+              <Text style={styles.smallText} >Je peux rejoindre les personnes qui me demandent de l'aide</Text>
+            </View>
+            <Switch
+              value={isReadyToMove}
+              onValueChange={(value) => {setisReadyToMove(value), handleIsReadyToMove()}}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={isReadyToMove ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={styles.switch} />
+          </View>
+          <View style={styles.optionContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.subtitle}>Non mobile</Text>
+              <Text style={styles.smallText} >Les personnes que j'aide doivent venir vers moi</Text>
+            </View>
+            <Switch
+              value={mustComeToMe}
+              onValueChange={(value) => {setMustComeToMe(value), handleMustComeToMe()}}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={mustComeToMe ? "white" : "white"}
               ios_backgroundColor="#e5eadf"
               style={styles.switch} />
           </View>
@@ -258,6 +318,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center",
+    marginBottom: 5,
   },
   textContainer: {
     flex: 1,
