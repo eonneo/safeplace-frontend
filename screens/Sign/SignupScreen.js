@@ -51,7 +51,7 @@ export default function SignupScreen({ navigation }) {
         if (user.result) {
           console.log('okposted')
           dispatch(getRestSignupFields(userInfos))
-          dispatch(login(userInfos.email, userInfos.prenom, userInfos.isConnected))
+          dispatch(login(userInfos))
           navigation.navigate('Upload')
         }else{
           console.log('email already exist')
