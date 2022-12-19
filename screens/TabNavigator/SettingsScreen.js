@@ -1,4 +1,13 @@
-import { Switch, StyleSheet, Text, View, ScrollView, KeyboardAvoidingView, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Switch, 
+  StyleSheet, 
+  Text, 
+  View, 
+  ScrollView, 
+  KeyboardAvoidingView, 
+  TextInput, 
+  Image, 
+  TouchableOpacity 
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from 'react-redux';
