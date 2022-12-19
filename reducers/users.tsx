@@ -53,8 +53,12 @@ export const userSlice = createSlice({
             state.value.isReadyToAssist = action.payload.isReadyToAssist;
             console.log('isReadyToAssist reducer:' , action.payload);
         },
+        addSelfie: (state, action) => {
+            state.value.avatarUri = action.payload;
+            console.log('addSelfie:', action.payload)
+        }
     },
 });
 
-export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist } = userSlice.actions;
+export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, addSelfie } = userSlice.actions;
 export default userSlice.reducer;
