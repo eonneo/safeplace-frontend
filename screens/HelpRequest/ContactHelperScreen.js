@@ -51,7 +51,7 @@ export default function ContactHelperScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
-        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+        <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <View style={styles.titlesContainer}> 
         <Text style={styles.title}>X est sur le point d'arriver</Text>
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   profilePic: {
     width: 40,
     height: 40,
+    borderRadius: 50,
   },
   titlesContainer: {
     alignItems: 'flex-start',
@@ -172,10 +173,6 @@ const styles = StyleSheet.create({
     marginLeft: 140,
     alignItems: 'center',
     marginBottom: 20,
-  },
-  profilePic: {
-    width: 40,
-    height: 40,
   },
   name: {
     fontSize: 20,

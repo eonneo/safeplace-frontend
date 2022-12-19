@@ -148,7 +148,7 @@ export default function HelperLocatorScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
-        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+        <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <Text style={styles.helpersText}>Helpers proches de toi</Text>
       {currentPosition && <MapView mapType="standard" 
@@ -165,7 +165,7 @@ export default function HelperLocatorScreen({ navigation }) {
       </MapView>}
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
           <View style={styles.leftContent}>
-            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
             <View style={styles.middleContent}>
               <Text style={styles.name}>X</Text>
               <Text style={styles.description}>accueillir: v, transporter: v, accompagner: v</Text>
@@ -264,6 +264,7 @@ const styles = StyleSheet.create({
     profilePic: {
       width: 40,
       height: 40,
+      borderRadius: 50,
     },
     name: {
       fontSize: 20,
