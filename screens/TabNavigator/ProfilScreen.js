@@ -21,12 +21,15 @@ import IP from '../../IPAdress';
 
 
 
-const PlaceholderImage = require("../../assets/Vector.png");
+
 
 
 export default function SettingsScreen({ navigation }) {
 
   const user = useSelector((state) => state.user.value);
+ console.log(user.avatarUri)
+//  const PlaceholderImage = require(user.avatarUri);
+
   const dispatch = useDispatch();
 
 
@@ -111,7 +114,7 @@ console.log(isAvailable)
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('SettingsStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
-        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+        <Image source={{uri:`${user.avatarUri}`}} style={styles.profilePic}></Image>
       </TouchableOpacity>
         <Text style={styles.title}>Mon profil</Text>
         <View style={styles.availableContainer}>
@@ -206,8 +209,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway',
   },
   profilePic: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
   title: {
     fontSize: 38,

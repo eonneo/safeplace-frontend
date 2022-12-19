@@ -11,7 +11,7 @@ import IP from "../../IPAdress";
 import React, { useState, useEffect, useRef } from "react";
 import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useDispatch, useSelector } from "react-redux";
-import { addSelfie, deleteSelfie } from "../../reducers/selfie";
+import { addSelfie } from "../../reducers/users";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
 
