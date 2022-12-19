@@ -51,7 +51,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-            <Image source={PlaceholderImage} style={styles.profilePic} />
+            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic} />
           </TouchableOpacity>
         </View>
 
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
    profilePic: {
     width: 40,
     height: 40,
+    borderRadius: 50,
   },
 
   profilName: {
