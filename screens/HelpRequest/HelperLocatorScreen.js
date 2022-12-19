@@ -163,6 +163,24 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
+      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+          <View style={styles.leftContent}>
+            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+            <View style={styles.middleContent}>
+              <Text style={styles.name}>X</Text>
+              <Text style={styles.description}>accueillir: v, transporter: v, accompagner: v</Text>
+              <Text style={styles.distance}>x km</Text>
+            </View>
+          </View>
+          <View style={styles.rightContent}>
+            <View style={styles.isFavorite}>
+              <FontAwesome name="heart" size={20} color="#ec6e5b" />
+            </View>
+            <View style={styles.isConnected}>
+              <FontAwesome name="circle" size={20} color="#5CA4A9" />
+            </View>
+          </View>
+        </TouchableOpacity>
     </KeyboardAvoidingView>
     
   );
