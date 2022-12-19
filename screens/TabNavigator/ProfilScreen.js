@@ -13,7 +13,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 import { handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist } from '../../reducers/users';
 
 import { useFonts } from '@use-expo/font';
@@ -110,7 +109,7 @@ console.log(isAvailable)
   }
   return (
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('settings')}>
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('SettingsStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
         <Image source={PlaceholderImage} style={styles.profilePic}></Image>
       </TouchableOpacity>

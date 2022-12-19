@@ -137,6 +137,7 @@ export default function App() {
             <Stack.Screen name="HelperContact" component={HelperContactScreen}  />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="ProfilStack" component={ProfilScreen} />
+            <Stack.Screen name="SettingsStack" component={SettingsScreen} />
             <Stack.Screen name="EmergencyNumbScreen" component={EmergencyNumbScreen} />
 
           </Stack.Navigator>
