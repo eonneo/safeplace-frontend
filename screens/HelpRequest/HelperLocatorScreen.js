@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+
 import { addPosition, deletePosition } from '../../reducers/geolocation';
 
 import IP from "../../IPAdress";
@@ -20,6 +21,7 @@ export default function HelperLocatorScreen({ navigation }) {
 
   //récupérer les données du store
   const user = useSelector((state) => state.user.value);
+  //const position = useSelector((state) => state.location.value);
 
   const [currentPosition, setCurrentPosition] = useState(null);
 
@@ -57,7 +59,7 @@ export default function HelperLocatorScreen({ navigation }) {
             console.log('location', location)
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-            console.log('position', currentPosition)
+            //console.log('position', position)
             const geolocInfos = {
               email: user.email,
               lastPosition: {
@@ -101,8 +103,10 @@ export default function HelperLocatorScreen({ navigation }) {
                 console.log('users:', usersGeoloc);
                 //maper sur la data du store pour afficher les helpers disponibles
                 const helpers = usersGeoloc.map((data, i) => {
+                  console.log('maping data:', data);
                   //calculer la distance
-                  distance(data.lastPosition.latitude, data.lastPosition.longitude, currentPosition.latitude, currentPosition.longitude);
+                  const howFar = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, location.coords.latitude, location.coords.longitude);
+                  console.log('distance:',howFar);
                   return (
                       <TouchableOpacity key={i} style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
           <View style={styles.leftContent}>
@@ -110,7 +114,7 @@ export default function HelperLocatorScreen({ navigation }) {
             <View style={styles.middleContent}>
               <Text style={styles.name}>${data.prenom}</Text>
               <Text style={styles.description}>accueillir: ${data.userActions.hebergement}, transporter: ${data.userActions.transport}, accompagner: ${data.userActions.accompagnementDistance}</Text>
-              <Text style={styles.distance}>${dist}</Text>
+              <Text style={styles.distance}>${howFar}</Text>
             </View>
           </View>
           <View style={styles.rightContent}>
@@ -159,7 +163,6 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
-        {helpers}
     </KeyboardAvoidingView>
     
   );
