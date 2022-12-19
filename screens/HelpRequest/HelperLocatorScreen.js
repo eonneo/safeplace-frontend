@@ -45,7 +45,8 @@ export default function HelperLocatorScreen({ navigation }) {
       let dist2 = dist1 * 180/Math.PI;
       let dist3 = dist2 * 60 * 1.1515;
       let dist4 = dist3 * 1.609344;
-      return dist4;
+      if (dist4 < 1) {return (dist4 /= 1000).toFixed(2) + ' m'}
+      return (dist4.toFixed(2) + ' km');
     }
   }
 
@@ -79,7 +80,7 @@ export default function HelperLocatorScreen({ navigation }) {
             .then((response) => response.json())
             .then((data) => {
               if (data) {
-                console.log('last position added to DB', location.coords);
+                console.log('last position added to DB');
                 dispatch(addPosition(location.coords));
               }else {console.log('error: last position not added to DB')}
             });
@@ -99,7 +100,7 @@ export default function HelperLocatorScreen({ navigation }) {
       let usersGeoloc= [];
       for (let item of data) {
         //tri sur les helpers disponibles
-        if (item.isAvailable) {
+        if ((item.isAvailable) && (item.email != user.email)) {
           //récupération des infos utiles
           const itemInfos = {
             prenom: item.prenom,
@@ -112,9 +113,11 @@ export default function HelperLocatorScreen({ navigation }) {
       }
       console.log('store:', persistStore.AsyncStorage)
       //console.log('users:', usersGeoloc);
+
       //maper sur la data du store pour afficher les helpers disponibles
       const helpers = usersGeoloc.map((data, i) => {
         //console.log('maping data:', data);
+
         //calculer la distance
         const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
         console.log('distance:',eloignement);
