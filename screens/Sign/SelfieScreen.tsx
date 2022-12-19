@@ -134,7 +134,6 @@ export default function SelfieScreen({ navigation }) {
       <View>
         {/* Bouton conditionnel si user a pris selfie */}
         {button && (
-          <View>
             <TouchableOpacity style={styles.button3}>
               <Text
                 style={styles.text3}
@@ -145,7 +144,6 @@ export default function SelfieScreen({ navigation }) {
                 Valider
               </Text>
             </TouchableOpacity>
-          </View>
         )}
       </View>
 
