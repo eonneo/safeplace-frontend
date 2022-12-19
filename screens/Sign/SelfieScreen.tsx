@@ -10,7 +10,7 @@ import {
 import IP from "../../IPAdress";
 import React, { useState, useEffect, useRef } from "react";
 import { Camera, CameraType, FlashMode } from "expo-camera";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addSelfie, deleteSelfie } from "../../reducers/selfie";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useIsFocused } from "@react-navigation/native";
@@ -20,15 +20,16 @@ import { useFonts } from '@use-expo/font';
 export default function SelfieScreen({ navigation }) {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-
+  const user = useSelector((state: any) => state.signup.value);
   const [hasPermission, setHasPermission] = useState(false);
   const [type, setType] = useState(CameraType.front);
   const [flashMode, setFlashMode] = useState(FlashMode.off);
   const [button, setButton] = useState(false);
   let cameraRef: any = useRef(null);
 
+  console.log(user)
   // cameraRef && isFocused
- 
+
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -42,6 +43,7 @@ export default function SelfieScreen({ navigation }) {
       exif: false,
       skipProcessing: true,
     });
+
 
     const formData: any = new FormData();
 
@@ -58,8 +60,19 @@ export default function SelfieScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          data.result && dispatch(addSelfie(data.url));
-          setButton(true);
+          // updating avatarUri to db
+          fetch(`http://${IP}:3000/users/uri`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user.email, avatarUri: data.url }),
+          }).then(response => response.json())
+          .then(updatedUri => {
+            if(updatedUri.result){
+              console.log('avatarUri updated in DB :', data.url)
+              data.result && dispatch(addSelfie(data.url));
+              setButton(true);
+            }
+          })
         }
       });
   };
@@ -67,7 +80,7 @@ export default function SelfieScreen({ navigation }) {
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
+  });
   if (!hasPermission || !isFocused || !isLoaded) {
     return <View />;
   }
@@ -134,18 +147,16 @@ export default function SelfieScreen({ navigation }) {
       <View>
         {/* Bouton conditionnel si user a pris selfie */}
         {button && (
-          <View>
             <TouchableOpacity style={styles.button3}>
               <Text
                 style={styles.text3}
                 onPress={() => navigation.navigate('Account')}
 
-                
+
               >
                 Valider
               </Text>
             </TouchableOpacity>
-          </View>
         )}
       </View>
 

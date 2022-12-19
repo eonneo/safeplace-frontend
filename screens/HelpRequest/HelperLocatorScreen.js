@@ -36,7 +36,7 @@ export default function HelperLocatorScreen({ navigation }) {
             console.log(location)
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-
+            console.log(currentPosition)
             const geolocInfos = {
               email: user.email,
               lastPosition: {
