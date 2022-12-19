@@ -31,7 +31,7 @@ export default function ChatScreen({ navigation, route: { params } }) {
     
     fetch(`http://${IP}:3000/users/message`)
     .then (res => res.json())
-    .then(data=> setMessages(data))
+    .then(data=> setMessages(data.splice(-20)))
 
     const subscription = pusher.subscribe("chat");
     subscription.bind("pusher:subscription_succeeded", () => {
@@ -112,7 +112,7 @@ export default function ChatScreen({ navigation, route: { params } }) {
                 },
               ]}
             >
-              <Text style={styles.nameText}>{user.prenom}</Text>
+              <Text style={styles.nameText}>{message.prenom}</Text>
               <View
                 style={[
                   styles.message,
