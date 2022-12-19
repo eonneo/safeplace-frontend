@@ -31,6 +31,7 @@ export default function SigninScreen({ navigation }) {
                         email: email,
                         prenom: userData.userInfos.prenom,
                         isConnected: true,
+                        token: userData.userInfos.token,
                     }
                     console.log('loginInfos:', loginInfos)
 
