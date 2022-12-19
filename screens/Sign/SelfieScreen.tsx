@@ -20,7 +20,7 @@ import { useFonts } from '@use-expo/font';
 export default function SelfieScreen({ navigation }) {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-  const user = useSelector((state: any) => state.user.value);
+  const user = useSelector((state: any) => state.signup.value);
   const [hasPermission, setHasPermission] = useState(false);
   const [type, setType] = useState(CameraType.front);
   const [flashMode, setFlashMode] = useState(FlashMode.off);
