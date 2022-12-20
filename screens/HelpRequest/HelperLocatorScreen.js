@@ -26,6 +26,7 @@ export default function HelperLocatorScreen({ navigation }) {
   console.log('reducer user:', user, 'reducer location:', position);
 
   const [currentPosition, setCurrentPosition] = useState(null);
+  const [dataArray, setDataArray] = useState([]);
 
   //calcul d'une distance en km
   function distance(latHelper, lonHelper, latRequest, lonRequest) {
@@ -91,59 +92,79 @@ export default function HelperLocatorScreen({ navigation }) {
     })();
   }, []);
 
-  //récupération des infos des helpers autour
-  fetch(`http://${IP}:3000/users`)
-  .then((response) => response.json())
-  .then((data) => {
-    if (data) {
-      //console.log('data:', data);
-      let usersGeoloc= [];
-      for (let item of data) {
-        //tri sur les helpers disponibles
-        if ((item.isAvailable) && (item.email != user.email)) {
-          //récupération des infos utiles
-          const itemInfos = {
-            prenom: item.prenom,
-            coordonneesGPS: item.lastPosition,
-            settings: item.userActions,
-            connected: item.isConnected,
+  const helpersMaping = () => {
+    //récupération des infos des helpers autour
+    fetch(`http://${IP}:3000/users`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        console.log('data:', data);
+        let usersGeoloc = [];
+        for (let item of data) {
+          //tri sur les helpers disponibles
+          if ((item.isAvailable) && (item.email != user.email)) {
+            //récupération des infos utiles
+            const itemInfos = {
+              prenom: item.prenom,
+              coordonneesGPS: item.lastPosition,
+              settings: item.userActions,
+              connected: item.isConnected,
+              uri: item.avatarUri,
+            }
+            usersGeoloc.push(itemInfos);
           }
-          usersGeoloc.push(itemInfos);
         }
+        //console.log('store:', persistStore.AsyncStorage)
+        console.log('users:', usersGeoloc);
+        setDataArray(usersGeoloc);
+        //let favUsers = data.filter(user.email)
       }
-      console.log('store:', persistStore.AsyncStorage)
-      //console.log('users:', usersGeoloc);
+    })
+  }
 
-      //maper sur la data du store pour afficher les helpers disponibles
-      const helpers = usersGeoloc.map((data, i) => {
-        //console.log('maping data:', data);
+  setInterval(helpersMaping, 30000);
 
-        //calculer la distance
-        const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
-        console.log('distance:',eloignement);
-        return (
-          <TouchableOpacity key={i} style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-            <View style={styles.leftContent}>
-              <Image source={PlaceholderImage} style={styles.profilePic}></Image>
-              <View style={styles.middleContent}>
-                <Text style={styles.name}>${data.prenom}</Text>
-                <Text style={styles.description}>accueillir: ${data.settings.hebergement}, transporter: ${data.settings.transport}, accompagner: ${data.settings.accompagnementDistance}</Text>
-                <Text style={styles.distance}>${eloignement}</Text>
-              </View>
+  
+  //maper sur la data du store pour afficher les helpers disponibles
+  const helpers = dataArray.map((data, i) => {
+    console.log('maping data:', data);
+
+
+    //calculer la distance
+    const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
+    console.log('distance:',eloignement, data.connected);
+    return (
+      <TouchableOpacity key={i} style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+        <View style={styles.leftContent}>
+          <Image source={{ uri: `${data.uri}` }} style={styles.profilePic}></Image>
+        </View>
+        <View style={styles.middleContent}>
+          <Text style={styles.name}>{data.prenom}</Text>
+          <View style={styles.settingsContent}>
+            <Text style={styles.description}>accueillir:           </Text>
+            <FontAwesome name="circle" size={20} color={data.settings.hebergement? '#5CA4A9': "#E4513D"} />
+          </View>
+          <View style={styles.settingsContent}>
+            <Text style={styles.description}>transporter:       </Text>
+            <FontAwesome name="circle" size={20} color={data.settings.transport? '#5CA4A9': "#E4513D"} />
+          </View>
+          <View style={styles.settingsContent}>
+            <Text style={styles.description}>accompagner:  </Text>
+            <FontAwesome name="circle" size={20} color={data.settings.accompagnementDistance? '#5CA4A9': "#E4513D"} />
+          </View>
+        </View>
+        <View style={styles.rightContent}>
+          <View style={styles.iconsContent}>
+            <View style={styles.isFavorite}>
+              <FontAwesome name="heart" size={20} color={data.connected? '#E4513D': "#EAE2B7"} />
             </View>
-            <View style={styles.rightContent}>
-              <View style={styles.isFavorite}>
-                <FontAwesome name="heart" size={20} color="#ec6e5b" />
-              </View>
-              <View style={styles.isConnected}>
-                <FontAwesome name="circle" size={20} color="#5CA4A9" />
-              </View>
-            </View>
-          </TouchableOpacity>
-        );
-      });
-    }
-  })
+            <FontAwesome name="circle" size={20} color={data.connected? '#5CA4A9': "#E4513D"} />
+          </View>
+          <Text style={styles.distance}>{eloignement}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  });
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -171,25 +192,7 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
-      
-      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-          <View style={styles.leftContent}>
-            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
-            <View style={styles.middleContent}>
-              <Text style={styles.name}>X</Text>
-              <Text style={styles.description}>accueillir: v, transporter: v, accompagner: v</Text>
-              <Text style={styles.distance}>x km</Text>
-            </View>
-          </View>
-          <View style={styles.rightContent}>
-            <View style={styles.isFavorite}>
-              <FontAwesome name="heart" size={20} color="#ec6e5b" />
-            </View>
-            <View style={styles.isConnected}>
-              <FontAwesome name="circle" size={20} color="#5CA4A9" />
-            </View>
-          </View>
-        </TouchableOpacity>
+      {helpers}
     </KeyboardAvoidingView>
     
   );
@@ -197,7 +200,7 @@ export default function HelperLocatorScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
       backgroundColor: '#ffffff',
       alignItems: 'center',
       justifyContent: 'flex-start',
@@ -247,33 +250,28 @@ const styles = StyleSheet.create({
       width: "92%",
     },
     cardContent: {
-      width: "100%",
-      height: 70,
+      width: "92%",
+      height: 100,
       marginTop: 5,
       marginBottom: 5,
       backgroundColor: "white",
       flexDirection: "row",
       alignItems: 'center',
-      justifyContent: 'center',
-    },
-    middleContent: {
-      marginLeft: 15,
-      color: '#33355C'
+      justifyContent: 'space-around',
     },
     leftContent: {
       flexDirection: "row",
       alignItems: "center",
-    },
-    rightContent: {
-      flexDirection: "row",
-      marginLeft: 140,
-      alignItems: 'center',
-      marginBottom: 20,
+      paddingLeft: 25,
     },
     profilePic: {
       width: 40,
       height: 40,
       borderRadius: 50,
+    },
+    middleContent: {
+      marginLeft: 50,
+      color: '#33355C'
     },
     name: {
       fontSize: 20,
@@ -285,12 +283,25 @@ const styles = StyleSheet.create({
       color: "#33355C",
       fontFamily: 'Raleway',
     },
+    settingsContent: {
+      flexDirection: 'row',
+    },
+    rightContent: {
+      marginLeft: 80,
+      marginRight: 20,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    },
+    iconsContent: {
+      flexDirection: 'row',
+    },
+    isFavorite: {
+      marginRight: 20,
+    },
     distance: {
       fontSize: 16,
       color: "#33355C",
       fontFamily: 'Raleway',
+      paddingTop: 35,
     },
-    isFavorite: {
-      marginRight: 20,
-    }
 });
