@@ -14,6 +14,7 @@ import { useFonts } from '@use-expo/font';
 //imports cards
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import persistStore from 'redux-persist/es/persistStore';
+import data from '../../assets/data';
 const PlaceholderImage = require("../../assets/Vector.png");
 
 export default function HelperLocatorScreen({ navigation }) {
@@ -27,6 +28,7 @@ export default function HelperLocatorScreen({ navigation }) {
 
   const [currentPosition, setCurrentPosition] = useState(null);
   const [dataArray, setDataArray] = useState([]);
+  const [likedHelpers, setLikedHelpers] = useState([]);
 
   //calcul d'une distance en km
   function distance(latHelper, lonHelper, latRequest, lonRequest) {
@@ -92,7 +94,7 @@ export default function HelperLocatorScreen({ navigation }) {
     })();
   }, []);
 
-  const helpersMaping = () => {
+  const fetchData = () => {
     //récupération des infos des helpers autour
     fetch(`http://${IP}:3000/users`)
     .then((response) => response.json())
@@ -105,11 +107,13 @@ export default function HelperLocatorScreen({ navigation }) {
           if ((item.isAvailable) && (item.email != user.email)) {
             //récupération des infos utiles
             const itemInfos = {
+              email: item.email,
               prenom: item.prenom,
               coordonneesGPS: item.lastPosition,
               settings: item.userActions,
               connected: item.isConnected,
               uri: item.avatarUri,
+              favorites: item.favouritesHelpers,
             }
             usersGeoloc.push(itemInfos);
           }
@@ -117,18 +121,35 @@ export default function HelperLocatorScreen({ navigation }) {
         //console.log('store:', persistStore.AsyncStorage)
         console.log('users:', usersGeoloc);
         setDataArray(usersGeoloc);
-        //let favUsers = data.filter(user.email)
       }
     })
   }
 
-  setInterval(helpersMaping, 30000);
-
+  //Appelle fetchData toutes les 30 secondes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchData();
+    }, 30000);
   
-  //maper sur la data du store pour afficher les helpers disponibles
+    return () => clearInterval(interval);
+  }, []);
+
+  //récupérer les Helpers favoris
+  let likedHelpersFromDb = dataArray.filter((e) => e.email === user.email)[0];
+  console.log('likedHelpersFromDb:', likedHelpersFromDb);
+
+  // Like or dislike helper
+  const updateLikedHelpers = () => {
+    if (likedHelpers.find(helper => helper.email === data.email)) {
+      setLikedHelpers(likedHelpers.filter(helper => helper.email !== data.email));
+    } else {
+      setLikedHelpers([...likedHelpers, data.email]);
+    }
+  };
+
+  //maper sur la data pour afficher les helpers disponibles dans les cards
   const helpers = dataArray.map((data, i) => {
     console.log('maping data:', data);
-
 
     //calculer la distance
     const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
@@ -166,8 +187,10 @@ export default function HelperLocatorScreen({ navigation }) {
     );
   });
 
-  //maper sur la data du store pour afficher les helpers disponibles sur la carte
+  //maper sur la data pour afficher les helpers disponibles sur la carte avec un marker
   const markers = dataArray.map((data, i) => {
+
+    //affichage du marker sur la carte
     return <Marker key={i} coordinate={{ latitude: data.coordonneesGPS.latitude, longitude: data.coordonneesGPS.longitude }} title={data.prenom} pinColor="#E4513D"/>;
   });
 
@@ -195,7 +218,6 @@ export default function HelperLocatorScreen({ navigation }) {
         latitudeDelta: 0.05,
         longitudeDelta: 0.05,
       }} 
-    
       style={styles.map}>
         {markers}
       </MapView>}
