@@ -127,7 +127,7 @@ export default function HomeScreen({ navigation }) {
       }
     })();
   }, []);
-
+  // handle click on notification
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
   useEffect(() => {
     if (lastNotificationResponse) {
