@@ -44,6 +44,15 @@ export const userSlice = createSlice({
             state.value.avatarUri = action.payload.avatarUri;
             console.log('reducer login:',action.payload);
         },
+        setHelperSettings: (state, action) => {
+            state.value.isAvailable = action.payload.isAvailable;
+            state.value.isReadyToAssist = action.payload.isReadyToAssist;
+            state.value.isReadyToAccomodate = action.payload.isReadyToAccomodate;
+            state.value.isReadyToLift = action.payload.isReadyToLift;
+            state.value.isReadyToMove = action.payload.isReadyToMove;
+            state.value.mustComeToMe = action.payload.mustComeToMe;
+            console.log('reducer helpersettings:', action.payload)
+        },
         handleAvailable: (state, action) => {
             state.value.isAvailable = action.payload.isAvailable;
             console.log('isAvailable reducer:' , action.payload);
@@ -53,7 +62,7 @@ export const userSlice = createSlice({
             console.log('isReadyToAccomodate reducer:' , action.payload);
         },
         handleReadyToLift: (state, action) => {
-            state.value.isAvailable = action.payload.isReadyToLift;
+            state.value.isReadyToLift = action.payload.isReadyToLift;
             console.log('isReadyToLift reducer:' , action.payload);
         },
         handleReadyToAssist: (state, action) => {
@@ -76,5 +85,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, handleReadyToMove, handleComeToMe, addSelfie } = userSlice.actions;
+export const { login, setHelperSettings, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, handleReadyToMove, handleComeToMe, addSelfie } = userSlice.actions;
 export default userSlice.reducer;

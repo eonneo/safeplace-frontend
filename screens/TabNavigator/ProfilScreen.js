@@ -14,7 +14,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, handleReadyToMove, handleComeToMe } from '../../reducers/users';
+import {login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, handleReadyToMove, handleComeToMe } from '../../reducers/users';
 
 import { useFonts } from '@use-expo/font';
 
@@ -33,12 +33,12 @@ export default function SettingsScreen({ navigation }) {
   const dispatch = useDispatch();
 
   // Controle des switchs
-  const [isAvailable, setIsAvailable] = useState(false);
-  const [isReadyToAccomodate, setisReadyToAccomodate] = useState(false);
-  const [isReadyToLift, setisReadyToLift] = useState(false);
-  const [isReadyToAssist, setisReadyToAssist] = useState(false);
-  const [isReadyToMove, setisReadyToMove] = useState(false);
-  const [mustComeToMe, setMustComeToMe] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(user.isAvailable);
+  const [isReadyToAccomodate, setisReadyToAccomodate] = useState(user.isReadyToAccomodate);
+  const [isReadyToLift, setisReadyToLift] = useState(user.isReadyToLift);
+  const [isReadyToAssist, setisReadyToAssist] = useState(user.isReadyToAssist);
+  const [isReadyToMove, setisReadyToMove] = useState(user.isReadyToMove);
+  const [mustComeToMe, setMustComeToMe] = useState(user.mustComeToMe);
   console.log(isAvailable)
 
   const handleIsAvailable = () => {
@@ -135,6 +135,24 @@ export default function SettingsScreen({ navigation }) {
         }
 
       })
+  }
+
+  const handleLogout = () => {
+    console.log('btnlogout')
+    console.log(user)
+
+     //  update isconnecte in database
+    fetch(`http://${IP}:3000/users/isconnected`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email, isConnected: false }),
+  }).then(response => response.json())
+      .then(updateStatus => {
+          console.log('status isConnected à jour en bdd : user logged out')
+          dispatch(login({isConnected : false, email: user.email, prenom: user.prenom}))
+          navigation.navigate('Carrousel')
+      })
+    
   }
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -238,6 +256,9 @@ export default function SettingsScreen({ navigation }) {
             <FontAwesome name='trophy' size={40} color='#FFA647' />
           </View>
         </View>
+        <TouchableOpacity style={styles.disconnectButton} activeOpacity={0.9} onPress={() => handleLogout()}>
+            <Text style={styles.disconnectText}>Se déconnecter</Text>
+          </TouchableOpacity>
       </SafeAreaView>
     </ScrollView>
   );
@@ -356,5 +377,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     margin: 10,
     width: '70%',
+  },
+  disconnectButton: {
+    marginTop: 20,
+    marginBottom: 20,
+    width: 176,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: "#E4513D",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf:'center'
+  },
+  disconnectText: {
+    color: "#FFFFFF",
+    fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });

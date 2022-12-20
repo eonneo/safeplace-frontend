@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import { login } from '../../reducers/users';
+import { login, setHelperSettings } from '../../reducers/users';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useFonts } from '@use-expo/font';
@@ -36,8 +36,20 @@ export default function SigninScreen({ navigation }) {
                     }
                     console.log('loginInfos:', loginInfos)
 
+                    const helperSettings = {
+                        isAvailable : userData.userInfos.isAvailable,
+                        isReadyToAssist : userData.userInfos.userActions.accompagnementDistance,
+                        isReadyToAccomodate: userData.userInfos.userActions.hebergement,
+                        isReadyToLift: userData.userInfos.userActions.transport,
+                        isReadyToMove: userData.userInfos.userActions.aller,
+                        mustComeToMe: userData.userInfos.userActions.venir,
+                    }
+                    console.log('helperSettings:', helperSettings)
+                    
+
                     // reducer user => isconnecte mail et prenom
                     dispatch(login(loginInfos))
+                    dispatch(setHelperSettings(helperSettings))
 
                     //  update isconnecte in database
                     fetch(`http://${IP}:3000/users/isconnected`, {

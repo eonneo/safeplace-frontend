@@ -22,7 +22,6 @@ import HomeScreen from './screens/TabNavigator/HomeScreen';
 import RessourcesScreen from './screens/TabNavigator/RessourcesScreen';
 import PoliceScreen from './screens/TabNavigator/PoliceScreen';
 import ProfilScreen from './screens/TabNavigator/ProfilScreen';
-import SettingsScreen from './screens/TabNavigator/SettingsScreen';
 import HelperLocatorScreen from './screens/HelpRequest/HelperLocatorScreen';
 import HelperConfirmRequestScreen from './screens/HelpRequest/HelperConfirmRequestScreen';
 import ChatScreen from './screens/HelpRequest/ChatScreen';
@@ -84,9 +83,7 @@ export default function App() {
           } 
           else if (route.name === 'Profil') {
             iconName = 'user';
-          } else if (route.name === 'Settings') {
-            iconName = 'gear';
-          } 
+          }
   
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
@@ -98,7 +95,7 @@ export default function App() {
         <Tab.Screen name="Ressources" component={RessourcesScreen} />
         <Tab.Screen name="Police" component={PoliceScreen} />
         <Tab.Screen name="Profil" component={ProfilScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        
 
   
       </Tab.Navigator>
@@ -138,7 +135,6 @@ export default function App() {
             <Stack.Screen name="HelperContact" component={HelperContactScreen}  />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="ProfilStack" component={ProfilScreen} />
-            <Stack.Screen name="SettingsStack" component={SettingsScreen} />
             <Stack.Screen name="EmergencyNumbScreen" component={EmergencyNumbScreen} />
 
           </Stack.Navigator>
