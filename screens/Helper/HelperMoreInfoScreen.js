@@ -244,7 +244,6 @@ const styles = StyleSheet.create({
     width: '90%',
     flexDirection: 'column',
     justifyContent: 'center',
-
   },
 
   optionhelpcontainer: {
