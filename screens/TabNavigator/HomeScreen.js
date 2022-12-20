@@ -88,7 +88,11 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <Text style={styles.title1}>Bonjour {user.prenom}</Text>
+      
+         <Text style={styles.title1}>Bonjour {user.prenom}</Text>
+          <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelpermoreInfo')}>
+       <Text style={styles.textButton}>naviguer vers Helper screens</Text>
+     </TouchableOpacity>
           <Text style={styles.title2}>{totalUsers} utilisateurs autour de toi</Text>
           <Text style={styles.title2}>Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place</Text>
           <Image source={homePic} style={styles.homePic}></Image>
@@ -104,12 +108,7 @@ export default function HomeScreen({ navigation }) {
         </LinearGradient>
       </TouchableOpacity>
     
-    <View style={styles.containerButton} >
-      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelpermoreInfo')}>
-       <Text style={styles.textButton}>naviguer vers Helper screens</Text>
-     </TouchableOpacity>
-     
-     </View>
+    
         </KeyboardAvoidingView>
     );
 }
