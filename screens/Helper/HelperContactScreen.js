@@ -47,7 +47,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
       <View style={styles.topContainer}>
         <View>
-          <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
+          <Text style={styles.profilName}>Bonjour {user.prenom}</Text>
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
@@ -57,7 +57,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
       </View>
       <View style={styles.textNotification}>
-        <Text style={styles.title}>Garde le contact avec Jane, avant de la retrouver</Text>
+        <Text style={styles.title}>Garde le contact avec Jane avant de la retrouver.</Text>
       </View>
 
 
@@ -79,7 +79,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
       <View style={styles.messagerieContainer}>
         <Image source={PlaceholderImage} style={styles.profilePic} />
-        <Text style={styles.textDistance}> Messagerie</Text>
+        <Text style={styles.textDistance}>Messagerie</Text>
       </View>
       <View style={styles.lineStyle} />
 
@@ -87,7 +87,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
       <View style={styles.buttonsContainer} >
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Home")}>
-          <Text style={styles.textButton}>retour vers Home</Text>
+          <Text style={styles.textButton}>Home page</Text>
         </TouchableOpacity>
       </View>
 
@@ -100,22 +100,21 @@ export default function HelperMoreInfoScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 20,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
 
   topContainer: {
-    flex: 1,
     alignItems: 'center',
     marginTop: 10,
-    // backgroundColor: 'brown',
     width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
 
-   profilePic: {
+  profilePic: {
     width: 40,
     height: 40,
     borderRadius: 50,
@@ -129,8 +128,6 @@ const styles = StyleSheet.create({
   },
 
   textNotification: {
-    //backgroundColor: 'red',
-    flex: 1,
     textAlign: 'center',
     width: '90%',
     alignItems: 'center',
@@ -147,14 +144,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway',
   },
 
- map: {
+  map: {
     flex: 1,
     width: '90%',
   },
 
   mapContainer: {
-    flex: 3,
-    //backgroundColor: 'blue',
+    flex: 6,
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
@@ -162,11 +158,10 @@ const styles = StyleSheet.create({
 
   messagerieContainer: {
     flexDirection: 'row',
-    flex: 1,
-    //backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
+    marginTop: 30,
   },
 
   textDistance: {
@@ -187,29 +182,26 @@ const styles = StyleSheet.create({
 
   buttonsContainer: {
     flex: 4,
-    // backgroundColor: "pink",
     width: '90%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "flex-end",
+    marginBottom: 20,
   },
 
   button: {
     width: '45%',
-    marginTop: 10,
     height: 48,
     borderRadius: 10,
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 70,
   },
 
   textButton: {
-    color: '#ffffff',
-    height: 24,
-    fontWeight: '600',
-    fontSize: 16,
+    color: "#FFFFFF",
     fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    fontSize: 20,
   },
-   
+
 });
