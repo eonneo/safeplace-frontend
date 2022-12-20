@@ -86,7 +86,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
         </MapView>}
       </View>
 
-      <Text style={styles.textDistance}> Distance: 300 mètres</Text>
+      <Text style={styles.textDistance}> Distance : 300 mètres</Text>
 
       <ScrollView style={styles.scroll}>
         <View style={styles.switchContainer}>
@@ -270,7 +270,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    // marginBottom: 70,
   },
 
   button2: {
@@ -281,17 +280,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    // marginBottom: 70,
-    opacity: 0.5,
+    opacity: 0.8,
   },
 
 
   buttonsContainer: {
-    // flex: 1,
     flexDirection: 'row',
     width: '90%',
     alignSelf: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20
   },
@@ -300,6 +297,6 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontFamily: 'OpenSans',
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 20,
   },
 }); 
