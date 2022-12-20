@@ -26,6 +26,7 @@ export default function HelperLocatorScreen({ navigation }) {
   console.log('reducer user:', user, 'reducer location:', position);
 
   const [currentPosition, setCurrentPosition] = useState(null);
+  const [dataArray, setDataArray] = useState([]);
 
   //calcul d'une distance en km
   function distance(latHelper, lonHelper, latRequest, lonRequest) {
@@ -91,59 +92,70 @@ export default function HelperLocatorScreen({ navigation }) {
     })();
   }, []);
 
-  //récupération des infos des helpers autour
-  fetch(`http://${IP}:3000/users`)
-  .then((response) => response.json())
-  .then((data) => {
-    if (data) {
-      //console.log('data:', data);
-      let usersGeoloc= [];
-      for (let item of data) {
-        //tri sur les helpers disponibles
-        if ((item.isAvailable) && (item.email != user.email)) {
-          //récupération des infos utiles
-          const itemInfos = {
-            prenom: item.prenom,
-            coordonneesGPS: item.lastPosition,
-            settings: item.userActions,
-            connected: item.isConnected,
+  const helpersMaping = () => {
+    //récupération des infos des helpers autour
+    fetch(`http://${IP}:3000/users`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        //console.log('data:', data);
+        let usersGeoloc = [];
+        for (let item of data) {
+          //tri sur les helpers disponibles
+          if ((item.isAvailable) && (item.email != user.email)) {
+            //récupération des infos utiles
+            const itemInfos = {
+              prenom: item.prenom,
+              coordonneesGPS: item.lastPosition,
+              settings: item.userActions,
+              connected: item.isConnected,
+            }
+            usersGeoloc.push(itemInfos);
           }
-          usersGeoloc.push(itemInfos);
         }
+        //console.log('store:', persistStore.AsyncStorage)
+        console.log('users:', usersGeoloc);
+        setDataArray(usersGeoloc);
       }
-      console.log('store:', persistStore.AsyncStorage)
-      //console.log('users:', usersGeoloc);
+    })
+  }
 
-      //maper sur la data du store pour afficher les helpers disponibles
-      const helpers = usersGeoloc.map((data, i) => {
-        //console.log('maping data:', data);
+  setInterval(helpersMaping, 30000);
 
-        //calculer la distance
-        const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
-        console.log('distance:',eloignement);
-        return (
-          <TouchableOpacity key={i} style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-            <View style={styles.leftContent}>
-              <Image source={PlaceholderImage} style={styles.profilePic}></Image>
-              <View style={styles.middleContent}>
-                <Text style={styles.name}>${data.prenom}</Text>
-                <Text style={styles.description}>accueillir: ${data.settings.hebergement}, transporter: ${data.settings.transport}, accompagner: ${data.settings.accompagnementDistance}</Text>
-                <Text style={styles.distance}>${eloignement}</Text>
-              </View>
-            </View>
-            <View style={styles.rightContent}>
-              <View style={styles.isFavorite}>
-                <FontAwesome name="heart" size={20} color="#ec6e5b" />
-              </View>
-              <View style={styles.isConnected}>
-                <FontAwesome name="circle" size={20} color="#5CA4A9" />
-              </View>
-            </View>
-          </TouchableOpacity>
-        );
-      });
-    }
-  })
+  
+  //maper sur la data du store pour afficher les helpers disponibles
+  const helpers = dataArray.map((data, i) => {
+    console.log('maping data:', data);
+
+    let iconColor = "#E4513D"
+  if (data.settings.connected) {
+    iconColor = '#5CA4A9'
+  }
+
+    //calculer la distance
+    const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
+    console.log('distance:',eloignement);
+    return (
+      <TouchableOpacity key={i} style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+        <View style={styles.leftContent}>
+          <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+          <View style={styles.middleContent}>
+            <Text style={styles.name}>{data.prenom}</Text>
+            <Text style={styles.description}>accueillir: {data.settings.hebergement}, transporter: {data.settings.transport}, accompagner: {data.settings.accompagnementDistance}</Text>
+            <Text style={styles.distance}>{eloignement}</Text>
+          </View>
+        </View>
+        <View style={styles.rightContent}>
+          <View style={styles.isFavorite}>
+            <FontAwesome name="heart" size={20} color="#ec6e5b" />
+          </View>
+          <View style={styles.isConnected}>
+          {data.settings.connected || <FontAwesome name="circle" size={20} color={iconColor} />}
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  });
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -171,25 +183,7 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
-      
-      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-          <View style={styles.leftContent}>
-            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
-            <View style={styles.middleContent}>
-              <Text style={styles.name}>X</Text>
-              <Text style={styles.description}>accueillir: v, transporter: v, accompagner: v</Text>
-              <Text style={styles.distance}>x km</Text>
-            </View>
-          </View>
-          <View style={styles.rightContent}>
-            <View style={styles.isFavorite}>
-              <FontAwesome name="heart" size={20} color="#ec6e5b" />
-            </View>
-            <View style={styles.isConnected}>
-              <FontAwesome name="circle" size={20} color="#5CA4A9" />
-            </View>
-          </View>
-        </TouchableOpacity>
+      {helpers}
     </KeyboardAvoidingView>
     
   );
@@ -292,5 +286,5 @@ const styles = StyleSheet.create({
     },
     isFavorite: {
       marginRight: 20,
-    }
+    },
 });
