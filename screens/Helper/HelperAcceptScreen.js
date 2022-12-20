@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HelperConfirmationScreen({ navigation }) {
-  const PlaceholderImage = require("../../assets/Vector.png");
+  
 
 
   //récupérer les données du store
@@ -23,11 +23,11 @@ export default function HelperConfirmationScreen({ navigation }) {
       
       <View style={styles.topContainer}>
         <View>
-          <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
+          <Text style={styles.profilName}>Bonjour {user.prenom}</Text>
         </View>
         <View>
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-          <Image source={PlaceholderImage} style={styles.profilePic} />
+          <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic} />
           </TouchableOpacity>
         </View>
       </View>
@@ -67,8 +67,9 @@ const styles = StyleSheet.create({
   },
 
   profilePic: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
 
   profilName: {
@@ -103,22 +104,22 @@ const styles = StyleSheet.create({
   },
  
   button: {
-    width: '45%',
+    width: 176,
     marginTop: 10,
     height: 48,
     borderRadius: 10,
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 70,
+    // marginBottom: 70,
   },
  
   textButton: {
-    color: '#ffffff',
-    height: 24,
-    fontWeight: '600',
-    fontSize: 16,
-    fontFamily: 'OpenSans',
+    color: "#FFFFFF",
+        fontFamily: 'OpenSans',
+        fontWeight: "bold",
+        fontSize: 20,
+        textAlign: 'center',
   },
 
 

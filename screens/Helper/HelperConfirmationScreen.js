@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: '45%',
+    minWidth: '45%',
     marginBottom: 20,
     height: 48,
     borderRadius: 10,
@@ -120,11 +120,10 @@ const styles = StyleSheet.create({
   },
 
   textButton: {
-    color: '#ffffff',
-    height: 24,
-    fontWeight: '600',
-    fontSize: 16,
+    color: "#FFFFFF",
     fontFamily: 'OpenSans',
+    fontWeight: "bold",
+    fontSize: 20,
 
   },
 
