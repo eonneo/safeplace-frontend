@@ -141,16 +141,16 @@ export default function HelperLocatorScreen({ navigation }) {
         <View style={styles.middleContent}>
           <Text style={styles.name}>{data.prenom}</Text>
           <View style={styles.settingsContent}>
-            <Text style={styles.description}>accueillir:           </Text>
-            <FontAwesome name="circle" size={20} color={data.settings.hebergement? '#5CA4A9': "#E4513D"} />
+            <FontAwesome name="circle" style={styles.circles} color={data.settings.hebergement? '#5CA4A9': "#E4513D"} />
+            <Text style={styles.description}>Accueillir</Text>
           </View>
           <View style={styles.settingsContent}>
-            <Text style={styles.description}>transporter:       </Text>
-            <FontAwesome name="circle" size={20} color={data.settings.transport? '#5CA4A9': "#E4513D"} />
+            <FontAwesome name="circle" style={styles.circles} color={data.settings.transport? '#5CA4A9': "#E4513D"} />
+            <Text style={styles.description}>Transporter</Text>
           </View>
           <View style={styles.settingsContent}>
-            <Text style={styles.description}>accompagner:  </Text>
-            <FontAwesome name="circle" size={20} color={data.settings.accompagnementDistance? '#5CA4A9': "#E4513D"} />
+            <FontAwesome name="circle" style={styles.circles} color={data.settings.accompagnementDistance? '#5CA4A9': "#E4513D"} />
+            <Text style={styles.description}>Accompagner</Text>
           </View>
         </View>
         <View style={styles.rightContent}>
@@ -164,6 +164,11 @@ export default function HelperLocatorScreen({ navigation }) {
         </View>
       </TouchableOpacity>
     );
+  });
+
+  //maper sur la data du store pour afficher les helpers disponibles sur la carte
+  const markers = dataArray.map((data, i) => {
+    return <Marker key={i} coordinate={{ latitude: data.coordonneesGPS.latitude, longitude: data.coordonneesGPS.longitude }} title={data.prenom} pinColor="#E4513D"/>;
   });
 
   const [isLoaded] = useFonts({
@@ -191,6 +196,7 @@ export default function HelperLocatorScreen({ navigation }) {
       }} 
     
       style={styles.map}>
+        {markers}
       </MapView>}
       {helpers}
     </KeyboardAvoidingView>
@@ -278,10 +284,15 @@ const styles = StyleSheet.create({
       color: "#5CA4A9",
       fontFamily: 'Raleway',
     },
+    circles: {
+      fontSize: 20,
+      paddingTop: 4,
+    },
     description: {
       fontSize: 16,
       color: "#33355C",
       fontFamily: 'Raleway',
+      paddingLeft: 10,
     },
     settingsContent: {
       flexDirection: 'row',
