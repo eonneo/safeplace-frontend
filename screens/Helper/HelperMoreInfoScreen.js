@@ -173,13 +173,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
+    height: '100%',
     backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   topContainer: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     marginTop: 10,
     width: '90%',
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
   },
 
   containerTextNotification: {
-    flex: 1,
+    // flex: 1,
   },
 
   title: {
@@ -240,6 +241,9 @@ const styles = StyleSheet.create({
   switchContainer: {
     alignSelf: 'center',
     width: '90%',
+    // height: '40%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   optionhelpcontainer: {
@@ -265,7 +269,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 70,
+    // marginBottom: 70,
   },
 
   button2: {
@@ -276,17 +280,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 70,
+    // marginBottom: 70,
     opacity: 0.5,
   },
 
 
   buttonsContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     width: '90%',
-    alignItems: 'center',
+    alignSelf: 'center',
+    alignItems:'center',
     justifyContent: 'space-between',
+    marginBottom: 20
   },
 
   textButton: {
