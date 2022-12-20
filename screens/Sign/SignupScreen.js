@@ -2,6 +2,7 @@ import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoid
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRestSignupFields } from '../../reducers/signup';
+import { login } from '../../reducers/users';
 import DateField from 'react-native-datefield';
 
 import { useFonts } from '@use-expo/font';
@@ -30,6 +31,7 @@ export default function SignupScreen({ navigation }) {
       email: email,
       password: password,
       prenom: prenom,
+      isConnected: true,
       nom: nom,
       naissance: naissance,
       telephone: telephone,
@@ -49,6 +51,7 @@ export default function SignupScreen({ navigation }) {
         if (user.result) {
           console.log('okposted')
           dispatch(getRestSignupFields(userInfos))
+          dispatch(login(userInfos))
           navigation.navigate('Upload')
         }else{
           console.log('email already exist')

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,52 +11,71 @@ import {
 } from "react-native";
 import { useFonts } from "@use-expo/font";
 import { useSelector } from "react-redux";
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Pusher from "pusher-js/react-native";
 import IP from "../../IPAdress";
+
+const pusher = new Pusher("66ce8f54593d65620bf6", { cluster: "eu" });
 
 export default function ChatScreen({ navigation, route: { params } }) {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState("");
 
-//   useEffect(() => {
-//     fetch(`http://${IP}:3000/users/${params.username}`, { method: "PUT" });
 
-//     const subscription = pusher.subscribe("chat");
-//     subscription.bind("pusher:subscription_succeeded", () => {
-//       subscription.bind("message", handleReceiveMessage);
-//     });
 
-//     return () =>
-//       fetch(`${BACKEND_ADDRESS}/users/${params.username}`, {
-//         method: "DELETE",
-//       });
-//   }, [params.username]);
+  const scrollViewRef = useRef(null);
+  const user = useSelector((state) => state.user.value);
 
-//   const handleReceiveMessage = (data) => {
-//     setMessages((messages) => [...messages, data]);
-//   };
+  useEffect(() => {
+    fetch(`http://${IP}:3000/users/${user.token}`, { method: "PUT" });
+    
+    fetch(`http://${IP}:3000/users/message`)
+    .then (res => res.json())
+    .then(data=> setMessages(data.splice(-20)))
 
-//   const handleSendMessage = () => {
-//     if (!messageText) {
-//       return;
-//     }
+    const subscription = pusher.subscribe("chat");
+    subscription.bind("pusher:subscription_succeeded", () => {
+      subscription.bind("message", handleReceiveMessage);
+    });
 
-//     const payload = {
-//       text: messageText,
-//       username: params.username,
-//       createdAt: new Date(),
-//       id: Math.floor(Math.random() * 100000),
-//     };
+    return () =>
+      fetch(`http://${IP}:3000/users/${user.token}`, {
+        method: "DELETE",
+      });
+  }, [user.token]);
 
-//     fetch(`${BACKEND_ADDRESS}/message`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(payload),
-//     });
+  const goBack = () => {
+    pusher.unsubscribe("chat");
+    navigation.goBack();
+  };
 
-//     setMessageText("");
-//   };
+  const handleReceiveMessage = (data) => {
+    setMessages((messages) => [...messages, data]);
+  };
+
+  const handleSendMessage = () => {
+    if (!messageText) {
+      return;
+    }
+
+    const payload = {
+      token: user.token,
+      text: messageText,
+      prenom: user.prenom,
+      createdAt: new Date(),
+      id: Math.floor(Math.random() * 100000),
+    };
+
+    fetch(`http://${IP}:3000/users/message`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    setMessageText("");
+  };
+
+
 
   return (
     <KeyboardAvoidingView
@@ -68,30 +87,37 @@ export default function ChatScreen({ navigation, route: { params } }) {
           name="keyboard-backspace"
           color="#ffffff"
           size={24}
-          onPress={() => navigation.goBack()}
+          onPress={() => goBack()}
         />
-        <Text style={styles.greetingText}>Welcome 👋</Text>
+        <Text style={styles.greetingText}>Welcome {user.prenom} 👋</Text>
       </View>
 
       <View style={styles.inset}>
-        <ScrollView style={styles.scroller}>
+        <ScrollView
+          style={styles.scroller}
+          ref={scrollViewRef}
+          onContentSizeChange={() => {
+            scrollViewRef.current.scrollToEnd();
+          }}
+        >
           {messages.map((message, i) => (
             <View
               key={i}
               style={[
                 styles.messageWrapper,
                 {
-                  ...(message.username === params.username
+                  ...(message.prenom === user.prenom
                     ? styles.messageSent
                     : styles.messageRecieved),
                 },
               ]}
             >
+              <Text style={styles.nameText}>{message.prenom}</Text>
               <View
                 style={[
                   styles.message,
                   {
-                    ...(message.username === params.username
+                    ...(message.prenom === user.prenom
                       ? styles.messageSentBg
                       : styles.messageRecievedBg),
                   },
@@ -140,7 +166,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: "#F5F7F3",
+    // opacity: 0.9,
     width: "100%",
     paddingTop: 20,
     position: "relative",
@@ -150,7 +177,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 4,
     borderRightWidth: 0.1,
     borderLeftWidth: 0.1,
-    
   },
   banner: {
     width: "100%",
@@ -176,7 +202,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
     maxWidth: "65%",
-    shadowColor: "#000",
+    shadowColor: "#000#",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -190,18 +216,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   messageRecieved: {
-    alignSelf: "flex-end",
-    alignItems: "flex-end",
-  },
-  messageSent: {
     alignSelf: "flex-start",
     alignItems: "flex-start",
   },
+  messageSent: {
+    alignSelf: "flex-end",
+    alignItems: "flex-end",
+  },
   messageSentBg: {
-    backgroundColor: "#ffad99",
+    backgroundColor: "#FFA647",
   },
   messageRecievedBg: {
-    backgroundColor: "#d6fff9",
+    backgroundColor: "#EAE2B7",
   },
   messageText: {
     color: "#506568",
@@ -226,7 +252,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   input: {
-    backgroundColor: "#E6EBE0",
+    backgroundColor: "white",
     width: "80%",
     padding: 14,
     borderRadius: 30,
@@ -263,5 +289,12 @@ const styles = StyleSheet.create({
   scroller: {
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  nameText: {
+    color: "#506568",
+    opacity: 0.5,
+    fontSize: 12,
+    marginTop: 2,
+    // marginRight: 30,
   },
 });

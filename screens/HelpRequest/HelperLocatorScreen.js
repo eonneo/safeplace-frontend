@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { addPosition, deletePosition } from '../../reducers/geolocation'
+
+import { addPosition, deletePosition } from '../../reducers/geolocation';
 
 import IP from "../../IPAdress";
 
@@ -12,6 +13,7 @@ import { useFonts } from '@use-expo/font';
 
 //imports cards
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import persistStore from 'redux-persist/es/persistStore';
 const PlaceholderImage = require("../../assets/Vector.png");
 
 export default function HelperLocatorScreen({ navigation }) {
@@ -20,8 +22,33 @@ export default function HelperLocatorScreen({ navigation }) {
 
   //récupérer les données du store
   const user = useSelector((state) => state.user.value);
+  const position = useSelector((state) => state.location.value);
+  console.log('reducer user:', user, 'reducer location:', position);
 
   const [currentPosition, setCurrentPosition] = useState(null);
+
+  //calcul d'une distance en km
+  function distance(latHelper, lonHelper, latRequest, lonRequest) {
+    if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
+      return 0;
+    }
+    else {
+      const radlatHelper = Math.PI * latHelper/180;
+      const radlatRequest = Math.PI * latRequest/180;
+      const theta = lonHelper-lonRequest;
+      const radtheta = Math.PI * theta/180;
+      const dist = Math.sin(radlatHelper) * Math.sin(radlatRequest) + Math.cos(radlatHelper) * Math.cos(radlatRequest) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      let dist1 = Math.acos(dist);
+      let dist2 = dist1 * 180/Math.PI;
+      let dist3 = dist2 * 60 * 1.1515;
+      let dist4 = dist3 * 1.609344;
+      if (dist4 < 1) {return (dist4 /= 1000).toFixed(2) + ' m'}
+      return (dist4.toFixed(2) + ' km');
+    }
+  }
 
   //récupérer les données de géolocalisation
   useEffect(() => {
@@ -33,10 +60,10 @@ export default function HelperLocatorScreen({ navigation }) {
         //récupérer la localisation tous les 20m
         Location.watchPositionAsync({ distanceInterval: 20 },
           (location) => {
-            console.log(location)
+            //console.log('location', location)
             //transmettre les données des dernières coordonnées
             setCurrentPosition(location.coords);
-
+            //console.log('position', position)
             const geolocInfos = {
               email: user.email,
               lastPosition: {
@@ -53,14 +80,70 @@ export default function HelperLocatorScreen({ navigation }) {
             .then((response) => response.json())
             .then((data) => {
               if (data) {
-                console.log('last position added to DB') && dispatch(addPosition(currentPosition));
+                console.log('last position added to DB');
+                dispatch(addPosition(location.coords));
               }else {console.log('error: last position not added to DB')}
             });
+            return (geolocInfos);
           }
         )
       }
     })();
   }, []);
+
+  //récupération des infos des helpers autour
+  fetch(`http://${IP}:3000/users`)
+  .then((response) => response.json())
+  .then((data) => {
+    if (data) {
+      //console.log('data:', data);
+      let usersGeoloc= [];
+      for (let item of data) {
+        //tri sur les helpers disponibles
+        if ((item.isAvailable) && (item.email != user.email)) {
+          //récupération des infos utiles
+          const itemInfos = {
+            prenom: item.prenom,
+            coordonneesGPS: item.lastPosition,
+            settings: item.userActions,
+            connected: item.isConnected,
+          }
+          usersGeoloc.push(itemInfos);
+        }
+      }
+      console.log('store:', persistStore.AsyncStorage)
+      //console.log('users:', usersGeoloc);
+
+      //maper sur la data du store pour afficher les helpers disponibles
+      const helpers = usersGeoloc.map((data, i) => {
+        //console.log('maping data:', data);
+
+        //calculer la distance
+        const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
+        console.log('distance:',eloignement);
+        return (
+          <TouchableOpacity key={i} style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+            <View style={styles.leftContent}>
+              <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+              <View style={styles.middleContent}>
+                <Text style={styles.name}>${data.prenom}</Text>
+                <Text style={styles.description}>accueillir: ${data.settings.hebergement}, transporter: ${data.settings.transport}, accompagner: ${data.settings.accompagnementDistance}</Text>
+                <Text style={styles.distance}>${eloignement}</Text>
+              </View>
+            </View>
+            <View style={styles.rightContent}>
+              <View style={styles.isFavorite}>
+                <FontAwesome name="heart" size={20} color="#ec6e5b" />
+              </View>
+              <View style={styles.isConnected}>
+                <FontAwesome name="circle" size={20} color="#5CA4A9" />
+              </View>
+            </View>
+          </TouchableOpacity>
+        );
+      });
+    }
+  })
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -73,7 +156,7 @@ export default function HelperLocatorScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
-        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+        <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <Text style={styles.helpersText}>Helpers proches de toi</Text>
       {currentPosition && <MapView mapType="standard" 
@@ -88,31 +171,14 @@ export default function HelperLocatorScreen({ navigation }) {
     
       style={styles.map}>
       </MapView>}
-        <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+      
+      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
           <View style={styles.leftContent}>
-            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
             <View style={styles.middleContent}>
-              <Text style={styles.name}>Name</Text>
-              <Text style={styles.description}>Description</Text>
-              <Text style={styles.distance}>Distance</Text>
-            </View>
-          </View>
-          <View style={styles.rightContent}>
-            <View style={styles.isFavorite}>
-              <FontAwesome name="heart" size={20} color="#ec6e5b" />
-            </View>
-            <View style={styles.isConnected}>
-              <FontAwesome name="circle" size={20} color="#5CA4A9" />
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
-          <View style={styles.leftContent}>
-            <Image source={PlaceholderImage} style={styles.profilePic}></Image>
-            <View style={styles.middleContent}>
-              <Text style={styles.name}>Name</Text>
-              <Text style={styles.description}>Description</Text>
-              <Text style={styles.distance}>Distance</Text>
+              <Text style={styles.name}>X</Text>
+              <Text style={styles.description}>accueillir: v, transporter: v, accompagner: v</Text>
+              <Text style={styles.distance}>x km</Text>
             </View>
           </View>
           <View style={styles.rightContent}>
@@ -207,6 +273,7 @@ const styles = StyleSheet.create({
     profilePic: {
       width: 40,
       height: 40,
+      borderRadius: 50,
     },
     name: {
       fontSize: 20,

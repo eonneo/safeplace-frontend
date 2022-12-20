@@ -30,7 +30,9 @@ export default function SigninScreen({ navigation }) {
                     const loginInfos = {
                         email: email,
                         prenom: userData.userInfos.prenom,
+                        avatarUri: userData.userInfos.avatarUri,
                         isConnected: true,
+                        token: userData.userInfos.token,
                     }
                     console.log('loginInfos:', loginInfos)
 

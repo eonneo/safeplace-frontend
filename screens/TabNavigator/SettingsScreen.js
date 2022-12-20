@@ -1,4 +1,13 @@
-import { Switch, StyleSheet, Text, View, ScrollView, KeyboardAvoidingView, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Switch, 
+  StyleSheet, 
+  Text, 
+  View, 
+  ScrollView, 
+  KeyboardAvoidingView, 
+  TextInput, 
+  Image, 
+  TouchableOpacity 
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,8 +17,6 @@ import React from 'react';
 import { useFonts } from '@use-expo/font';
 
 import IP from '../../IPAdress';
-
-const PlaceholderImage = require("../../assets/Vector.png");
 
 
 export default function SettingsScreen({ navigation }) {
@@ -53,7 +60,7 @@ export default function SettingsScreen({ navigation }) {
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
-        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+        <Image source={{uri:`${user.avatarUri}`}} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <View style={styles.profilContainer}>
         <Text style={styles.title}>Paramètres</Text>
@@ -144,8 +151,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway',
   },
   profilePic: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
   profilContainer: {
     flex: 4,

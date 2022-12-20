@@ -4,11 +4,15 @@ export type UserState = {
     value: {
         email: string | null;
         prenom: string | null;
+        avatarUri: string | null;
         isConnected: boolean;
         isAvailable: boolean;
         isReadyToAccomodate: boolean;
         isReadyToLift: boolean;
         isReadyToAssist: boolean;
+        isReadyToMove: boolean;
+        mustComeToMe: boolean;
+        token: string | null;
     };
 };
 
@@ -16,11 +20,15 @@ const initialState: UserState = {
     value: {
         email: null,
         prenom: null,
+        avatarUri: null,
         isConnected: false,
         isAvailable: false,
         isReadyToAccomodate: false,
         isReadyToLift: false,
         isReadyToAssist: false,
+        isReadyToMove: false,
+        mustComeToMe: false,
+        token: null,
     },
 };
 
@@ -32,6 +40,8 @@ export const userSlice = createSlice({
             state.value.email = action.payload.email;
             state.value.prenom = action.payload.prenom;
             state.value.isConnected = action.payload.isConnected;
+            state.value.token = action.payload.token;
+            state.value.avatarUri = action.payload.avatarUri;
             console.log('reducer login:',action.payload);
         },
         handleAvailable: (state, action) => {
@@ -50,8 +60,21 @@ export const userSlice = createSlice({
             state.value.isReadyToAssist = action.payload.isReadyToAssist;
             console.log('isReadyToAssist reducer:' , action.payload);
         },
+        handleReadyToMove: (state, action) => {
+            state.value.isReadyToMove = action.payload;
+            console.log('isReadyToMove reducer:', action.payload)
+        },
+        handleComeToMe: (state, action) => {
+            state.value.mustComeToMe = action.payload;
+            console.log('mustComeToMe reducer:', action.payload)
+        },
+        addSelfie: (state, action) => {
+            state.value.avatarUri = action.payload;
+            console.log('addSelfie:', action.payload)
+        },
+        
     },
 });
 
-export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist } = userSlice.actions;
+export const { login, handleAvailable, handleAccomodate, handleReadyToLift, handleReadyToAssist, handleReadyToMove, handleComeToMe, addSelfie } = userSlice.actions;
 export default userSlice.reducer;
