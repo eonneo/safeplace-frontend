@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView, } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -141,16 +141,16 @@ export default function HelperLocatorScreen({ navigation }) {
         <View style={styles.middleContent}>
           <Text style={styles.name}>{data.prenom}</Text>
           <View style={styles.settingsContent}>
-            <Text style={styles.description}>accueillir:           </Text>
-            <FontAwesome name="circle" size={20} color={data.settings.hebergement? '#5CA4A9': "#E4513D"} />
+            <FontAwesome name="circle" style={styles.circles} color={data.settings.hebergement? '#5CA4A9': "#E4513D"} />
+            <Text style={styles.description}>Accueillir</Text>
           </View>
           <View style={styles.settingsContent}>
-            <Text style={styles.description}>transporter:       </Text>
-            <FontAwesome name="circle" size={20} color={data.settings.transport? '#5CA4A9': "#E4513D"} />
+            <FontAwesome name="circle" style={styles.circles} color={data.settings.transport? '#5CA4A9': "#E4513D"} />
+            <Text style={styles.description}>Transporter</Text>
           </View>
           <View style={styles.settingsContent}>
-            <Text style={styles.description}>accompagner:  </Text>
-            <FontAwesome name="circle" size={20} color={data.settings.accompagnementDistance? '#5CA4A9': "#E4513D"} />
+            <FontAwesome name="circle" style={styles.circles} color={data.settings.accompagnementDistance? '#5CA4A9': "#E4513D"} />
+            <Text style={styles.description}>Accompagner</Text>
           </View>
         </View>
         <View style={styles.rightContent}>
@@ -164,6 +164,11 @@ export default function HelperLocatorScreen({ navigation }) {
         </View>
       </TouchableOpacity>
     );
+  });
+
+  //maper sur la data du store pour afficher les helpers disponibles sur la carte
+  const markers = dataArray.map((data, i) => {
+    return <Marker key={i} coordinate={{ latitude: data.coordonneesGPS.latitude, longitude: data.coordonneesGPS.longitude }} title={data.prenom} pinColor="#E4513D"/>;
   });
 
   const [isLoaded] = useFonts({
@@ -180,6 +185,7 @@ export default function HelperLocatorScreen({ navigation }) {
         <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <Text style={styles.helpersText}>Helpers proches de toi</Text>
+      <SafeAreaView style={styles.mapContainer}>
       {currentPosition && <MapView mapType="standard" 
       showsUserLocation={true} 
       followsUserLocation={true} 
@@ -191,8 +197,12 @@ export default function HelperLocatorScreen({ navigation }) {
       }} 
     
       style={styles.map}>
+        {markers}
       </MapView>}
+      </SafeAreaView>
+      <ScrollView style={styles.helpersContainer} alignItems={'center'}>
       {helpers}
+      </ScrollView>
     </KeyboardAvoidingView>
     
   );
@@ -245,19 +255,41 @@ const styles = StyleSheet.create({
       fontWeight: '600',
       fontSize: 16,
     },
+    mapContainer: {
+      flex: 1,
+      width: '100%',
+      minHeight: 300,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     map: {
       flex: 1,
       width: "92%",
     },
+    helpersContainer: {
+      flex: 1,
+      width: '100%',
+      minHeight: 120,
+    },
     cardContent: {
-      width: "92%",
-      height: 100,
+      width: "96%",
+      height: 110,
       marginTop: 5,
-      marginBottom: 5,
+      marginBottom: 3,
       backgroundColor: "white",
       flexDirection: "row",
       alignItems: 'center',
       justifyContent: 'space-around',
+      borderStyle: 'solid',
+      borderTopWidth: 0.5,
+      borderLeftWidth: 0.5,
+      borderRightWidth: 1.5,
+      borderBottomWidth: 1.5,
+      borderColor: '#E6EBE0',
+      borderRadius: 5,
+      paddingBottom: 10,
+      paddingTop: 10,
+      paddingRight: 20,
     },
     leftContent: {
       flexDirection: "row",
@@ -278,10 +310,15 @@ const styles = StyleSheet.create({
       color: "#5CA4A9",
       fontFamily: 'Raleway',
     },
+    circles: {
+      fontSize: 20,
+      paddingTop: 4,
+    },
     description: {
       fontSize: 16,
       color: "#33355C",
       fontFamily: 'Raleway',
+      paddingLeft: 10,
     },
     settingsContent: {
       flexDirection: 'row',

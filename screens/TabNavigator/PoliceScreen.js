@@ -18,6 +18,10 @@ export default function PoliceScreen({ navigation }) {
   const [isAvailable, setIsAvailable] = useState(false);
   const user = useSelector((state) => state.user.value);
   const PlaceholderImage = require("../../assets/Emergencypic.png");
+  const location = useSelector((state) => state.location.value);
+
+  const latitude = location.latitude;
+  const longitude = location.longitude;
 
   // pour utilisation installer d'abord => expo install expo-sms
 
@@ -29,13 +33,12 @@ export default function PoliceScreen({ navigation }) {
     checkAvailability();
   }, []);
 
-  // Enregistrer ci-dessous le numéro de téléphone + Message
+  // Enregistrer ci-dessous le numéro de téléphone + Message + lien vers Map Google
   const sendSms = async () => {
-    const { result } = await SMS.sendSMSAsync(
-      ["0665331020"],
-      `Hello ${user.prenom} need your Help, please find below more details`
-    );
-    console.log(result);
+  const {result} = await SMS.sendSMSAsync (
+  ['0665331020'], `Hello ${user.prenom} need your Help, please find below more details, 
+  click below to access further info  https://www.google.com/maps/?q=${location.latitude},${location.longitude}`
+  );
   };
 
   const makeCall = () => {
