@@ -241,7 +241,6 @@ const styles = StyleSheet.create({
   switchContainer: {
     alignSelf: 'center',
     width: '90%',
-    // height: '40%',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
