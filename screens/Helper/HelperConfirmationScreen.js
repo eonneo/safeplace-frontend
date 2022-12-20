@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, TouchableOpacity,ActivityIndicator } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useFonts } from '@use-expo/font';
 import { useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -22,12 +22,12 @@ export default function HelperConfirmationScreen({ navigation }) {
 
       <View style={styles.topContainer}>
         <View>
-          <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
+          <Text style={styles.profilName}>Bonjour {user.prenom}</Text>
         </View>
 
         <View>
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-            <Image source={PlaceholderImage} style={styles.profilePic} />
+            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic} />
           </TouchableOpacity>
         </View>
       </View>
@@ -39,7 +39,7 @@ export default function HelperConfirmationScreen({ navigation }) {
 
       <View style={styles.waitContainer}>
         <Text style={styles.title}>Veuillez rester connecté SVP</Text>
-        
+
         <Image source={require('../../assets/carou1.png')}></Image>
 
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("HelperAccept")}>
@@ -65,16 +65,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginTop: 10,
-    //backgroundColor: 'red',
-
     width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
 
   profilePic: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
 
   profilName: {
@@ -86,8 +85,8 @@ const styles = StyleSheet.create({
   },
 
   textNotification: {
-    flex: 3,
-    //backgroundColor: 'brown',
+    // flex: 3,
+    // backgroundColor: 'brown',
     width: '90%',
     alignItems: 'center',
   },
@@ -103,8 +102,8 @@ const styles = StyleSheet.create({
   },
 
   waitContainer: {
-    flex: 4,
-    //    backgroundColor: 'yellow',
+    // flex: 4,
+      //  backgroundColor: 'yellow',
     width: '90%',
     alignItems: 'center',
 
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
 
   button: {
     width: '45%',
-    marginTop: 10,
+    marginBottom: 20,
     height: 48,
     borderRadius: 10,
     backgroundColor: "#5CA4A9",
