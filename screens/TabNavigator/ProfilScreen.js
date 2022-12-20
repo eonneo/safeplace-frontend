@@ -35,12 +35,12 @@ export default function SettingsScreen({ navigation }) {
 
 
   // Controle des switchs
-  const [isAvailable, setIsAvailable] = useState(false);
-  const [isReadyToAccomodate, setisReadyToAccomodate] = useState(false);
-  const [isReadyToLift, setisReadyToLift] = useState(false);
-  const [isReadyToAssist, setisReadyToAssist] = useState(false);
-  const [isReadyToMove, setisReadyToMove] = useState(false);
-  const [mustComeToMe, setMustComeToMe] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(user.isAvailable);
+  const [isReadyToAccomodate, setisReadyToAccomodate] = useState(user.isReadyToAccomodate);
+  const [isReadyToLift, setisReadyToLift] = useState(user.isReadyToLift);
+  const [isReadyToAssist, setisReadyToAssist] = useState(user.isReadyToAssist);
+  const [isReadyToMove, setisReadyToMove] = useState(user.isReadyToMove);
+  const [mustComeToMe, setMustComeToMe] = useState(user.mustComeToMe);
   console.log(isAvailable)
 
   const handleIsAvailable = () => {
