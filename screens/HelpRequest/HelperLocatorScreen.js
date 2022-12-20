@@ -98,7 +98,7 @@ export default function HelperLocatorScreen({ navigation }) {
     .then((response) => response.json())
     .then((data) => {
       if (data) {
-        //console.log('data:', data);
+        console.log('data:', data);
         let usersGeoloc = [];
         for (let item of data) {
           //tri sur les helpers disponibles
@@ -109,6 +109,7 @@ export default function HelperLocatorScreen({ navigation }) {
               coordonneesGPS: item.lastPosition,
               settings: item.userActions,
               connected: item.isConnected,
+              uri: item.avatarUri,
             }
             usersGeoloc.push(itemInfos);
           }
@@ -116,6 +117,7 @@ export default function HelperLocatorScreen({ navigation }) {
         //console.log('store:', persistStore.AsyncStorage)
         console.log('users:', usersGeoloc);
         setDataArray(usersGeoloc);
+        let data.filter(user.email)
       }
     })
   }
@@ -127,31 +129,38 @@ export default function HelperLocatorScreen({ navigation }) {
   const helpers = dataArray.map((data, i) => {
     console.log('maping data:', data);
 
-    let iconColor = "#E4513D"
-  if (data.settings.connected) {
-    iconColor = '#5CA4A9'
-  }
 
     //calculer la distance
     const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
-    console.log('distance:',eloignement);
+    console.log('distance:',eloignement, data.connected);
     return (
-      <TouchableOpacity key={i} style={styles.card} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+      <TouchableOpacity key={i} style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
         <View style={styles.leftContent}>
-          <Image source={PlaceholderImage} style={styles.profilePic}></Image>
-          <View style={styles.middleContent}>
-            <Text style={styles.name}>{data.prenom}</Text>
-            <Text style={styles.description}>accueillir: {data.settings.hebergement}, transporter: {data.settings.transport}, accompagner: {data.settings.accompagnementDistance}</Text>
-            <Text style={styles.distance}>{eloignement}</Text>
+          <Image source={{ uri: `${data.uri}` }} style={styles.profilePic}></Image>
+        </View>
+        <View style={styles.middleContent}>
+          <Text style={styles.name}>{data.prenom}</Text>
+          <View style={styles.settingsContent}>
+            <Text style={styles.description}>accueillir:           </Text>
+            <FontAwesome name="circle" size={20} color={data.settings.hebergement? '#5CA4A9': "#E4513D"} />
+          </View>
+          <View style={styles.settingsContent}>
+            <Text style={styles.description}>transporter:       </Text>
+            <FontAwesome name="circle" size={20} color={data.settings.transport? '#5CA4A9': "#E4513D"} />
+          </View>
+          <View style={styles.settingsContent}>
+            <Text style={styles.description}>accompagner:  </Text>
+            <FontAwesome name="circle" size={20} color={data.settings.accompagnementDistance? '#5CA4A9': "#E4513D"} />
           </View>
         </View>
         <View style={styles.rightContent}>
-          <View style={styles.isFavorite}>
-            <FontAwesome name="heart" size={20} color="#ec6e5b" />
+          <View style={styles.iconsContent}>
+            <View style={styles.isFavorite}>
+              <FontAwesome name="heart" size={20} color={data.connected? '#E4513D': "#EAE2B7"} />
+            </View>
+            <FontAwesome name="circle" size={20} color={data.connected? '#5CA4A9': "#E4513D"} />
           </View>
-          <View style={styles.isConnected}>
-          {data.settings.connected || <FontAwesome name="circle" size={20} color={iconColor} />}
-          </View>
+          <Text style={styles.distance}>{eloignement}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -191,7 +200,7 @@ export default function HelperLocatorScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
       backgroundColor: '#ffffff',
       alignItems: 'center',
       justifyContent: 'flex-start',
@@ -241,33 +250,28 @@ const styles = StyleSheet.create({
       width: "92%",
     },
     cardContent: {
-      width: "100%",
-      height: 70,
+      width: "92%",
+      height: 100,
       marginTop: 5,
       marginBottom: 5,
       backgroundColor: "white",
       flexDirection: "row",
       alignItems: 'center',
-      justifyContent: 'center',
-    },
-    middleContent: {
-      marginLeft: 15,
-      color: '#33355C'
+      justifyContent: 'space-around',
     },
     leftContent: {
       flexDirection: "row",
       alignItems: "center",
-    },
-    rightContent: {
-      flexDirection: "row",
-      marginLeft: 140,
-      alignItems: 'center',
-      marginBottom: 20,
+      paddingLeft: 25,
     },
     profilePic: {
       width: 40,
       height: 40,
       borderRadius: 50,
+    },
+    middleContent: {
+      marginLeft: 50,
+      color: '#33355C'
     },
     name: {
       fontSize: 20,
@@ -279,12 +283,24 @@ const styles = StyleSheet.create({
       color: "#33355C",
       fontFamily: 'Raleway',
     },
+    settingsContent: {
+      flexDirection: 'row',
+    },
+    rightContent: {
+      marginLeft: 80,
+      marginRight: 20,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    },
+    iconsContent: {
+      flexDirection: 'row',
+    },
+    isFavorite: {
+      marginRight: 20,
+    },
     distance: {
       fontSize: 16,
       color: "#33355C",
       fontFamily: 'Raleway',
-    },
-    isFavorite: {
-      marginRight: 20,
     },
 });
