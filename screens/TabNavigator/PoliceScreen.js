@@ -9,6 +9,7 @@ import { useSelector, } from 'react-redux';
 export default function PoliceScreen({ navigation }) {
   const [isAvailable, setIsAvailable] = useState(false);
   const user = useSelector((state) => state.user.value);
+
   const PlaceholderImage = require("../../assets/Vector.png");
 
 // pour utilisation installer d'abord => expo install expo-sms
@@ -27,7 +28,8 @@ export default function PoliceScreen({ navigation }) {
   // Enregistrer ci-dessous le numéro de téléphone + Message 
   const sendSms = async () => {
   const {result} = await SMS.sendSMSAsync (
-  ['0665331020'], `Hello ${user.prenom} need your Help, please find below more details`)
+  ['0665331020'], `Hello ${user.prenom} need your Help, please find below more details, 
+  user location is ${user.telephone}`)
   ;
   
   console.log(result)
