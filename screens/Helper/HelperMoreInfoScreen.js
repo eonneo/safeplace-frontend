@@ -11,7 +11,7 @@ import * as Location from 'expo-location';
 
 export default function HelperMoreInfoScreen({ navigation }) {
 
-  const PlaceholderImage = require("../../assets/Vector.png");
+
 
   //récupérer les données du store
   const user = useSelector((state) => state.user.value);
@@ -62,7 +62,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
         <View>
           <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-            <Image source={PlaceholderImage} style={styles.profilePic} />
+            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic} />
           </TouchableOpacity>
         </View>
 
@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginTop: 10,
-    //  backgroundColor: 'brown',
     width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -194,12 +193,12 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: 'Raleway',
     color: '#33355C',
-  }
-  ,
+  },
 
   profilePic: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
 
   containerTextNotification: {
@@ -222,8 +221,6 @@ const styles = StyleSheet.create({
   },
 
   mapContainer: {
-    // flex: 3,
-    //backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
@@ -241,12 +238,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   switchContainer: {
-
-    // flex: 2,
-    //  backgroundColor: 'red',
     alignSelf: 'center',
-    // alignItems: 'center',
-    // justifyContent: 'center',
     width: '90%',
   },
 
@@ -256,7 +248,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center",
     alignSelf: 'center',
-    // margin: 5,
   },
 
   subtitle: {
@@ -264,7 +255,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#33355C',
     fontFamily: 'OpenSans',
-
   },
 
   button1: {
@@ -288,18 +278,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 70,
     opacity: 0.5,
-
   },
 
 
   buttonsContainer: {
     flex: 1,
     flexDirection: 'row',
-    // backgroundColor: "pink",
     width: '90%',
     alignItems: 'center',
     justifyContent: 'space-between',
-
   },
 
   textButton: {
@@ -308,5 +295,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 24,
   },
-
 }); 
