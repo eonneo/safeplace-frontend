@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '90%',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
 
   optionhelpcontainer: {
@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center",
     alignSelf: 'center',
+    marginBottom: 10
   },
 
   subtitle: {
