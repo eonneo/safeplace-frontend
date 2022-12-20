@@ -34,20 +34,8 @@ export default function PoliceScreen({ navigation }) {
   const sendSms = async () => {
   const {result} = await SMS.sendSMSAsync (
   ['0665331020'], `Hello ${user.prenom} need your Help, please find below more details, 
-<<<<<<< HEAD
   click below to access further info  https://www.google.com/maps/?q=${location.latitude},${location.longitude}`
   );
-
-=======
-  click below to access`)
-  ;
-  
->>>>>>> google
-  console.log(result)
-  console.log(location.latitude)
-  console.log(location.longitude)
-
-  
   };
 
  const makeCall = () => {
