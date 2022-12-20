@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView, } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -185,6 +185,7 @@ export default function HelperLocatorScreen({ navigation }) {
         <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <Text style={styles.helpersText}>Helpers proches de toi</Text>
+      <SafeAreaView style={styles.mapContainer}>
       {currentPosition && <MapView mapType="standard" 
       showsUserLocation={true} 
       followsUserLocation={true} 
@@ -198,7 +199,10 @@ export default function HelperLocatorScreen({ navigation }) {
       style={styles.map}>
         {markers}
       </MapView>}
+      </SafeAreaView>
+      <ScrollView style={styles.helpersContainer} alignItems={'center'}>
       {helpers}
+      </ScrollView>
     </KeyboardAvoidingView>
     
   );
@@ -251,19 +255,41 @@ const styles = StyleSheet.create({
       fontWeight: '600',
       fontSize: 16,
     },
+    mapContainer: {
+      flex: 1,
+      width: '100%',
+      minHeight: 300,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     map: {
       flex: 1,
       width: "92%",
     },
+    helpersContainer: {
+      flex: 1,
+      width: '100%',
+      minHeight: 120,
+    },
     cardContent: {
-      width: "92%",
-      height: 100,
+      width: "96%",
+      height: 110,
       marginTop: 5,
-      marginBottom: 5,
+      marginBottom: 3,
       backgroundColor: "white",
       flexDirection: "row",
       alignItems: 'center',
       justifyContent: 'space-around',
+      borderStyle: 'solid',
+      borderTopWidth: 0.5,
+      borderLeftWidth: 0.5,
+      borderRightWidth: 1.5,
+      borderBottomWidth: 1.5,
+      borderColor: '#E6EBE0',
+      borderRadius: 5,
+      paddingBottom: 10,
+      paddingTop: 10,
+      paddingRight: 20,
     },
     leftContent: {
       flexDirection: "row",
