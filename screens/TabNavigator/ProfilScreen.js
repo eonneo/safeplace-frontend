@@ -28,11 +28,9 @@ import IP from '../../IPAdress';
 export default function SettingsScreen({ navigation }) {
 
   const user = useSelector((state) => state.user.value);
-  console.log(user.avatarUri)
-  //  const PlaceholderImage = require(user.avatarUri);
+  //console.log(user.avatarUri)
 
   const dispatch = useDispatch();
-
 
   // Controle des switchs
   const [isAvailable, setIsAvailable] = useState(user.isAvailable);

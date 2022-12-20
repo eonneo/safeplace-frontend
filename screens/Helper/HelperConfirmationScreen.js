@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity,ActivityIndicator } from 'react-native';
 import { useFonts } from '@use-expo/font';
 import { useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,10 +34,12 @@ export default function HelperConfirmationScreen({ navigation }) {
 
       <View style={styles.textNotification}>
         <Text style={styles.title}>Votre proposition d'aide a été envoyé à Jane, Merci</Text>
+        <ActivityIndicator size="large" color="#black" />
       </View>
 
       <View style={styles.waitContainer}>
         <Text style={styles.title}>Veuillez rester connecté SVP</Text>
+        
         <Image source={require('../../assets/carou1.png')}></Image>
 
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("HelperAccept")}>

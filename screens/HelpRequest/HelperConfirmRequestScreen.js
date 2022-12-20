@@ -52,7 +52,7 @@ export default function HelperConfirmRequestScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
-        <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+        <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <View style={styles.titlesContainer}> 
         <Text style={styles.title}>X est le helper que tu as désigné pour t'aider</Text>
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     profilePic: {
       width: 40,
       height: 40,
+      borderRadius: 50,
     },
     name: {
       fontSize: 20,

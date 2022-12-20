@@ -14,7 +14,6 @@ export default function RessourcesScreen({ navigation }) {
   }
     return (
         <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
 <View style={styles.container1}>
 
      <Text style={styles.title}> Helper's Club  </Text>
@@ -45,7 +44,6 @@ Laissez la personne suivre son propre rythme. Ne remplacez pas la dépendance qu
 
      </View>
 
-    
    </SafeAreaView>
    
    

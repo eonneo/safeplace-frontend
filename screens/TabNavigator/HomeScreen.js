@@ -92,7 +92,7 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.title2}>{totalUsers} utilisateurs autour de toi</Text>
           <Text style={styles.title2}>Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place</Text>
           <Image source={homePic} style={styles.homePic}></Image>
-          <TouchableOpacity onPress={() => HelpeRequest()}>
+                    <TouchableOpacity onPress={() => HelpeRequest()}>
         <LinearGradient
           // Background Linear Gradient
           colors={["#E4513D", "#FFA647"]}
@@ -103,6 +103,13 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.SosText}>SOS</Text>
         </LinearGradient>
       </TouchableOpacity>
+    
+    <View style={styles.containerButton} >
+      <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('HelpermoreInfo')}>
+       <Text style={styles.textButton}>naviguer vers Helper screens</Text>
+     </TouchableOpacity>
+     
+     </View>
         </KeyboardAvoidingView>
     );
 }
@@ -171,5 +178,27 @@ const styles = StyleSheet.create({
       fontSize: 64,
       alignItems: "center",
       fontFamily: 'OpenSans',
+    },
+
+    button: {
+      marginTop: 10,
+      width: 300,
+      height: 48,
+      borderRadius: 10,
+      backgroundColor: "#33355C",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    textButton: {
+      color: '#ffffff',
+      fontFamily:'Raleway',
+      height: 30,
+      fontWeight: '600',
+      fontSize: 16,
+    },
+
+    containerButton:{
+flex:1,
+marginTop:100,
     },
   });
