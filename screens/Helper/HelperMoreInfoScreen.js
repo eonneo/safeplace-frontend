@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center",
     alignSelf: 'center',
-    marginBottom: 10
+    marginBottom: 10,
   },
 
   subtitle: {
