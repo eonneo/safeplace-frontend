@@ -117,7 +117,7 @@ export default function HelperLocatorScreen({ navigation }) {
         //console.log('store:', persistStore.AsyncStorage)
         console.log('users:', usersGeoloc);
         setDataArray(usersGeoloc);
-        let data.filter(user.email)
+        //let favUsers = data.filter(user.email)
       }
     })
   }
@@ -302,5 +302,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: "#33355C",
       fontFamily: 'Raleway',
+      paddingTop: 35,
     },
 });
