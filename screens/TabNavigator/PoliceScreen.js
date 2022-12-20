@@ -11,6 +11,9 @@ export default function PoliceScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
   const location = useSelector((state) => state.location.value);
 
+  const latitude = location.latitude;
+  const longitude = location.longitude;
+ 
 
   const PlaceholderImage = require("../../assets/Vector.png");
 
@@ -27,15 +30,17 @@ export default function PoliceScreen({ navigation }) {
   }, []);
   
 
-  // Enregistrer ci-dessous le numéro de téléphone + Message 
+  // Enregistrer ci-dessous le numéro de téléphone + Message + lien vers Map Google
   const sendSms = async () => {
   const {result} = await SMS.sendSMSAsync (
   ['0665331020'], `Hello ${user.prenom} need your Help, please find below more details, 
-  user location is ${location.latitude} and ${location.longitude}`)
-  ;
-  
+  click below to access further info  https://www.google.com/maps/?q=${location.latitude},${location.longitude}`
+  );
+
   console.log(result)
-  
+  console.log(location.latitude)
+  console.log(location.longitude)
+
   
   };
 
