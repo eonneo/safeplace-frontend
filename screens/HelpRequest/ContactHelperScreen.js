@@ -18,10 +18,45 @@ import { Entypo } from '@expo/vector-icons';
 
 export default function ContactHelperScreen({ navigation }) {
 
-  const PlaceholderImage = require("../../assets/Vector.png");
+ 
   const user = useSelector((state) => state.user.value);
+  const helper = useSelector((state) => state.selectedHelper.value);
 
-  const [currentPosition, setCurrentPosition] = useState(null);
+  const position = useSelector((state) => state.location.value);
+
+  const [currentPosition, setCurrentPosition] = useState({
+    latitude: position.latitude,
+    longitude: position.longitude
+  });
+
+  const helperMarker = <Marker coordinate={{latitude: helper.latitude, longitude: helper.longitude}} title={helper.prenom} pinColor="#E4513D"/>;
+
+    //calcul d'une distance en km
+    function distance(latHelper, lonHelper, latRequest, lonRequest) {
+      if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
+        return 0;
+      }
+      else {
+        const radlatHelper = Math.PI * latHelper / 180;
+        const radlatRequest = Math.PI * latRequest / 180;
+        const theta = lonHelper - lonRequest;
+        const radtheta = Math.PI * theta / 180;
+        const dist = Math.sin(radlatHelper) * Math.sin(radlatRequest) + Math.cos(radlatHelper) * Math.cos(radlatRequest) * Math.cos(radtheta);
+        if (dist > 1) {
+          dist = 1;
+        }
+        let dist1 = Math.acos(dist);
+        let dist2 = dist1 * 180 / Math.PI;
+        let dist3 = dist2 * 60 * 1.1515;
+        let dist4 = dist3 * 1.609344;
+        if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
+        return (dist4.toFixed(2) + ' km');
+      }
+    }
+    //calculer la distance
+    const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
+  
+    console.log("eloignement:", eloignement)
 
   //récupérer les données de géolocalisation
   useEffect(() => {
@@ -54,15 +89,15 @@ export default function ContactHelperScreen({ navigation }) {
         <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <View style={styles.titlesContainer}> 
-        <Text style={styles.title}>X est sur le point d'arriver</Text>
+        <Text style={styles.title}>{helper.prenom} est sur le point d'arriver</Text>
       </View>
       <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('ContactHelper')}>
         <View style={styles.leftContent}>
-          <Image source={PlaceholderImage} style={styles.profilePic}></Image>
+          <Image source={{ uri: `${helper.avatarUri}` }} style={styles.profilePic}></Image>
           <View style={styles.middleContent}>
-            <Text style={styles.name}>X</Text>
+            <Text style={styles.name}>{helper.prenom}</Text>
             <Text style={styles.description}>Description</Text>
-            <Text style={styles.distance}>Distance</Text>
+            <Text style={styles.distance}>{eloignement}</Text>
           </View>
         </View>
         <View style={styles.rightContent}>
@@ -80,17 +115,19 @@ export default function ContactHelperScreen({ navigation }) {
         initialRegion={{
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
-          latitudeDelta: 0.008,
-          longitudeDelta: 0.008,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+
         }} 
         style={styles.map}>
+          {helperMarker}
       </MapView>}
       <View style={styles.bottomContainer}>
-        <Text style={styles.title}>Tu peux contacter X:</Text>
+        <Text style={styles.title}>Tu peux contacter {helper.prenom} :</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.buttonCall} onPress={() => navigation.navigate('ContactHelper')}>
             <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
-            <Text style={styles.text3}>Appeler X</Text>
+            <Text style={styles.text3}>Appeler {helper.prenom}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('Chat')}>
             <Entypo name="chat" size={24} color="white" style={styles.chat}/>

@@ -17,7 +17,7 @@ import * as Location from 'expo-location';
 
 //imports cards
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-const PlaceholderImage = require("../../assets/Vector.png");
+
 
 export default function HelperConfirmRequestScreen({ navigation }) {
 
@@ -35,6 +35,7 @@ export default function HelperConfirmRequestScreen({ navigation }) {
   console.log('helper from useselector:', helper)
   console.log('position from useSelector:', position)
   console.log('currentPosition:', currentPosition)
+
   //calcul d'une distance en km
   function distance(latHelper, lonHelper, latRequest, lonRequest) {
     if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
@@ -106,13 +107,13 @@ export default function HelperConfirmRequestScreen({ navigation }) {
         initialRegion={{
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
-          latitudeDelta: 0.008,
-          longitudeDelta: 0.008,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
         }}
         style={styles.map}
         >
           {helperMarker}
-          
+
       </MapView>}
       <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('ContactHelper')}>
         <View style={styles.leftContent}>
@@ -133,8 +134,10 @@ export default function HelperConfirmRequestScreen({ navigation }) {
         </View>
       </TouchableOpacity>
       <View style={styles.titlesContainer}>
-        <Text style={styles.title}>En attendant:</Text>
-        <TouchableOpacity>
+        <Text style={styles.title}>En attendant :</Text>
+        <TouchableOpacity
+        onPress={() => navigation.navigate('EmergencyNumbScreen')}
+        >
           <Text style={styles.link}>Quelques numéros utiles</Text>
         </TouchableOpacity>
       </View>
