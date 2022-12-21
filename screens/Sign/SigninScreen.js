@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     color: "#5CA4A9",
   },
   inputGroup: {
-    marginTop: 60,
+    marginTop: 50,
     display: "flex",
     justifyContent: "space-around",
   },
