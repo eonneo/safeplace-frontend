@@ -43,13 +43,14 @@ import user from './reducers/users';
 import signup from './reducers/signup';
 import selfie from './reducers/selfie';
 import location from './reducers/geolocation';
+import selectedHelper from './reducers/selectedHelper';
 
 // redux-persist imports
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const reducers = combineReducers({ user, signup, selfie, location });
+const reducers = combineReducers({ user, signup, selfie, location, selectedHelper });
 const persistConfig = {
   key: 'safeplacecapsule',
   storage: AsyncStorage,

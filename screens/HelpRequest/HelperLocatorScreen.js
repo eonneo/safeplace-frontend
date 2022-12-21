@@ -6,6 +6,7 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 import { addPosition, deletePosition } from '../../reducers/geolocation';
+import { addHelperInfos } from '../../reducers/selectedHelper';
 
 import IP from "../../IPAdress";
 
@@ -125,6 +126,28 @@ export default function HelperLocatorScreen({ navigation }) {
     })
   }
 
+  // séléction du helper et envoi des données au reducer selectedHelper
+  const selectHelper = (data) => {
+    
+   const selectedHelper = {
+      email: data.email,
+      prenom: data.prenom,
+      avatarUri: data.uri,
+      isConnected: data.connected,
+      isReadyToAccomodate: data.settings.hebergement,
+      isReadyToLift: data.settings.transport,
+      isReadyToAssist: data.settings.accompagnementDistance,
+      isReadyToMove: data.settings.aller,
+      mustComeToMe: data.settings.venir,
+      latitude: data.coordonneesGPS.latitude,
+      longitude: data.coordonneesGPS.longitude,
+    }
+    console.log('select helpr func', selectedHelper);
+    dispatch(addHelperInfos(selectedHelper))
+    navigation.navigate('HelperConfirmRequest')
+  }
+ 
+
   //Appelle fetchData toutes les 30 secondes
   useEffect(() => {
     const interval = setInterval(() => {
@@ -155,7 +178,8 @@ export default function HelperLocatorScreen({ navigation }) {
     const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
     console.log('distance:',eloignement, data.connected);
     return (
-      <TouchableOpacity key={i} style={styles.cardContent} onPress={() => navigation.navigate('HelperConfirmRequest')}>
+      <TouchableOpacity key={i} style={styles.cardContent} 
+      onPress={() => selectHelper(data) }>
         <View style={styles.leftContent}>
           <Image source={{ uri: `${data.uri}` }} style={styles.profilePic}></Image>
         </View>
@@ -186,6 +210,8 @@ export default function HelperLocatorScreen({ navigation }) {
       </TouchableOpacity>
     );
   });
+
+  
 
   //maper sur la data pour afficher les helpers disponibles sur la carte avec un marker
   const markers = dataArray.map((data, i) => {
