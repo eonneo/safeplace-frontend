@@ -164,7 +164,7 @@ export default function SettingsScreen({ navigation }) {
   return (
     <ScrollView>
       <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('SettingsStack')}>
+        <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('PhotoUpload')}>
           <Text style={styles.nameText}>{user.prenom}</Text>
           <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
         </TouchableOpacity>
