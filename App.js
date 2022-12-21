@@ -33,6 +33,7 @@ import HelperDeclineScreen from './screens/Helper/HelperDeclineScreen';
 import HelperAcceptScreen from './screens/Helper/HelperAcceptScreen';
 import HelperContactScreen from './screens/Helper/HelperContactScreen';
 import EmergencyNumbScreen from './screens/HelpRequest/EmergencyNumbScreen';
+import PhotoUploadScreen from './screens/PhotoUploadScreen';
 
 
 // redux imports
@@ -136,6 +137,7 @@ export default function App() {
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="ProfilStack" component={ProfilScreen} />
             <Stack.Screen name="EmergencyNumbScreen" component={EmergencyNumbScreen} />
+            <Stack.Screen name="PhotoUpload" component={PhotoUploadScreen} />
 
           </Stack.Navigator>
         </NavigationContainer>
