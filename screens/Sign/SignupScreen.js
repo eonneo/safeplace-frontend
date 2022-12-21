@@ -1,9 +1,10 @@
 import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRestSignupFields } from '../../reducers/signup';
 import { login } from '../../reducers/users';
 import DateField from 'react-native-datefield';
+import * as SMS from "expo-sms";
 
 import { useFonts } from '@use-expo/font';
 
@@ -20,10 +21,33 @@ export default function SignupScreen({ navigation }) {
   const [rue, setRue] = useState('');
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
+  const [verificationToken, setVerificationToken] = useState(null);
 
   
   const email = useSelector((state) => state.signup.value.email)
   const password = useSelector((state) => state.signup.value.password)
+
+  //envoi du sms de vérification
+
+  const verifySms = () => {
+  const generateRandomNumber = () => {
+    let verifyNumber;
+    return verifyNumber = Math.floor(1000 + Math.random() * 9000);
+  }
+
+  const smsChecking = async () => {
+    const isAvailable = await SMS.isAvailableAsync();
+    if (isAvailable) {
+      setVerificationToken(generateRandomNumber());
+    console.log('verifToken:', verifyNumber);
+    const { result } = await SMS.sendSMSAsync(
+      [telephone],
+      `Your verification code is: ${verifyNumber}`
+    );
+    }
+  }
+  smsChecking();
+  }
 
   const handleSubmit = () => {
 
@@ -52,12 +76,13 @@ export default function SignupScreen({ navigation }) {
           console.log('okposted')
           dispatch(getRestSignupFields(userInfos))
           dispatch(login(userInfos))
-          navigation.navigate('Upload')
+          //appel fonction sms verif
+          verifySms(),
+          navigation.navigate('Checking')
         }else{
           console.log('email already exist')
         }
       })
-    
   }
 
   const [isLoaded] = useFonts({

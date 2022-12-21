@@ -4830,7 +4830,7 @@ expo-pwa@0.0.124:
     commander "2.20.0"
     update-check "1.5.3"
 
-expo-sms@^11.0.0:
+expo-sms@~11.0.0:
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/expo-sms/-/expo-sms-11.0.0.tgz#5e1a92f4e39427ddbf20e5760c6895071fac7b80"
   integrity sha512-WfFNqk6ipxacZbdcyMvsLoURWMKgZJmtNQbh6ktaNuh376/MgvskRhEGJmfDLcQXrRKa+pheICNUcf8y94O9Ag==
