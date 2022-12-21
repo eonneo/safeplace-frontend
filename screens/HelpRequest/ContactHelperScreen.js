@@ -2,7 +2,8 @@ import { Button,
   Image, 
   StyleSheet, 
   Text, 
-  View, 
+  View,
+  Linking,
   KeyboardAvoidingView,  
   TouchableOpacity 
 } from 'react-native';
@@ -20,6 +21,7 @@ export default function ContactHelperScreen({ navigation }) {
 
   const PlaceholderImage = require("../../assets/Vector.png");
   const user = useSelector((state) => state.user.value);
+
 
   const [currentPosition, setCurrentPosition] = useState(null);
 
@@ -39,6 +41,18 @@ export default function ContactHelperScreen({ navigation }) {
       }
     })();
   }, []);
+
+const helper =(user.telephone)
+  // Fonctions pour declencher un appel on click 
+  const makeCallToPolice = () => {
+    let phoneNumber = '17';
+    if (Platform.OS === 'android') {
+        phoneNumber = (`tel:${phoneNumber}`);
+    } else {
+        phoneNumber = (`telprompt:${phoneNumber}`);
+    }
+    Linking.openURL(phoneNumber);
+};
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -88,9 +102,12 @@ export default function ContactHelperScreen({ navigation }) {
       <View style={styles.bottomContainer}>
         <Text style={styles.title}>Tu peux contacter X:</Text>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.buttonCall} onPress={() => navigation.navigate('ContactHelper')}>
+          <TouchableOpacity style={styles.buttonCall} onPress={() => makeCallToPolice()}>
             <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
             <Text style={styles.text3}>Appeler X</Text>
+
+
+
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('Chat')}>
             <Entypo name="chat" size={24} color="white" style={styles.chat}/>

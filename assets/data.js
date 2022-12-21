@@ -4,32 +4,33 @@
 
 const data = [
   {
-    title: "WELCOME TO SAFE PLACE !",
-    body: "Ut tincidunt tincidunt erat. Sed cursus turpis vitae tortor. Quisque malesuada placerat nisl. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
-    imgUrl:require('./carou1.png') ,
-    
+    title: "BIENVENUE SUR SAFE PLACE",
+    body: "Safe Place, une nouvelle application gratuite et communautaire vous permettant de déclencher un message d'alerte en cas de danger immédiat (violences, discriminations sexuelles, harcèlement, ...) et de partager votre position auprès des membres vérifiés de la communauté afin de vous apporter aide et assistance.",
+    imgUrl: require('./carou1.png'),
+
   },
   {
-    title: "In turpis",
-    body: "Aenean ut eros et nisl sagittis vestibulum. Donec posuere vulputate arcu. Proin faucibus arcu quis ante. Curabitur at lacus ac velit ornare lobortis. ",
+    title: "POURQUOI SAFE PLACE ?",
+    body: "En 2019, 213 000 femmes ont été victimes de violences physiques et/ou sexuelles. Notre souhait est de permettre aux femmes victimes de violences d’entrer en relation avec des personnes de confiance à proximité afin de trouver de l'assistance et une écoute attentive dans les meilleurs délais.",
     imgUrl: require('./carou2.png'),
   },
   {
-    title: "Lorem Ipsum",
-    body: "Phasellus ullamcorper ipsum rutrum nunc. Nullam quis ante. Etiam ultricies nisi vel augue. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc.",
+    title: "VOUS ETES EN DIFFICULTÉ ?",
+    body: "Une pression sur le bouton d'alerte vous permettra de trouver des personnes de confiance à proximité pour vous mettre à l'abri, vous héberger ou simplement échanger par téléphone.",
     imgUrl: require('./carou3.png'),
   },
   {
-    title: "Aenean leo",
-    body: "Ut tincidunt tincidunt erat. Sed cursus turpis vitae tortor. Quisque malesuada placerat nisl. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
+    title: "VOUS ETES SOLIDAIRE ?",
+    body: "Inscrivez-vous sur notre application si vous souhaitez aider un membre de la communauté en détresse. Vous pouvez héberger, transporter ou simplement être une oreille attentive ! Inscrivez-vous, une minute suffit pour venir en aide !",
     imgUrl: require('./carou4.png'),
   },
   {
-    title: "In turpis",
-    body: "Aenean ut eros et nisl sagittis vestibulum. Donec posuere vulputate arcu. Proin faucibus arcu quis ante. Curabitur at lacus ac velit ornare lobortis. ",
-    
+    title: "BESOIN DE CONSEILS ?",
+    body: "Vous trouverez dans notre application des conseils, des ressources et les numéros utiles vous permettant de vous informer et de signaler les violences",
+
     imgUrl: require('./carou5.png'),
   },
 ];
 
 export default data;
+

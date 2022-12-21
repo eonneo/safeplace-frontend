@@ -10,12 +10,15 @@ import {
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getFirstSignupFields } from "../../reducers/signup";
+import GoogleLogin from 'react-google-login';
 
 import { useFonts } from "@use-expo/font";
 
 import IP from "../../IPAdress";
 
 export default function LoginScreen({ navigation }) {
+
+  
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
@@ -59,6 +62,9 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
+
+
+  
   const [isLoaded] = useFonts({
     OpenSans: require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
@@ -118,6 +124,7 @@ export default function LoginScreen({ navigation }) {
       >
         <Text style={styles.text5}>S'inscrire</Text>
       </TouchableOpacity>
+
     </KeyboardAvoidingView>
   );
 }
