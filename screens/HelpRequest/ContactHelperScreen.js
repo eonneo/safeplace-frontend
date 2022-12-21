@@ -21,7 +21,8 @@ export default function ContactHelperScreen({ navigation }) {
 
   const PlaceholderImage = require("../../assets/Vector.png");
   const user = useSelector((state) => state.user.value);
-
+  // item. data.array 
+// item.telephone
 
   const [currentPosition, setCurrentPosition] = useState(null);
 
@@ -45,7 +46,7 @@ export default function ContactHelperScreen({ navigation }) {
 const helper =(user.telephone)
   // Fonctions pour declencher un appel on click 
   const makeCallToPolice = () => {
-    let phoneNumber = '17';
+    let phoneNumber = (helper);
     if (Platform.OS === 'android') {
         phoneNumber = (`tel:${phoneNumber}`);
     } else {

@@ -55,7 +55,7 @@ export default function CarrouselScreen({ navigation }) {
             height: 10,
             borderRadius: 5,
             marginHorizontal: 0,
-            backgroundColor: '#33355C'
+            backgroundColor: '#FFA647'
           }}
           inactiveDotOpacity={0.4}
           inactiveDotScale={0.6}
