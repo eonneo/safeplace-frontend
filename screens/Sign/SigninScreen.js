@@ -92,7 +92,8 @@ export default function SigninScreen({ navigation }) {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text style={styles.title}>Bienvenue sur SAFE PLACE</Text>
+      <Text style={styles.title}>Bienvenue sur</Text>
+      <Text style={styles.titleBis}>SAFE PLACE</Text>
       <Text style={styles.title2}>Connecte toi !</Text>
       <View style={styles.inputGroup}>
         <Text style={styles.text}>Email</Text>
@@ -151,8 +152,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#33355C",
   },
+  titleBis: {
+    width: "80%",
+    fontSize: 38,
+    fontWeight: "600",
+    textAlign: "center",
+    color: "#FFA647",
+  },
   title2: {
-    marginTop: 10,
+    marginTop: 20,
     width: "80%",
     fontSize: 28,
     fontWeight: "600",
@@ -198,8 +206,8 @@ const styles = StyleSheet.create({
   },
   textSignup: {
     textAlign: "center",
-    color: '#FFA647',
-    fontStyle: 'italic',
+    color: "#FFA647",
+    fontStyle: "italic",
   },
   button6: {
     marginTop: 10,
@@ -211,7 +219,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   error: {
-    color: '#FFA647',
+    color: "#FFA647",
     fontSize: 12,
   },
 });
