@@ -80,7 +80,8 @@ headerTitle: {
     fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
-    fontFamily: 'Raleway'
+    fontFamily: 'Raleway',
+    color: "#33355C",
   },
   imgContainer: {
     flex: 1,
