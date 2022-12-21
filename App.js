@@ -34,6 +34,7 @@ import HelperAcceptScreen from "./screens/Helper/HelperAcceptScreen";
 import HelperContactScreen from "./screens/Helper/HelperContactScreen";
 import EmergencyNumbScreen from "./screens/HelpRequest/EmergencyNumbScreen";
 import PhotoUploadScreen from "./screens/PhotoUploadScreen";
+import SmsCheckingScreen from "./screens/Sign/SmsCheckingScreen";
 
 // redux imports
 import { Provider } from "react-redux";
@@ -115,6 +116,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Cgu" component={CguScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Checking" component={SmsCheckingScreen} />
             <Stack.Screen name="Upload" component={UploadScreen} />
             <Stack.Screen name="CNIRecto" component={CNIRecto} />
             <Stack.Screen name="CNIVerso" component={CNIVerso} />
