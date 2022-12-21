@@ -23,12 +23,42 @@ export default function HelperConfirmRequestScreen({ navigation }) {
 
   const user = useSelector((state) => state.user.value);
   const helper = useSelector((state) => state.selectedHelper.value);
+  const position = useSelector((state) => state.location.value);
 
-  console.log('helper from useselector:', helper)
+  const [currentPosition, setCurrentPosition] = useState({
+    latitude: position.latitude,
+    longitude: position.longitude
+  });
   
+  console.log('helper from useselector:', helper)
+  console.log('position from useSelector:', position)
+  console.log('currentPosition:', currentPosition)
+  //calcul d'une distance en km
+  function distance(latHelper, lonHelper, latRequest, lonRequest) {
+    if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
+      return 0;
+    }
+    else {
+      const radlatHelper = Math.PI * latHelper / 180;
+      const radlatRequest = Math.PI * latRequest / 180;
+      const theta = lonHelper - lonRequest;
+      const radtheta = Math.PI * theta / 180;
+      const dist = Math.sin(radlatHelper) * Math.sin(radlatRequest) + Math.cos(radlatHelper) * Math.cos(radlatRequest) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      let dist1 = Math.acos(dist);
+      let dist2 = dist1 * 180 / Math.PI;
+      let dist3 = dist2 * 60 * 1.1515;
+      let dist4 = dist3 * 1.609344;
+      if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
+      return (dist4.toFixed(2) + ' km');
+    }
+  }
+  //calculer la distance
+  const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
 
-  const [currentPosition, setCurrentPosition] = useState(null);
-  // console.log("current pos :", currentPosition)
+  console.log("eloignement:", eloignement)
 
   //récupérer les données de géolocalisation
   useEffect(() => {
@@ -41,36 +71,15 @@ export default function HelperConfirmRequestScreen({ navigation }) {
         Location.watchPositionAsync({ distanceInterval: 20 },
           (location) => {
             //transmettre les données des dernières coordonnées
-            setCurrentPosition(location.coords);
+            setCurrentPosition({
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude
+            });
           });
       }
     })();
   }, []);
 
-    //calcul d'une distance en km
-    function distance(latHelper, lonHelper, latRequest, lonRequest) {
-      if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
-        return 0;
-      }
-      else {
-        const radlatHelper = Math.PI * latHelper/180;
-        const radlatRequest = Math.PI * latRequest/180;
-        const theta = lonHelper-lonRequest;
-        const radtheta = Math.PI * theta/180;
-        const dist = Math.sin(radlatHelper) * Math.sin(radlatRequest) + Math.cos(radlatHelper) * Math.cos(radlatRequest) * Math.cos(radtheta);
-        if (dist > 1) {
-          dist = 1;
-        }
-        let dist1 = Math.acos(dist);
-        let dist2 = dist1 * 180/Math.PI;
-        let dist3 = dist2 * 60 * 1.1515;
-        let dist4 = dist3 * 1.609344;
-        if (dist4 < 1) {return (dist4 /= 1000).toFixed(2) + ' m'}
-        return (dist4.toFixed(2) + ' km');
-      }
-    }
-  //calculer la distance
-  // const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -106,7 +115,7 @@ export default function HelperConfirmRequestScreen({ navigation }) {
           <View style={styles.middleContent}>
             <Text style={styles.name}>{helper.prenom}</Text>
             <Text style={styles.description}>Description</Text>
-            <Text style={styles.distance}></Text>
+            <Text style={styles.distance}>{eloignement}</Text>
           </View>
         </View>
         <View style={styles.rightContent}>
