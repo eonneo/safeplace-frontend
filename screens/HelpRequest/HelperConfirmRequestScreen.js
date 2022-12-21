@@ -55,12 +55,14 @@ export default function HelperConfirmRequestScreen({ navigation }) {
       let dist3 = dist2 * 60 * 1.1515;
       let dist4 = dist3 * 1.609344;
       if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
-      return (dist4.toFixed(2) + ' km');
+      return (dist4.toFixed(2));
     }
   }
   //calculer la distance
   const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
-
+  // calcule du delta pour marker helper
+  const delta = eloignement*0.02;
+  
   console.log("eloignement:", eloignement)
 
   //récupérer les données de géolocalisation
@@ -107,8 +109,8 @@ export default function HelperConfirmRequestScreen({ navigation }) {
         initialRegion={{
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
+          latitudeDelta: delta,
+          longitudeDelta: delta,
         }}
         style={styles.map}
         >
@@ -121,7 +123,7 @@ export default function HelperConfirmRequestScreen({ navigation }) {
           <View style={styles.middleContent}>
             <Text style={styles.name}>{helper.prenom}</Text>
             <Text style={styles.description}>Description</Text>
-            <Text style={styles.distance}>{eloignement}</Text>
+            <Text style={styles.distance}>{eloignement} km</Text>
           </View>
         </View>
         <View style={styles.rightContent}>

@@ -1,10 +1,11 @@
-import { Button, 
-  Image, 
-  StyleSheet, 
-  Text, 
-  View, 
-  KeyboardAvoidingView,  
-  TouchableOpacity 
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  TouchableOpacity
 } from 'react-native';
 import { useFonts } from '@use-expo/font';
 
@@ -14,11 +15,11 @@ import { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { Entypo } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons';
 
 export default function ContactHelperScreen({ navigation }) {
 
- 
+
   const user = useSelector((state) => state.user.value);
   const helper = useSelector((state) => state.selectedHelper.value);
 
@@ -29,34 +30,35 @@ export default function ContactHelperScreen({ navigation }) {
     longitude: position.longitude
   });
 
-  const helperMarker = <Marker coordinate={{latitude: helper.latitude, longitude: helper.longitude}} title={helper.prenom} pinColor="#E4513D"/>;
+  const helperMarker = <Marker coordinate={{ latitude: helper.latitude, longitude: helper.longitude }} title={helper.prenom} pinColor="#E4513D" />;
 
-    //calcul d'une distance en km
-    function distance(latHelper, lonHelper, latRequest, lonRequest) {
-      if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
-        return 0;
-      }
-      else {
-        const radlatHelper = Math.PI * latHelper / 180;
-        const radlatRequest = Math.PI * latRequest / 180;
-        const theta = lonHelper - lonRequest;
-        const radtheta = Math.PI * theta / 180;
-        const dist = Math.sin(radlatHelper) * Math.sin(radlatRequest) + Math.cos(radlatHelper) * Math.cos(radlatRequest) * Math.cos(radtheta);
-        if (dist > 1) {
-          dist = 1;
-        }
-        let dist1 = Math.acos(dist);
-        let dist2 = dist1 * 180 / Math.PI;
-        let dist3 = dist2 * 60 * 1.1515;
-        let dist4 = dist3 * 1.609344;
-        if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
-        return (dist4.toFixed(2) + ' km');
-      }
+  //calcul d'une distance en km
+  function distance(latHelper, lonHelper, latRequest, lonRequest) {
+    if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
+      return 0;
     }
-    //calculer la distance
-    const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
-  
-    console.log("eloignement:", eloignement)
+    else {
+      const radlatHelper = Math.PI * latHelper / 180;
+      const radlatRequest = Math.PI * latRequest / 180;
+      const theta = lonHelper - lonRequest;
+      const radtheta = Math.PI * theta / 180;
+      const dist = Math.sin(radlatHelper) * Math.sin(radlatRequest) + Math.cos(radlatHelper) * Math.cos(radlatRequest) * Math.cos(radtheta);
+      if (dist > 1) {
+        dist = 1;
+      }
+      let dist1 = Math.acos(dist);
+      let dist2 = dist1 * 180 / Math.PI;
+      let dist3 = dist2 * 60 * 1.1515;
+      let dist4 = dist3 * 1.609344;
+      if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
+      return (dist4.toFixed(2));
+    }
+  }
+  //calculer la distance
+  const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
+  // calcule du delta pour marker helper
+  const delta = eloignement * 0.02;
+  console.log("eloignement:", eloignement)
 
   //récupérer les données de géolocalisation
   useEffect(() => {
@@ -78,8 +80,8 @@ export default function ContactHelperScreen({ navigation }) {
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
-  if(!isLoaded) {
+  });
+  if (!isLoaded) {
     return <View />
   }
   return (
@@ -88,7 +90,7 @@ export default function ContactHelperScreen({ navigation }) {
         <Text style={styles.nameText}>{user.prenom}</Text>
         <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
-      <View style={styles.titlesContainer}> 
+      <View style={styles.titlesContainer}>
         <Text style={styles.title}>{helper.prenom} est sur le point d'arriver</Text>
       </View>
       <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('ContactHelper')}>
@@ -97,7 +99,7 @@ export default function ContactHelperScreen({ navigation }) {
           <View style={styles.middleContent}>
             <Text style={styles.name}>{helper.prenom}</Text>
             <Text style={styles.description}>Description</Text>
-            <Text style={styles.distance}>{eloignement}</Text>
+            <Text style={styles.distance}>{eloignement} km</Text>
           </View>
         </View>
         <View style={styles.rightContent}>
@@ -109,35 +111,35 @@ export default function ContactHelperScreen({ navigation }) {
           </View>
         </View>
       </TouchableOpacity>
-      {currentPosition && <MapView mapType="standard" 
-        showsUserLocation={true} 
-        followsUserLocation={true} 
+      {currentPosition && <MapView mapType="standard"
+        showsUserLocation={true}
+        followsUserLocation={true}
         initialRegion={{
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
+          latitudeDelta: delta,
+          longitudeDelta: delta,
 
-        }} 
+        }}
         style={styles.map}>
-          {helperMarker}
+        {helperMarker}
       </MapView>}
       <View style={styles.bottomContainer}>
         <Text style={styles.title}>Tu peux contacter {helper.prenom} :</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.buttonCall} onPress={() => navigation.navigate('ContactHelper')}>
-            <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
+            <FontAwesome name="phone" size={24} color="white" style={styles.phone} />
             <Text style={styles.text3}>Appeler {helper.prenom}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('Chat')}>
-            <Entypo name="chat" size={24} color="white" style={styles.chat}/>
+            <Entypo name="chat" size={24} color="white" style={styles.chat} />
             <Text style={styles.text3}>Ouvrir le chat</Text>
           </TouchableOpacity>
         </View>
       </View>
     </KeyboardAvoidingView>
   );
-}                                
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -229,8 +231,8 @@ const styles = StyleSheet.create({
   isFavorite: {
     marginRight: 20,
   },
-bottomContainer: {
-  alignItems: 'flex-start',
+  bottomContainer: {
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
     width: "100%",
     heigth: 250,
@@ -238,7 +240,7 @@ bottomContainer: {
     paddingBottom: 50,
     paddingLeft: 15,
     paddingRight: 15,
-},
+  },
   buttonsContainer: {
     flex: 1,
     width: '100%',

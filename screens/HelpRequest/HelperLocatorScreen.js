@@ -241,8 +241,8 @@ export default function HelperLocatorScreen({ navigation }) {
       initialRegion={{
         latitude: currentPosition.latitude,
         longitude: currentPosition.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
+        latitudeDelta: 0.06,
+        longitudeDelta: 0.06,
       }} 
       style={styles.map}>
         {markers}
