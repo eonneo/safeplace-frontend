@@ -40,8 +40,10 @@ export default function PhotoUploadScreen({ navigation }) {
     });
   
     if (!result.canceled) {
+      //console.log('result:',result)
       // Si l'utilisateur a sélectionné une image, récupère l'URL de l'image
       setImageUrl(result.uri);
+      //console.log('image:',imageUrl)
       // afficher l'image sur l'écran
       setUploadedImage(true);
     }
@@ -49,6 +51,40 @@ export default function PhotoUploadScreen({ navigation }) {
 
   //envoyer la photo sur cloudinary et modifier l'adresse dans la bd
   const validateImage = () => {
+
+    const formData = new FormData();
+
+    formData.append("photoProfil", {
+      uri: imageUrl,
+      name: "photoProfil.jpg",
+      type: "image/jpeg",
+    });
+
+    //console.log('formdata:' , formData)
+
+    fetch(`http://${IP}:3000/upload`, {
+      method: "POST",
+      body: formData,
+      
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('image data:', data.result)
+        if (data.result) {
+          // updating avatarUri to db
+          fetch(`http://${IP}:3000/users/uri`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user.email, avatarUri: data.url }),
+          }).then(response => response.json())
+          .then(updatedUri => {
+            if(updatedUri.result){
+              console.log('avatarUri updated in DB :', data.url)
+              data.result && dispatch(addSelfie(data.url));
+            }
+          })
+        }
+      });
 
   }
 
