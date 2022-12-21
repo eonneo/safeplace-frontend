@@ -139,17 +139,17 @@ export default function HelperLocatorScreen({ navigation }) {
     console.log('maping data:', data);
 
     //récupérer les Helpers favoris
-    /*const likedHelpersFromDb = dataArray.filter((e) => e.email === user.email)[0];
-    console.log('likedHelpersFromDb:', likedHelpersFromDb);*/
+    const likedHelpersFromDb = dataArray.filter((e) => e.email === user.email);
+    console.log('likedHelpersFromDb:', likedHelpersFromDb);
 
     // Like or dislike helper
-  /*const updateLikedHelpers = () => {
+    const updateLikedHelpers = () => {
     if (likedHelpers.find(helper => helper.email === data.email)) {
       setLikedHelpers(likedHelpers.filter(helper => helper.email !== data.email));
     } else {
       setLikedHelpers([...likedHelpers, data.email]);
     }
-  };*/
+  };
 
     //calculer la distance
     const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
@@ -177,7 +177,7 @@ export default function HelperLocatorScreen({ navigation }) {
         <View style={styles.rightContent}>
           <View style={styles.iconsContent}>
             <View style={styles.isFavorite}>
-              <FontAwesome name="heart" size={20} color={data.connected? '#E4513D': "#EAE2B7"} />
+              <FontAwesome name="heart" onPress={() => updateLikedHelpers()} size={20} color={data.isLiked? '#E4513D': "#E6EBE0"} />
             </View>
             <FontAwesome name="circle" size={20} color={data.connected? '#5CA4A9': "#E4513D"} />
           </View>
