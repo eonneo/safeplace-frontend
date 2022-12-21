@@ -21,33 +21,34 @@ export default function SignupScreen({ navigation }) {
   const [rue, setRue] = useState('');
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
+  const [isAvailable, setIsAvailable] = useState(false);
   const [verificationToken, setVerificationToken] = useState(null);
 
-  
+  //console.log(telephone, verificationToken, isAvailable);
+
   const email = useSelector((state) => state.signup.value.email)
   const password = useSelector((state) => state.signup.value.password)
 
   //envoi du sms de vérification
 
-  const verifySms = () => {
-  const generateRandomNumber = () => {
-    let verifyNumber;
-    return verifyNumber = Math.floor(1000 + Math.random() * 9000);
-  }
-
-  const smsChecking = async () => {
-    const isAvailable = await SMS.isAvailableAsync();
-    if (isAvailable) {
-      setVerificationToken(generateRandomNumber());
-    console.log('verifToken:', verifyNumber);
-    const { result } = await SMS.sendSMSAsync(
-      [telephone],
-      `Your verification code is: ${verifyNumber}`
-    );
+  /*useEffect(() => {
+    async function checkAvailability() {
+      const isSmsAvailable = await SMS.isAvailableAsync();
+      setIsAvailable(isSmsAvailable);
     }
+    checkAvailability();
+  }, []);
+
+  const generateRandomNumber = () => {
+    return Math.floor(1000 + Math.random() * 9000);
   }
-  smsChecking();
-  }
+ 
+  const smsChecking = async () => {
+    const {result} = await SMS.sendSMSAsync (
+      [`${telephone}`],
+      `Your verification code is: ${verificationToken}`
+    );
+    }*/
 
   const handleSubmit = () => {
 
@@ -77,8 +78,9 @@ export default function SignupScreen({ navigation }) {
           dispatch(getRestSignupFields(userInfos))
           dispatch(login(userInfos))
           //appel fonction sms verif
-          verifySms(),
-          navigation.navigate('Checking')
+          //setVerificationToken(generateRandomNumber());
+          //smsChecking(),
+          navigation.navigate('Upload')
         }else{
           console.log('email already exist')
         }
@@ -159,7 +161,7 @@ export default function SignupScreen({ navigation }) {
               onChangeText={(value) => setVille(value)}
             />
 
-            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit()}>
+            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit() }>
               <Text style={styles.text5}>S'inscrire</Text>
             </TouchableOpacity>
           </View>

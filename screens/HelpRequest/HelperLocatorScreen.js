@@ -202,9 +202,6 @@ export default function HelperLocatorScreen({ navigation }) {
         </View>
         <View style={styles.rightContent}>
           <View style={styles.iconsContent}>
-            <View style={styles.isFavorite}>
-              <FontAwesome name="heart" onPress={() => updateLikedHelpers()} size={20} color={data.isLiked? '#E4513D': "#E6EBE0"} />
-            </View>
             <FontAwesome name="circle" size={20} color={data.connected? '#5CA4A9': "#E4513D"} />
           </View>
           <Text style={styles.distance}>{eloignement}</Text>
