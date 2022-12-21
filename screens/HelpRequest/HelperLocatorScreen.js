@@ -134,22 +134,22 @@ export default function HelperLocatorScreen({ navigation }) {
     return () => clearInterval(interval);
   }, []);
 
-  //récupérer les Helpers favoris
-  let likedHelpersFromDb = dataArray.filter((e) => e.email === user.email)[0];
-  console.log('likedHelpersFromDb:', likedHelpersFromDb);
+  //maper sur la data du store pour afficher les helpers disponibles
+  const helpers = dataArray.map((data, i) => {
+    console.log('maping data:', data);
 
-  // Like or dislike helper
-  const updateLikedHelpers = () => {
+    //récupérer les Helpers favoris
+    /*const likedHelpersFromDb = dataArray.filter((e) => e.email === user.email)[0];
+    console.log('likedHelpersFromDb:', likedHelpersFromDb);*/
+
+    // Like or dislike helper
+  /*const updateLikedHelpers = () => {
     if (likedHelpers.find(helper => helper.email === data.email)) {
       setLikedHelpers(likedHelpers.filter(helper => helper.email !== data.email));
     } else {
       setLikedHelpers([...likedHelpers, data.email]);
     }
-  };
-
-  //maper sur la data pour afficher les helpers disponibles dans les cards
-  const helpers = dataArray.map((data, i) => {
-    console.log('maping data:', data);
+  };*/
 
     //calculer la distance
     const eloignement = distance(data.coordonneesGPS.latitude, data.coordonneesGPS.longitude, position.latitude, position.longitude);
