@@ -88,7 +88,6 @@ export default function HomeScreen({ navigation }) {
   });
 
   const schedulePushNotification = async () => {
-    
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "SafePlace",
@@ -97,7 +96,7 @@ export default function HomeScreen({ navigation }) {
       },
       trigger: { seconds: 1 },
     });
-    
+    navigation.navigate("HelperLocation");
   };
 
   useEffect(() => {
@@ -164,10 +163,12 @@ export default function HomeScreen({ navigation }) {
         </Text>
       </View>
       <View style={styles.imgContainer}>
-      <Image source={homePic}></Image>
+        <Image source={homePic}></Image>
       </View>
       <TouchableOpacity
-        onPress={() => {async () => {await schedulePushNotification()}, navigation.navigate("HelperLocation")}}
+        onPress={async () => {
+          await schedulePushNotification();
+        }}
       >
         <LinearGradient
           // Background Linear Gradient
@@ -198,9 +199,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingLeft: 20,
   },
-  imgContainer : {
-
-  },
+  imgContainer: {},
   homePic: {
     width: "100%",
     height: "60%",
@@ -245,7 +244,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     opacity: 1,
 
-
     top: -20,
     // left: "-27%",
     zIndex: 1,
@@ -257,5 +255,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontFamily: "OpenSans",
   },
-
 });

@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 70,
+    marginBottom: 20,
   },
   text4: {
     color: "#FFFFFF",
