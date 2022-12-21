@@ -100,7 +100,7 @@ export default function HelperLocatorScreen({ navigation }) {
     .then((response) => response.json())
     .then((data) => {
       if (data) {
-        console.log('data:', data);
+        //console.log('data:', data);
         let usersGeoloc = [];
         for (let item of data) {
           //tri sur les helpers disponibles
