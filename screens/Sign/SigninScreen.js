@@ -81,6 +81,7 @@ export default function SigninScreen({ navigation }) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <Text style={styles.title}>Bienvenue sur SAFE PLACE</Text>
+            <Text style={styles.title2}>Connecte toi !</Text>
             <View style={styles.inputGroup}>
                 <Text style={styles.text}>Email</Text>
                 <TextInput
@@ -128,7 +129,16 @@ const styles = StyleSheet.create({
         fontSize: 38,
         fontWeight: '600',
         textAlign: 'center',
+        color: '#33355C'
     },
+    title2: {
+        marginTop: 10,
+        width: "80%",
+        fontSize: 28,
+        fontWeight: "600",
+        textAlign: "center",
+        color: '#5CA4A9'
+      },
     inputGroup: {
         marginTop: 60,
         display: 'flex',

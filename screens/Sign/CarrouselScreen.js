@@ -46,6 +46,7 @@ export default function CarrouselScreen({ navigation }) {
           useScrollView={true}
         />
         <Pagination
+          containerStyle = {styles.pagination}
           dotsLength={data.length}
           activeDotIndex={index}
           carouselRef={isCarousel}
@@ -64,13 +65,7 @@ export default function CarrouselScreen({ navigation }) {
       <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate("SigninScreen")}>
         <Text style={styles.text4}>Login</Text>
       </TouchableOpacity>
-      {/* <TouchableOpacity
-        style={styles.button}
-        activeOpacity={0.9}
-        
-      >
-        <Text style={styles.textButton}>Naviguer jusqu'a la page Login</Text>
-      </TouchableOpacity> */}
+
     </View>
   );
 }
@@ -86,13 +81,18 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans',
     flex: 1,
     width: "100%",
-    height: "70%",
+    height: "0%",
     borderColor: "#05286F",
     marginTop: 30,
     padding: 10,
     alignItems: 'center',
 
   },
+
+  pagination: {
+    resizeMode: 'contain',
+  },
+
   button4: {
     marginTop: 10,
     width: 213,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 20,
+    marginBottom: 70,
   },
   text4: {
     color: "#FFFFFF",
