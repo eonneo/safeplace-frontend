@@ -66,9 +66,6 @@ export default function ContactHelperScreen({ navigation }) {
           </View>
         </View>
         <View style={styles.rightContent}>
-          <View style={styles.isFavorite}>
-            <FontAwesome name="heart" size={20} color="#ec6e5b" />
-          </View>
           <View style={styles.isConnected}>
             <FontAwesome name="circle" size={20} color="#5CA4A9" />
           </View>

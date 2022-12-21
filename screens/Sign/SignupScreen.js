@@ -24,13 +24,14 @@ export default function SignupScreen({ navigation }) {
   const [isAvailable, setIsAvailable] = useState(false);
   const [verificationToken, setVerificationToken] = useState(null);
 
-  
+  //console.log(telephone, verificationToken, isAvailable);
+
   const email = useSelector((state) => state.signup.value.email)
   const password = useSelector((state) => state.signup.value.password)
 
   //envoi du sms de vérification
 
-  useEffect(() => {
+  /*useEffect(() => {
     async function checkAvailability() {
       const isSmsAvailable = await SMS.isAvailableAsync();
       setIsAvailable(isSmsAvailable);
@@ -41,15 +42,13 @@ export default function SignupScreen({ navigation }) {
   const generateRandomNumber = () => {
     return Math.floor(1000 + Math.random() * 9000);
   }
-
+ 
   const smsChecking = async () => {
-      setVerificationToken(generateRandomNumber());
-    console.log('verifToken:', verifyNumber);
     const {result} = await SMS.sendSMSAsync (
       [`${telephone}`],
       `Your verification code is: ${verificationToken}`
     );
-    }
+    }*/
 
   const handleSubmit = () => {
 
@@ -79,8 +78,9 @@ export default function SignupScreen({ navigation }) {
           dispatch(getRestSignupFields(userInfos))
           dispatch(login(userInfos))
           //appel fonction sms verif
+          //setVerificationToken(generateRandomNumber());
           //smsChecking(),
-          navigation.navigate('Checking')
+          navigation.navigate('Upload')
         }else{
           console.log('email already exist')
         }
@@ -161,7 +161,7 @@ export default function SignupScreen({ navigation }) {
               onChangeText={(value) => setVille(value)}
             />
 
-            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit() && smsChecking()}>
+            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit() }>
               <Text style={styles.text5}>S'inscrire</Text>
             </TouchableOpacity>
           </View>
