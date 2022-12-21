@@ -174,15 +174,11 @@ export default function SignupScreen({ navigation }) {
               onChangeText={(value) => setVille(value)}
             />
 
-<<<<<<< HEAD
             <TouchableOpacity
               style={styles.button5}
               activeOpacity={0.9}
               onPress={() => handleSubmit()}
             >
-=======
-            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit() }>
->>>>>>> 6c23c792abf7f506a2643a3bd22889b396a9e7bc
               <Text style={styles.text5}>S'inscrire</Text>
             </TouchableOpacity>
           </View>
