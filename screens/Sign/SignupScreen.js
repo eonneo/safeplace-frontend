@@ -21,6 +21,7 @@ export default function SignupScreen({ navigation }) {
   const [rue, setRue] = useState('');
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
+  const [isAvailable, setIsAvailable] = useState(false);
   const [verificationToken, setVerificationToken] = useState(null);
 
   
@@ -29,25 +30,26 @@ export default function SignupScreen({ navigation }) {
 
   //envoi du sms de vérification
 
-  const verifySms = () => {
+  useEffect(() => {
+    async function checkAvailability() {
+      const isSmsAvailable = await SMS.isAvailableAsync();
+      setIsAvailable(isSmsAvailable);
+    }
+    checkAvailability();
+  }, []);
+
   const generateRandomNumber = () => {
-    let verifyNumber;
-    return verifyNumber = Math.floor(1000 + Math.random() * 9000);
+    return Math.floor(1000 + Math.random() * 9000);
   }
 
   const smsChecking = async () => {
-    const isAvailable = await SMS.isAvailableAsync();
-    if (isAvailable) {
       setVerificationToken(generateRandomNumber());
     console.log('verifToken:', verifyNumber);
-    const { result } = await SMS.sendSMSAsync(
-      [telephone],
-      `Your verification code is: ${verifyNumber}`
+    const {result} = await SMS.sendSMSAsync (
+      [`${telephone}`],
+      `Your verification code is: ${verificationToken}`
     );
     }
-  }
-  smsChecking();
-  }
 
   const handleSubmit = () => {
 
@@ -77,7 +79,7 @@ export default function SignupScreen({ navigation }) {
           dispatch(getRestSignupFields(userInfos))
           dispatch(login(userInfos))
           //appel fonction sms verif
-          verifySms(),
+          //smsChecking(),
           navigation.navigate('Checking')
         }else{
           console.log('email already exist')
@@ -159,7 +161,7 @@ export default function SignupScreen({ navigation }) {
               onChangeText={(value) => setVille(value)}
             />
 
-            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit()}>
+            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit() && smsChecking()}>
               <Text style={styles.text5}>S'inscrire</Text>
             </TouchableOpacity>
           </View>
