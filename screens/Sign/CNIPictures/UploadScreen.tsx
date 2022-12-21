@@ -55,6 +55,7 @@ export default function UploadScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -75,39 +76,31 @@ headerTitle: {
   marginLeft: 10,
   fontFamily: 'Raleway'
 },
-  image: {
-    width: '100%',
-    height: '50%',
-  },
   title: {
     fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
     fontFamily: 'Raleway'
   },
-  title1: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    textAlign: 'center',
-    fontSize: 24,
-    fontWeight: '600',
-  },
   imgContainer: {
     flex: 1,
-    width: '100%',
+    width: '87%',
     height: '50%',
     alignContent: 'center',
     justifyContent: 'flex-end',
-    paddingTop: 40,
+    paddingTop: 70,
+    
+  },
+  homePic: {
+    resizeMode: "contain",
   },
   bottomContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   button1: {
-    marginTop: 10,
+    marginTop: 20,
     width: 176,
     height: 48,
     borderRadius: 10,
