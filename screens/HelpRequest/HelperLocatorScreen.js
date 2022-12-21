@@ -101,7 +101,7 @@ export default function HelperLocatorScreen({ navigation }) {
     .then((response) => response.json())
     .then((data) => {
       if (data) {
-        //console.log('data:', data);
+        console.log('data phone:',data);
         let usersGeoloc = [];
         for (let item of data) {
           //tri sur les helpers disponibles
@@ -115,6 +115,7 @@ export default function HelperLocatorScreen({ navigation }) {
               connected: item.isConnected,
               uri: item.avatarUri,
               favorites: item.favouritesHelpers,
+              telephone: item.telephone,
             }
             usersGeoloc.push(itemInfos);
           }
@@ -141,6 +142,7 @@ export default function HelperLocatorScreen({ navigation }) {
       mustComeToMe: data.settings.venir,
       latitude: data.coordonneesGPS.latitude,
       longitude: data.coordonneesGPS.longitude,
+      telephone: data.telephone,
     }
     console.log('select helpr func', selectedHelper);
     dispatch(addHelperInfos(selectedHelper))
@@ -241,8 +243,8 @@ export default function HelperLocatorScreen({ navigation }) {
       initialRegion={{
         latitude: currentPosition.latitude,
         longitude: currentPosition.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
+        latitudeDelta: 0.06,
+        longitudeDelta: 0.06,
       }} 
       style={styles.map}>
         {markers}
