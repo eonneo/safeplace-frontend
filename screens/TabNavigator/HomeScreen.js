@@ -153,13 +153,13 @@ export default function HomeScreen({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <Text style={styles.title1}>Bonjour {user.prenom}</Text>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.button}
         activeOpacity={0.9}
         onPress={() => navigation.navigate("HelpermoreInfo")}
       >
         <Text style={styles.textButton}>naviguer vers Helper screens</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text style={styles.title2}>{totalUsers} utilisateurs autour de toi</Text>
       <Text style={styles.title2}>
         Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place
