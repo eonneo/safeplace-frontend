@@ -5,7 +5,8 @@ import {
   Text,
   View,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 import { useFonts } from '@use-expo/font';
 
@@ -31,6 +32,17 @@ export default function ContactHelperScreen({ navigation }) {
   });
 
   const helperMarker = <Marker coordinate={{ latitude: helper.latitude, longitude: helper.longitude }} title={helper.prenom} pinColor="#E4513D" />;
+
+  // Fonction téléphoner au helper 
+  const callHelper = () => {
+    let phoneNumber = helper.telephone;
+    if (Platform.OS === 'android') {
+        phoneNumber = (`tel:${phoneNumber}`);
+    } else {
+        phoneNumber = (`telprompt:${phoneNumber}`);
+    }
+    Linking.openURL(phoneNumber);
+};
 
   //calcul d'une distance en km
   function distance(latHelper, lonHelper, latRequest, lonRequest) {
@@ -127,7 +139,7 @@ export default function ContactHelperScreen({ navigation }) {
       <View style={styles.bottomContainer}>
         <Text style={styles.title}>Tu peux contacter {helper.prenom} :</Text>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.buttonCall} onPress={() => navigation.navigate('ContactHelper')}>
+          <TouchableOpacity style={styles.buttonCall} onPress={() => callHelper()}>
             <FontAwesome name="phone" size={24} color="white" style={styles.phone} />
             <Text style={styles.text3}>Appeler {helper.prenom}</Text>
           </TouchableOpacity>

@@ -5,6 +5,7 @@ export type SelectedHelperState = {
         email: string | null;
         prenom: string | null;
         avatarUri: string | null;
+        telephone: string | null;
         isConnected: boolean;
         isReadyToAccomodate: boolean;
         isReadyToLift: boolean;
@@ -23,6 +24,7 @@ const initialState: SelectedHelperState = {
         email: null,
         prenom: null,
         avatarUri: null,
+        telephone: null,
         isConnected: false,
         isReadyToAccomodate: false,
         isReadyToLift: false,
@@ -44,6 +46,7 @@ export const selectedHelperSlice = createSlice({
             state.value.email = action.payload.email;
             state.value.prenom = action.payload.prenom;
             state.value.avatarUri = action.payload.avatarUri;
+            state.value.telephone = action.payload.telephone;
             state.value.isConnected = action.payload.isConnected;
             state.value.isReadyToAccomodate = action.payload.isReadyToAccomodate;
             state.value.isReadyToLift = action.payload.isReadyToLift;
