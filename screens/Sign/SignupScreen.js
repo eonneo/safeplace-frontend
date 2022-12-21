@@ -30,33 +30,35 @@ export default function SignupScreen({ navigation }) {
   const [numeroRue, setNumeroRue] = useState("");
   const [rue, setRue] = useState("");
   const [codePostal, setCodePostal] = useState(0);
-  const [ville, setVille] = useState("");
+  const [ville, setVille] = useState('');
+  const [isAvailable, setIsAvailable] = useState(false);
   const [verificationToken, setVerificationToken] = useState(null);
 
-  const email = useSelector((state) => state.signup.value.email);
-  const password = useSelector((state) => state.signup.value.password);
+  //console.log(telephone, verificationToken, isAvailable);
+
+  const email = useSelector((state) => state.signup.value.email)
+  const password = useSelector((state) => state.signup.value.password)
 
   //envoi du sms de vérification
 
-  const verifySms = () => {
-    const generateRandomNumber = () => {
-      let verifyNumber;
-      return (verifyNumber = Math.floor(1000 + Math.random() * 9000));
-    };
+  /*useEffect(() => {
+    async function checkAvailability() {
+      const isSmsAvailable = await SMS.isAvailableAsync();
+      setIsAvailable(isSmsAvailable);
+    }
+    checkAvailability();
+  }, []);
 
-    const smsChecking = async () => {
-      const isAvailable = await SMS.isAvailableAsync();
-      if (isAvailable) {
-        setVerificationToken(generateRandomNumber());
-        console.log("verifToken:", verifyNumber);
-        const { result } = await SMS.sendSMSAsync(
-          [telephone],
-          `Your verification code is: ${verifyNumber}`
-        );
-      }
-    };
-    smsChecking();
-  };
+  const generateRandomNumber = () => {
+    return Math.floor(1000 + Math.random() * 9000);
+  }
+ 
+  const smsChecking = async () => {
+    const {result} = await SMS.sendSMSAsync (
+      [`${telephone}`],
+      `Your verification code is: ${verificationToken}`
+    );
+    }*/
 
   const handleSubmit = () => {
     const userInfos = {
@@ -86,9 +88,17 @@ export default function SignupScreen({ navigation }) {
           dispatch(getRestSignupFields(userInfos));
           dispatch(login(userInfos));
           //appel fonction sms verif
+<<<<<<< HEAD
           verifySms(), navigation.navigate("Checking");
         } else {
           console.log("email already exist");
+=======
+          //setVerificationToken(generateRandomNumber());
+          //smsChecking(),
+          navigation.navigate('Upload')
+        }else{
+          console.log('email already exist')
+>>>>>>> 6c23c792abf7f506a2643a3bd22889b396a9e7bc
         }
       });
   };
@@ -170,11 +180,15 @@ export default function SignupScreen({ navigation }) {
               onChangeText={(value) => setVille(value)}
             />
 
+<<<<<<< HEAD
             <TouchableOpacity
               style={styles.button5}
               activeOpacity={0.9}
               onPress={() => handleSubmit()}
             >
+=======
+            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit() }>
+>>>>>>> 6c23c792abf7f506a2643a3bd22889b396a9e7bc
               <Text style={styles.text5}>S'inscrire</Text>
             </TouchableOpacity>
           </View>

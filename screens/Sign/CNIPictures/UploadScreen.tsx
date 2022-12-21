@@ -1,5 +1,6 @@
 import { SafeAreaView, 
   StatusBar, 
+  Image,
   Button, 
   StyleSheet, 
   Text, 
@@ -15,6 +16,8 @@ import { useFonts } from '@use-expo/font';
 
 export default function UploadScreen({ navigation }) {
 
+  const homePic = require("../../../assets/upload.png");
+
   const [isLoaded] = useFonts({
     'OpenSans': require("../../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../../assets/Raleway/static/Raleway-Regular.ttf')
@@ -24,15 +27,27 @@ export default function UploadScreen({ navigation }) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <FontAwesome name='arrow-left' size={25} color='#000000' onPress={() => navigation.navigate("Signup")} />
-        <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
+      <View style={styles.topContent}>
+        <View style={styles.header}>
+          <FontAwesome
+              name="arrow-left"
+              size={25}
+              color="#33355C"
+              onPress={() => navigation.navigate("Upload")}
+          />
+          <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
+        </View>
       </View>
-      <Text style={styles.title}>Pour ta sécurité, nous avons besoin d’une copie de ta carte d’identité</Text>
-      <Text style={styles.title}>Envoie ta pièce d'identité:</Text>
-      <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('CNIRecto')}>
-        <FontAwesome name="arrow-right" size={24} color="white" />
-      </TouchableOpacity>
+      <View style={styles.imgContainer}>
+        <Image source={homePic} style={styles.homePic}></Image>
+      </View>
+      <View style={styles.bottomContainer}>
+        <Text style={styles.title}>Pour ta sécurité, nous avons besoin d’une copie d'une pièce d’identité</Text>
+        <Text style={styles.title}>Envoie ta pièce d'identité:</Text>
+        <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => navigation.navigate('CNIRecto')}>
+          <FontAwesome name="arrow-right" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -40,47 +55,52 @@ export default function UploadScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     marginTop: 25,
   },
-  header: {
-    flex: 0.1,
-    flexDirection: 'row',
-    backgroundColor: '#cccccc',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    textAlign: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '50%',
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    textAlign: 'center',
-    paddingLeft: 15,
-  },
-  title: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    textAlign: 'center',
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  input: {
+  topContent: {
+    flex: 1,
+    marginTop: 50,
     width: '80%',
-    marginTop: 25,
-    borderBottomColor: '#EC6E5B',
-    borderBottomWidth: 1,
+},
+header: {
+    alignItems: "center",
+    flexDirection: "row",
+},
+headerTitle: {
+  fontSize: 24,
+  color: "#5CA4A9",
+  marginLeft: 10,
+  fontFamily: 'Raleway'
+},
+  title: {
     fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'center',
+    fontFamily: 'Raleway'
+  },
+  imgContainer: {
+    flex: 1,
+    width: '87%',
+    height: '50%',
+    alignContent: 'center',
+    justifyContent: 'flex-end',
+    paddingTop: 70,
+    
+  },
+  homePic: {
+    resizeMode: "contain",
+  },
+  bottomContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   button1: {
-    marginTop: 10,
+    marginTop: 20,
     width: 176,
     height: 48,
     borderRadius: 10,
