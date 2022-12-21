@@ -197,4 +197,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
   },
+  error: {
+    color: '#FFA647',
+    fontSize: 12,
+  },
 });
