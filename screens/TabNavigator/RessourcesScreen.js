@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-
   Image,
   TouchableOpacity,
   ScrollView,
@@ -174,6 +173,6 @@ const styles = StyleSheet.create({
     color: "#33355C",
     width: "100%",
     fontFamily: "OpenSans",
+    textAlign: "justify",
   },
- 
 });
