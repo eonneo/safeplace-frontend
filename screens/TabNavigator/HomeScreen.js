@@ -136,8 +136,9 @@ export default function HomeScreen({ navigation }) {
   }, [lastNotificationResponse]);
 
   // photo homepage
-  const homePic = require("../../assets/mains.jpg");
+  const homePic = require("../../assets/homepic3.png");
 
+  // FONT
   const [isLoaded] = useFonts({
     OpenSans: require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
@@ -152,19 +153,18 @@ export default function HomeScreen({ navigation }) {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text style={styles.title1}>Bonjour {user.prenom}</Text>
-      {/* <TouchableOpacity
-        style={styles.button}
-        activeOpacity={0.9}
-        onPress={() => navigation.navigate("HelpermoreInfo")}
-      >
-        <Text style={styles.textButton}>naviguer vers Helper screens</Text>
-      </TouchableOpacity> */}
-      <Text style={styles.title2}>{totalUsers} utilisateurs autour de toi</Text>
-      <Text style={styles.title2}>
-        Déjà x utilisateurs sauvé.e.s depuis le début de Safe Place
-      </Text>
-      <Image source={homePic} style={styles.homePic}></Image>
+      <View style={styles.header}>
+        <Text style={styles.title1}>Bonjour {user.prenom},</Text>
+        <Text style={styles.title2}>
+          {totalUsers} utilisateurs autour de toi.
+        </Text>
+        <Text style={styles.title2}>
+          Déjà 23 utilisateurs sauvé.e.s depuis le début de Safe Place
+        </Text>
+      </View>
+      <View style={styles.imgContainer}>
+      <Image source={homePic}></Image>
+      </View>
       <TouchableOpacity
         onPress={async () => {
           await schedulePushNotification();
@@ -186,6 +186,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     flex: 1,
     backgroundColor: "#ffffff",
     alignItems: "center",
@@ -193,26 +194,34 @@ const styles = StyleSheet.create({
     padding: 0,
     Margin: 0,
   },
+  header: {
+    flex: 2,
+    width: "100%",
+    paddingLeft: 20,
+  },
+  imgContainer : {
+
+  },
   homePic: {
     width: "100%",
-    height: "50%",
-    marginTop: 20,
+    height: "60%",
+    marginTop: 10,
     resizeMode: "contain",
   },
   title1: {
-    width: "80%",
+    width: "100%",
     fontSize: 36,
     fontWeight: "600",
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    color: "#33355C",
+    color: "#5CA4A9",
     padding: 0,
     marginTop: 40,
     marginBottom: 10,
     fontFamily: "Raleway",
   },
   title2: {
-    width: "80%",
+    width: "100%",
     fontSize: 20,
     fontWeight: "400",
     color: "#33355C",
@@ -221,24 +230,25 @@ const styles = StyleSheet.create({
     fontFamily: "Raleway",
   },
   input: {
-    width: "80%",
+    width: "100%",
     marginTop: 25,
     borderBottomColor: "#EC6E5B",
     borderBottomWidth: 1,
     fontSize: 20,
   },
   SosButton: {
-    width: 199,
-    height: 199,
+    width: 170,
+    height: 170,
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
     opacity: 1,
-    position: "absolute",
-    top: -110,
-    left: "-27%",
+
+
+    top: -20,
+    // left: "-27%",
     zIndex: 1,
   },
   SosText: {
@@ -249,25 +259,4 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans",
   },
 
-  button: {
-    marginTop: 10,
-    width: 300,
-    height: 48,
-    borderRadius: 10,
-    backgroundColor: "#33355C",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textButton: {
-    color: "#ffffff",
-    fontFamily: "Raleway",
-    height: 30,
-    fontWeight: "600",
-    fontSize: 16,
-  },
-
-  containerButton: {
-    flex: 1,
-    marginTop: 100,
-  },
 });
