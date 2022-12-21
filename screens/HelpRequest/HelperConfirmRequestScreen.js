@@ -29,6 +29,8 @@ export default function HelperConfirmRequestScreen({ navigation }) {
     latitude: position.latitude,
     longitude: position.longitude
   });
+
+  const helperMarker = <Marker coordinate={{latitude: helper.latitude, longitude: helper.longitude}} title={helper.prenom} pinColor="#E4513D"/>;
   
   console.log('helper from useselector:', helper)
   console.log('position from useSelector:', position)
@@ -107,7 +109,10 @@ export default function HelperConfirmRequestScreen({ navigation }) {
           latitudeDelta: 0.008,
           longitudeDelta: 0.008,
         }}
-        style={styles.map}>
+        style={styles.map}
+        >
+          {helperMarker}
+          
       </MapView>}
       <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('ContactHelper')}>
         <View style={styles.leftContent}>
