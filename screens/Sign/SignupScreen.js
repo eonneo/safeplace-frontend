@@ -88,17 +88,11 @@ export default function SignupScreen({ navigation }) {
           dispatch(getRestSignupFields(userInfos));
           dispatch(login(userInfos));
           //appel fonction sms verif
-<<<<<<< HEAD
-          verifySms(), navigation.navigate("Checking");
-        } else {
-          console.log("email already exist");
-=======
           //setVerificationToken(generateRandomNumber());
           //smsChecking(),
           navigation.navigate('Upload')
         }else{
           console.log('email already exist')
->>>>>>> 6c23c792abf7f506a2643a3bd22889b396a9e7bc
         }
       });
   };
