@@ -19,18 +19,11 @@ import { Entypo } from '@expo/vector-icons';
 
 export default function ContactHelperScreen({ navigation }) {
 
-<<<<<<< HEAD
+ 
 
-  const user = useSelector((state) => state.user.value);
-
-=======
-  const PlaceholderImage = require("../../assets/Vector.png");
-  // item. data.array 
-// item.telephone
 
   const user = useSelector((state) => state.user.value);
   const helper = useSelector((state) => state.selectedHelper.value);
->>>>>>> screenUpdate
   const position = useSelector((state) => state.location.value);
 
   const [currentPosition, setCurrentPosition] = useState({
@@ -159,12 +152,6 @@ const helper =(user.telephone)
           <TouchableOpacity style={styles.buttonCall} onPress={() => callHelper()}>
             <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
             <Text style={styles.text3}>Appeler {helper.prenom}</Text>
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> screenUpdate
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('Chat')}>
             <Entypo name="chat" size={24} color="white" style={styles.chat} />

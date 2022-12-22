@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getFirstSignupFields } from "../../reducers/signup";
-import GoogleLogin from 'react-google-login';
+
 
 import { useFonts } from "@use-expo/font";
 

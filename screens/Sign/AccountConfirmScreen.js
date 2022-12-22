@@ -39,52 +39,6 @@ export default function AccountConfirmScreen({ navigation }) {
     return <View />;
   }
   return (
-<<<<<<< HEAD
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
-<View style={styles.header}>
-          <FontAwesome
-            name="arrow-left"
-            size={25}
-            color="#33355C"
-            onPress={() => navigation.navigate("Selfie")}
-          />
-          <Text style={styles.title}>Welcome to Safe Place</Text>
-        </View>
-
-      <View style={styles.container2}>
-        <Text style={styles.titles}>Nous vous confirmons la création de votre compte sur SAFE PLACE</Text>
-      </View>
-
-
-      <View style={styles.container2}>
-
-        <Text style={styles.subtitle}  >
-          Cliquez sur le bouton ci-dessous pour commencer la navigation sur l'application.
-        </Text>
-
-        <Text style={styles.subtitle}  >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </Text>
-
-      </View>
-
-      <View style={styles.container3}>
-
-        <TouchableOpacity style={styles.button1} activeOpacity={0.9} onPress={() => handleNext()}>
-
-          <Text style={styles.textButton}>Next</Text>
-        </TouchableOpacity>
-      </View>
-
-    </KeyboardAvoidingView>
-
-
-=======
     // <ScrollView>
       <SafeAreaView
         style={styles.container}
@@ -124,7 +78,6 @@ export default function AccountConfirmScreen({ navigation }) {
         </View>
       </SafeAreaView>
     // </ScrollView>
->>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75
   );
 }
 
@@ -142,21 +95,12 @@ const styles = StyleSheet.create({
 
   header: {
     flex: 1,
-<<<<<<< HEAD
-    flexDirection: 'row',
-    //backgroundColor: '#cccccc',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    textAlign: 'center',
-=======
     flexDirection: "row",
     backgroundColor: "#cccccc",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
     textAlign: "center",
->>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75
   },
   optionContainer: {
     flex: 1,
@@ -168,46 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
-<<<<<<< HEAD
-  container2: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%',
-  },
-
-  container3: {
-    flex: 3,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '80%',
-  },
-
-  image: {
-    width: '100%',
-    height: '50%',
-  },
-
-  title: {
-    fontSize: 32,
-    textAlign: 'center',
-    color: '#5CA4A9',
-    marginLeft: 10,
-  },
-
-  titles: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#5CA4A9',
-    marginLeft: 10,
-  },
-
-  subtitle: {
-=======
   smallText: {
->>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75
     fontSize: 14,
     marginBottom: 20,
     color: "#33355C",
@@ -258,12 +163,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
   },
-<<<<<<< HEAD
-
- 
-  
-});
-=======
   text5: {
     color: "#FFFFFF",
     fontFamily: "OpenSans",
@@ -271,4 +170,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
->>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75
