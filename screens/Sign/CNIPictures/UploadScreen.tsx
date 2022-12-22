@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   topContent: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 20,
     width: '80%',
 },
 header: {
@@ -80,7 +80,8 @@ headerTitle: {
     fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
-    fontFamily: 'Raleway'
+    fontFamily: 'Raleway',
+    color: "#33355C",
   },
   imgContainer: {
     flex: 1,
@@ -104,7 +105,7 @@ headerTitle: {
     width: 176,
     height: 48,
     borderRadius: 10,
-    backgroundColor: "#33355C",
+    backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
   },
