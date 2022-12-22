@@ -210,7 +210,6 @@ const styles = StyleSheet.create({
   scroll: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-between',
     marginBottom:10,
   },
   
