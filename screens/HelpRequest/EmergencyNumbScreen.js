@@ -188,8 +188,9 @@ export default function EmergencyNumbScreen({ navigation }) {
           <TouchableOpacity
             style={styles.disconnectButton}
             activeOpacity={0.9}
-            onPress={() => sendSms()}
+            onPress={() => navigation.navigate('HelperConfirmRequest')}
           >
+
             <Text style={styles.disconnectText}>Retour</Text>
           </TouchableOpacity>
         </View>

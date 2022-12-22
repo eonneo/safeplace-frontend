@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Button, 
   Image, 
   StyleSheet, 
@@ -7,17 +6,6 @@ import { Button,
   Linking,
   KeyboardAvoidingView,  
   TouchableOpacity 
-=======
-import {
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  Linking
->>>>>>> 8ae783348ff53c2ea701da628fbe0a1fd1164f6e
 } from 'react-native';
 import { useFonts } from '@use-expo/font';
 
@@ -31,17 +19,12 @@ import { Entypo } from '@expo/vector-icons';
 
 export default function ContactHelperScreen({ navigation }) {
 
-<<<<<<< HEAD
   const PlaceholderImage = require("../../assets/Vector.png");
-  const user = useSelector((state) => state.user.value);
   // item. data.array 
 // item.telephone
-=======
->>>>>>> 8ae783348ff53c2ea701da628fbe0a1fd1164f6e
 
   const user = useSelector((state) => state.user.value);
   const helper = useSelector((state) => state.selectedHelper.value);
-
   const position = useSelector((state) => state.location.value);
 
   const [currentPosition, setCurrentPosition] = useState({
@@ -106,7 +89,7 @@ export default function ContactHelperScreen({ navigation }) {
       }
     })();
   }, []);
-
+{/*
 const helper =(user.telephone)
   // Fonctions pour declencher un appel on click 
   const makeCallToPolice = () => {
@@ -118,6 +101,7 @@ const helper =(user.telephone)
     }
     Linking.openURL(phoneNumber);
 };
+*/}
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -166,18 +150,12 @@ const helper =(user.telephone)
       <View style={styles.bottomContainer}>
         <Text style={styles.title}>Tu peux contacter {helper.prenom} :</Text>
         <View style={styles.buttonsContainer}>
-<<<<<<< HEAD
-          <TouchableOpacity style={styles.buttonCall} onPress={() => makeCallToPolice()}>
-            <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
-            <Text style={styles.text3}>Appeler X</Text>
-
-
-
-=======
           <TouchableOpacity style={styles.buttonCall} onPress={() => callHelper()}>
-            <FontAwesome name="phone" size={24} color="white" style={styles.phone} />
+            <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
             <Text style={styles.text3}>Appeler {helper.prenom}</Text>
->>>>>>> 8ae783348ff53c2ea701da628fbe0a1fd1164f6e
+
+
+
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('Chat')}>
             <Entypo name="chat" size={24} color="white" style={styles.chat} />

@@ -141,7 +141,7 @@ export default function HelperConfirmRequestScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('ContactHelper')}>
-        <Text style={styles.text3}>Contacter {helper.prenom}</Text>
+        <Text style={styles.text3}>Contacter </Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
