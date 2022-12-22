@@ -85,8 +85,8 @@ export default function HelperMoreInfoScreen({ navigation }) {
         style={styles.map}/>}
       </SafeAreaView>
       <Text style={styles.textDistance}> Distance : 300 mètres</Text>
-      <ScrollView style={styles.scroll}>
-          <View style={styles.optionhelpcontainer}>
+      <View style={styles.switchContainer}>
+          <View style={styles.optionContainer}>
             <Text style={styles.subtitle}>Je peux l'accueillir</Text>
             <Switch
               value={isEnabled}
@@ -96,7 +96,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-          <View style={styles.optionhelpcontainer}>
+          <View style={styles.optionContainer}>
             <Text style={styles.subtitle}>Je peux la rejoindre</Text>
             <Switch
               value={isReadyToAccomodate}
@@ -106,8 +106,8 @@ export default function HelperMoreInfoScreen({ navigation }) {
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-          <View style={styles.optionhelpcontainer}>
-            <Text style={styles.subtitle}>Je peux répondre à son appel</Text>
+          <View style={styles.optionContainer}>
+            <Text style={styles.subtitle}>Je peux transporter</Text>
             <Switch
               value={isReadyToLift}
               onValueChange={(value) => setisReadyToLift(value)}
@@ -116,8 +116,8 @@ export default function HelperMoreInfoScreen({ navigation }) {
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-          <View style={styles.optionhelpcontainer}>
-            <Text style={styles.subtitle}>Je peux la transporter</Text>
+          <View style={styles.optionContainer}>
+            <Text style={styles.subtitle}>Je peux soutenir à distance</Text>
             <Switch
               value={isReadyToAssist}
               onValueChange={(value) => setisReadyToAssist(value)}
@@ -126,7 +126,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
               ios_backgroundColor="#e5eadf"
               style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-      </ScrollView>
+      </View>
       <View style={styles.buttonsContainer} >
 
         <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate("HelperConfirmation")}>
@@ -173,10 +173,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 50,
   },
-  containerTextNotification: {
-    // flex: 1,
-  },
-
   title: {
     width: '80%',
     fontSize: 24,
@@ -184,8 +180,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'center',
     fontFamily: 'Raleway',
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 
   map: {
@@ -204,29 +200,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: "#33355C",
-    margin: 5,
     fontFamily: 'Raleway',
   },
-  scroll: {
-    flexDirection: 'row',
-    width: '100%',
+  switchContainer: {
+    width: '90%',
     marginBottom:10,
   },
-  
-  switchContainer: {
-    alignSelf: 'center',
-    width: '90%',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-
-  optionhelpcontainer: {
+  optionContainer: {
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
     alignItems: "center",
     alignSelf: 'center',
-    marginBottom:10,
   },
 
   subtitle: {
@@ -238,7 +223,7 @@ const styles = StyleSheet.create({
 
   button1: {
     width: '45%',
-    marginTop: 10,
+    marginTop: 5,
     height: 48,
     borderRadius: 10,
     backgroundColor: "#5CA4A9",
@@ -248,7 +233,7 @@ const styles = StyleSheet.create({
 
   button2: {
     width: '45%',
-    marginTop: 10,
+    marginTop: 5,
     height: 48,
     borderRadius: 10,
     backgroundColor: "#5CA4A9",
@@ -260,11 +245,11 @@ const styles = StyleSheet.create({
 
   buttonsContainer: {
     flexDirection: 'row',
-    width: '90%',
+    width: '85%',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   textButton: {
