@@ -80,14 +80,14 @@ export default function ContactHelperScreen({ navigation }) {
       let dist2 = dist1 * 180 / Math.PI;
       let dist3 = dist2 * 60 * 1.1515;
       let dist4 = dist3 * 1.609344;
-      if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
+      if (dist4 < 1) { return (dist4 /= 1000).toFixed(2)}
       return (dist4.toFixed(2));
     }
   }
   //calculer la distance
   const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
   // calcule du delta pour marker helper
-  const delta = eloignement * 0.02;
+  const delta = eloignement * 0.02+0.01;
   console.log("eloignement:", eloignement)
 
   //récupérer les données de géolocalisation
