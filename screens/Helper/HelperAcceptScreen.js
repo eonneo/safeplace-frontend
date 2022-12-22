@@ -27,7 +27,7 @@ export default function HelperConfirmationScreen({ navigation }) {
         <Text style={styles.title}>Jane a accepté ta proposition d'aide !</Text>
         <Image source={require('../../assets/carou2.png')}/>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("HelperContact")}>
-        <Text style={styles.textButton}>CONTACTER JANE</Text>
+        <Text style={styles.textButton}>Contacter Louise</Text>
         </TouchableOpacity>
     </SafeAreaView>
   );
