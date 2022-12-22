@@ -66,8 +66,6 @@ export default function HelperMoreInfoScreen({ navigation }) {
     return <View />
   }
   return (
-
-
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
         <Text style={styles.nameText}>{user.prenom}</Text>
@@ -84,39 +82,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
           latitudeDelta: 0.06,
           longitudeDelta: 0.06,
         }} 
-        style={styles.map}>
-    <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
-      <View style={styles.topContainer}>
-
-        <View>
-          <Text style={styles.profilName}>Bonjour Mewen</Text>
-        </View>
-
-        <View>
-          <TouchableOpacity activeOpacity={0.9} onPress={() =>  navigation.navigate('TabNavigator', { screen: 'Profil' })}>
-            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic} />
-          </TouchableOpacity>
-        </View>
-
-      </View>
-      <View style={styles.containerTextNotification}>
-        <Text style={styles.title}>{user.prenom} a besoin de ton aide</Text>
-      </View>
-
-
-      <View style={styles.mapContainer}>
-        {currentPosition && <MapView mapType="standard"
-          showsUserLocation={true}
-          followsUserLocation={true}
-          initialRegion={{
-            latitude: currentPosition.latitude,
-            longitude: currentPosition.longitude,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05,
-          }}
-          style={styles.map}>
-        </MapView>}
+        style={styles.map}/>}
       </SafeAreaView>
       <Text style={styles.textDistance}> Distance : 300 mètres</Text>
       <ScrollView style={styles.scroll}>
