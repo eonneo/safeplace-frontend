@@ -20,31 +20,16 @@ export default function HelperConfirmationScreen({ navigation }) {
   return (
 
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      
-      <View style={styles.topContainer}>
-        <View>
-          <Text style={styles.profilName}>Bonjour {user.prenom}</Text>
-        </View>
-        <View>
-          <TouchableOpacity activeOpacity={0.9} onPress={() =>  navigation.navigate('TabNavigator', { screen: 'Profil' })}>
-          <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.textNotification}>
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+        <Text style={styles.nameText}>{user.prenom}</Text>
+        <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
+      </TouchableOpacity>
         <Text style={styles.title}>Jane a accepté ta proposition d'aide !</Text>
-      </View>
-
-      <View style={styles.waitContainer}>
+        <Image source={require('../../assets/carou2.png')}/>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("HelperContact")}>
         <Text style={styles.textButton}>CONTACTER JANE</Text>
         </TouchableOpacity>
-      </View>
-
     </SafeAreaView>
-
-
   );
 }
 
@@ -53,59 +38,53 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 10,
   },
-
-  topContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 10,
-    //backgroundColor: 'red',
-    width: '90%',
+  header: {
     flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
     justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
   },
-
-  profilePic: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-  },
-
-  profilName: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'left',
+  nameText: {
+    width: '80%',
+    fontSize: 24,
+    color: "#33355C",
+    fontWeight: '400',
     fontFamily: 'Raleway',
   },
-
+  profilePic: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+  },
   textNotification: {
     flex: 3,
     //backgroundColor: 'brown',
     width: '90%',
     alignItems: 'center',
   },
-
   title: {
     width: '80%',
     fontSize: 24,
     color: "#33355C",
-    fontWeight: '900',
+    fontWeight: '400',
     textAlign: 'center',
-    margin: 5,
+    marginTop: 70,
     fontFamily: 'Raleway',
   },
-
   waitContainer: {
     flex: 4,
     //backgroundColor: 'yellow',
     width: '90%',
     alignItems: 'center',
   },
- 
   button: {
-    width: 176,
-    marginTop: 10,
+    width: 213,
+    marginTop: 40,
     height: 48,
     borderRadius: 10,
     backgroundColor: "#5CA4A9",
@@ -113,7 +92,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // marginBottom: 70,
   },
- 
   textButton: {
     color: "#FFFFFF",
         fontFamily: 'OpenSans',
@@ -121,6 +99,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
   },
-
-
 });
