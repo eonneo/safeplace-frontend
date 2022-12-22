@@ -77,7 +77,8 @@ export default function LoginScreen({ navigation }) {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text style={styles.title}>Bienvenue sur SAFE PLACE</Text>
+      <Text style={styles.title}>Bienvenue sur</Text>
+      <Text style={styles.titleBis}>SAFE PLACE</Text>
       <Text style={styles.title2} >Inscris toi !</Text>
       <View style={styles.inputGroup}>
         <Text style={styles.text}>Email</Text>
@@ -148,8 +149,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: '#33355C'
   },
+  titleBis: {
+    width: "80%",
+    fontSize: 38,
+    fontWeight: "600",
+    textAlign: "center",
+    color: "#FFA647",
+  },
   title2: {
-    marginTop: 10,
+    marginTop: 20,
     width: "80%",
     fontSize: 28,
     fontWeight: "600",
@@ -157,7 +165,7 @@ const styles = StyleSheet.create({
     color: '#5CA4A9'
   },
   inputGroup: {
-    marginTop: 60,
+    marginTop: 50,
     display: "flex",
     justifyContent: "space-around",
   },

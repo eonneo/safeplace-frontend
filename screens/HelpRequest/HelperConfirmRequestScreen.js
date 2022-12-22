@@ -17,7 +17,7 @@ import * as Location from 'expo-location';
 
 //imports cards
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-const PlaceholderImage = require("../../assets/Vector.png");
+
 
 export default function HelperConfirmRequestScreen({ navigation }) {
 
@@ -29,10 +29,13 @@ export default function HelperConfirmRequestScreen({ navigation }) {
     latitude: position.latitude,
     longitude: position.longitude
   });
+
+  const helperMarker = <Marker coordinate={{latitude: helper.latitude, longitude: helper.longitude}} title={helper.prenom} pinColor="#E4513D"/>;
   
   console.log('helper from useselector:', helper)
   console.log('position from useSelector:', position)
   console.log('currentPosition:', currentPosition)
+
   //calcul d'une distance en km
   function distance(latHelper, lonHelper, latRequest, lonRequest) {
     if ((latHelper === latRequest) && (lonHelper === lonRequest)) {
@@ -52,12 +55,14 @@ export default function HelperConfirmRequestScreen({ navigation }) {
       let dist3 = dist2 * 60 * 1.1515;
       let dist4 = dist3 * 1.609344;
       if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
-      return (dist4.toFixed(2) + ' km');
+      return (dist4.toFixed(2));
     }
   }
   //calculer la distance
   const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
-
+  // calcule du delta pour marker helper
+  const delta = eloignement*0.02;
+  
   console.log("eloignement:", eloignement)
 
   //récupérer les données de géolocalisation
@@ -104,10 +109,13 @@ export default function HelperConfirmRequestScreen({ navigation }) {
         initialRegion={{
           latitude: currentPosition.latitude,
           longitude: currentPosition.longitude,
-          latitudeDelta: 0.008,
-          longitudeDelta: 0.008,
+          latitudeDelta: delta,
+          longitudeDelta: delta,
         }}
-        style={styles.map}>
+        style={styles.map}
+        >
+          {helperMarker}
+
       </MapView>}
       <TouchableOpacity style={styles.cardContent} onPress={() => navigation.navigate('ContactHelper')}>
         <View style={styles.leftContent}>
@@ -115,21 +123,20 @@ export default function HelperConfirmRequestScreen({ navigation }) {
           <View style={styles.middleContent}>
             <Text style={styles.name}>{helper.prenom}</Text>
             <Text style={styles.description}>Description</Text>
-            <Text style={styles.distance}>{eloignement}</Text>
+            <Text style={styles.distance}>{eloignement} km</Text>
           </View>
         </View>
         <View style={styles.rightContent}>
-          <View style={styles.isFavorite}>
-            <FontAwesome name="heart" size={20} color="#ec6e5b" />
-          </View>
           <View style={styles.isConnected}>
             <FontAwesome name="circle" size={20} color={helper.isConnected ? '#5CA4A9' : "#E4513D"} />
           </View>
         </View>
       </TouchableOpacity>
       <View style={styles.titlesContainer}>
-        <Text style={styles.title}>En attendant:</Text>
-        <TouchableOpacity>
+        <Text style={styles.title}>En attendant :</Text>
+        <TouchableOpacity
+        onPress={() => navigation.navigate('EmergencyNumbScreen')}
+        >
           <Text style={styles.link}>Quelques numéros utiles</Text>
         </TouchableOpacity>
       </View>

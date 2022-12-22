@@ -96,7 +96,7 @@ export default function PoliceScreen({ navigation }) {
             <Text style={styles.disconnectText}>Numéros d'urgence</Text>
           </TouchableOpacity>
         </View>
-       
+
         <Image source={PlaceholderImage} style={styles.homePic}></Image>
 
         <View style={styles.lineStyle} />
@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
-
   textContainer: {
     flex: 1,
     width: "100%",
@@ -196,73 +195,6 @@ const styles = StyleSheet.create({
   },
   homePic: {
     flex: 1,
-    resizeMode: 'contain'
+    resizeMode: "contain",
   },
 });
-
-//   style={styles.container}
-//   behavior={Platform.OS === "ios" ? "padding" : "height"}
-// >
-//   <Text style={styles.title}> Emergency page </Text>
-
-//   <TouchableOpacity
-//     style={styles.button}
-//     activeOpacity={0.9}
-//     onPress={() => sendSms()}
-//   >
-//     <Text style={styles.textButton}>Envoyer un message d'urgence</Text>
-//   </TouchableOpacity>
-
-//   <TouchableOpacity
-//     style={styles.button}
-//     activeOpacity={0.9}
-//     onPress={() => navigation.navigate("EmergencyNumbScreen")}
-//   >
-//     <Text style={styles.textButton}>Test affichage numéros d'urgences</Text>
-//   </TouchableOpacity>
-// </SafeAreaView>
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#ffffff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   image: {
-//     width: "100%",
-//     height: "50%",
-//   },
-//   title: {
-//     width: "80%",
-//     fontSize: 38,
-//     fontWeight: "600",
-//     fontFamily: "OpenSans",
-//     textAlign: "center",
-//   },
-
-//   input: {
-//     width: "80%",
-//     marginTop: 25,
-//     borderBottomColor: "#EC6E5B",
-//     borderBottomWidth: 1,
-//     fontSize: 20,
-//   },
-
-//   button: {
-//     marginTop: 10,
-//     width: 300,
-//     height: 48,
-//     borderRadius: 10,
-//     backgroundColor: "#33355C",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   textButton: {
-//     color: "#ffffff",
-//     fontFamily: "Raleway",
-//     height: 30,
-//     fontWeight: "600",
-//     fontSize: 16,
-//   },
-// });

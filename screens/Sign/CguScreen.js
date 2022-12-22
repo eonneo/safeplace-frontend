@@ -17,47 +17,36 @@ export default function CguScreen({ navigation }) {
   return (
 
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      
-      <View style={styles.container1}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>CGU </Text>
       </View>
-
-      <View style={styles.container2}>
-        <ScrollView>
-        <Text >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-      </Text>
-
-      <Text >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.Quis hendrerit dolor magna eget est lorem ipsum dolor. Quam lacus suspendisse faucibus interdum. Nisl suscipit adipiscing bibendum est. Ultrices dui sapien eget mi proin. Ut sem nulla pharetra diam. Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla. Potenti nullam ac tortor vitae purus. Sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit. Tellus cras adipiscing enim eu.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
-      </Text>
-
-
-       <Text>
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-      </Text>
+      <View style={styles.mainContainer}>
+        <ScrollView style={styles.textContainer}>
+          <Text style={styles.text}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          </Text>
+          <Text style={styles.text}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.Quis hendrerit dolor magna eget est lorem ipsum dolor. Quam lacus suspendisse faucibus interdum. Nisl suscipit adipiscing bibendum est. Ultrices dui sapien eget mi proin. Ut sem nulla pharetra diam. Morbi blandit cursus risus at ultrices mi tempus imperdiet nulla. Potenti nullam ac tortor vitae purus. Sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit. Tellus cras adipiscing enim eu.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          </Text>
+          <Text style={styles.text}>
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
+            et dolore magna aliqua. 
+          </Text>
         </ScrollView>
-
-        <Text style={styles.text2}>
-          Veuillez accepter les conditions
-          générales pour poursuivre
-          votre inscription</Text>
+        <Text style={styles.bottomText}>
+          Veuillez accepter les conditions générales pour poursuivre votre inscription
+        </Text>
       </View>
-
-      <View style={styles.container2}>
+      <View style={styles.container3}>
         <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate('Signup')}>
-          <Text style={styles.text1}>J'accepte</Text>
+          <Text style={styles.buttonText}>J'accepte</Text>
         </TouchableOpacity>
       </View>
-
     </KeyboardAvoidingView>
-
   );
 }
 
@@ -68,73 +57,65 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  container1: {
+  titleContainer: {
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
     margin: 10,
-
   },
-  container2: {
-    flex: 2,
+  mainContainer: {
+    flex: 3,
     alignItems:'center',
     justifyContent: 'center',
     width: '90%',
   },
-
+  textContainer: {
+    flex: 1,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '200',
+    fontFamily: 'Raleway',
+    color: "#33355C",
+    textAlign: 'justify',
+  },
   container3: {
     flex: 1,
-    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
-
-  },
-  image: {
-    width: '100%',
-    height: '50%',
   },
   title: {
     width: '100%',
-    fontSize: 38,
+    fontSize: 54,
     fontWeight: '600',
-  },
-  input: {
-    width: '80%',
-    marginTop: 25,
-    borderBottomColor: '#EC6E5B',
-    borderBottomWidth: 1,
-    fontSize: 20,
-  },
-
-  textButton: {
-    color: '#ffffff',
-    height: 30,
-    fontWeight: '600',
-    fontSize: 16,
+    fontFamily: 'Raleway',
+    color: "#33355C",
+    textAlign: 'center',
   },
   button1: {
     marginTop: 10,
     width: 176,
     height: 48,
     borderRadius: 10,
-    backgroundColor: "#33355C",
+    backgroundColor: "#5CA4A9",
     alignItems: "center",
     justifyContent: "center",
   },
 
-  text1: {
+  buttonText: {
     color: "#FFFFFF",
     // fontFamily: ,
     fontWeight: "bold",
     fontSize: 20,
   },
-  text2: {
-    color: "#000000",
-    // fontFamily: ,
-    fontWeight: "bold",
+  bottomText: {
+    color: "#5CA4A9",
+    fontWeight: '600',
+    fontFamily: 'Raleway',
+    textAlign: 'center',
     fontSize: 20,
     marginTop: 50,
   },

@@ -1,56 +1,66 @@
-import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getRestSignupFields } from '../../reducers/signup';
-import { login } from '../../reducers/users';
-import DateField from 'react-native-datefield';
+import {
+  Button,
+
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getRestSignupFields } from "../../reducers/signup";
+import { login } from "../../reducers/users";
+import DateField from "react-native-datefield";
 import * as SMS from "expo-sms";
 
-import { useFonts } from '@use-expo/font';
+import { useFonts } from "@use-expo/font";
 
-import IP from '../../IPAdress';
+import IP from "../../IPAdress";
 
 export default function SignupScreen({ navigation }) {
   const dispatch = useDispatch();
 
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [naissance, setNaissance] = useState('12-12-2022');
-  const [telephone, setTelephone] = useState('');
-  const [numeroRue, setNumeroRue] = useState('');
-  const [rue, setRue] = useState('');
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [naissance, setNaissance] = useState("12-12-2022");
+  const [telephone, setTelephone] = useState("");
+  const [numeroRue, setNumeroRue] = useState("");
+  const [rue, setRue] = useState("");
   const [codePostal, setCodePostal] = useState(0);
   const [ville, setVille] = useState('');
+  const [isAvailable, setIsAvailable] = useState(false);
   const [verificationToken, setVerificationToken] = useState(null);
 
-  
+  //console.log(telephone, verificationToken, isAvailable);
+
   const email = useSelector((state) => state.signup.value.email)
   const password = useSelector((state) => state.signup.value.password)
 
   //envoi du sms de vérification
 
-  const verifySms = () => {
-  const generateRandomNumber = () => {
-    let verifyNumber;
-    return verifyNumber = Math.floor(1000 + Math.random() * 9000);
-  }
-
-  const smsChecking = async () => {
-    const isAvailable = await SMS.isAvailableAsync();
-    if (isAvailable) {
-      setVerificationToken(generateRandomNumber());
-    console.log('verifToken:', verifyNumber);
-    const { result } = await SMS.sendSMSAsync(
-      [telephone],
-      `Your verification code is: ${verifyNumber}`
-    );
+  /*useEffect(() => {
+    async function checkAvailability() {
+      const isSmsAvailable = await SMS.isAvailableAsync();
+      setIsAvailable(isSmsAvailable);
     }
+    checkAvailability();
+  }, []);
+
+  const generateRandomNumber = () => {
+    return Math.floor(1000 + Math.random() * 9000);
   }
-  smsChecking();
-  }
+ 
+  const smsChecking = async () => {
+    const {result} = await SMS.sendSMSAsync (
+      [`${telephone}`],
+      `Your verification code is: ${verificationToken}`
+    );
+    }*/
 
   const handleSubmit = () => {
-
     const userInfos = {
       email: email,
       password: password,
@@ -63,53 +73,58 @@ export default function SignupScreen({ navigation }) {
       rue: rue,
       codePostal: codePostal,
       ville: ville,
-    }
-   
-    console.log("Full user infos:", userInfos)
+    };
+
+    console.log("Full user infos:", userInfos);
     fetch(`http://${IP}:3000/users/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userInfos,),
-    }).then(response => response.json())
-      .then(user => {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userInfos),
+    })
+      .then((response) => response.json())
+      .then((user) => {
         if (user.result) {
-          console.log('okposted')
-          dispatch(getRestSignupFields(userInfos))
-          dispatch(login(userInfos))
+          console.log("okposted");
+          dispatch(getRestSignupFields(userInfos));
+          dispatch(login(userInfos));
           //appel fonction sms verif
-          verifySms(),
-          navigation.navigate('Checking')
+          //setVerificationToken(generateRandomNumber());
+          //smsChecking(),
+          navigation.navigate('Upload')
         }else{
           console.log('email already exist')
         }
-      })
-  }
+      });
+  };
 
   const [isLoaded] = useFonts({
-    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
-    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
-  if(!isLoaded) {
-    return <View />
+    OpenSans: require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
+  });
+  if (!isLoaded) {
+    return <View />;
   }
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <SafeAreaView style={styles.safeView}>
-        <Text style={styles.title}>SignUp Page Form </Text>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+        <Text style={styles.title}>Crée un compte</Text>
+        <Text style={styles.title2}>SAFE PLACE</Text>
         <ScrollView>
           <View style={styles.inputGroup}>
             <Text style={styles.text}>Prénom</Text>
             <TextInput
               style={styles.input}
               placeholder="Jane"
-              placeholderTextColor='#C9D6DF'
+              placeholderTextColor="#C9D6DF"
               onChangeText={(value) => setPrenom(value)}
             />
             <Text style={styles.text}>Nom</Text>
             <TextInput
               style={styles.input}
               placeholder="Martin"
-              placeholderTextColor='#C9D6DF'
+              placeholderTextColor="#C9D6DF"
               onChangeText={(value) => setNom(value)}
             />
             <Text style={styles.text}>Date de naissance</Text>
@@ -124,14 +139,14 @@ export default function SignupScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder=""
-              placeholderTextColor='#C9D6DF'
+              placeholderTextColor="#C9D6DF"
               onChangeText={(value) => setTelephone(value)}
             />
             <Text style={styles.text}>adresse n°</Text>
             <TextInput
               style={styles.input}
               placeholder=""
-              placeholderTextColor='#C9D6DF'
+              placeholderTextColor="#C9D6DF"
               onChangeText={(value) => setNumeroRue(value)}
             />
 
@@ -139,7 +154,7 @@ export default function SignupScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder="Rue"
-              placeholderTextColor='#C9D6DF'
+              placeholderTextColor="#C9D6DF"
               onChangeText={(value) => setRue(value)}
             />
 
@@ -147,7 +162,7 @@ export default function SignupScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder="69001"
-              placeholderTextColor='#C9D6DF'
+              placeholderTextColor="#C9D6DF"
               onChangeText={(value) => setCodePostal(value)}
             />
 
@@ -155,51 +170,63 @@ export default function SignupScreen({ navigation }) {
             <TextInput
               style={styles.input}
               placeholder="Ville"
-              placeholderTextColor='#C9D6DF'
+              placeholderTextColor="#C9D6DF"
               onChangeText={(value) => setVille(value)}
             />
 
-            <TouchableOpacity style={styles.button5} activeOpacity={0.9} onPress={() => handleSubmit()}>
+            <TouchableOpacity
+              style={styles.button5}
+              activeOpacity={0.9}
+              onPress={() => handleSubmit()}
+            >
               <Text style={styles.text5}>S'inscrire</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </SafeAreaView>
     </KeyboardAvoidingView>
-
-
   );
 }
 
 const styles = StyleSheet.create({
-  safeView: {
-    marginTop: 30,
-  },
+  // safeView: {
+  //   marginTop: 30,
+  // },
   datePickerStyle: {
     width: 230,
   },
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 50,
+    fontFamily: 'OpenSans'
   },
   image: {
-    width: '100%',
-    height: '50%',
+    width: "100%",
+    height: "50%",
   },
   title: {
-    width: '80%',
-    fontSize: 38,
-    fontWeight: '600',
+    width: "80%",
+    fontSize: 30,
+    fontWeight: "600",
+    textAlign: "center",
+    color: "#33355C",
+  },
+  title2: {
+    width: "80%",
+    fontSize: 30,
+    fontWeight: "600",
+    textAlign: "center",
+    color: "#FFA647",
   },
   inputGroup: {
-    marginTop: 60,
-    display: 'flex',
-    justifyContent: 'space-around',
+    marginTop: 20,
+    display: "flex",
+    justifyContent: "space-around",
   },
   text: {
-    color: '#5CA4A9',
+    color: "#5CA4A9",
     fontSize: 12,
     marginTop: 30,
   },
@@ -219,28 +246,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#33355C",
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   text5: {
     color: "#FFFFFF",
-    fontFamily: 'OpenSans',
+    fontFamily: "OpenSans",
     fontWeight: "bold",
     fontSize: 20,
   },
   button: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     paddingTop: 8,
-    width: '80%',
+    width: "80%",
     marginTop: 30,
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     borderRadius: 10,
     marginBottom: 80,
   },
   textButton: {
-    color: '#ffffff',
+    color: "#ffffff",
     height: 30,
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 16,
   },
 });
