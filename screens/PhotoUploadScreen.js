@@ -85,7 +85,7 @@ export default function PhotoUploadScreen({ navigation }) {
           })
         }
       });
-
+      navigation.navigate('ProfilStack')
   }
 
     const [isLoaded] = useFonts({
@@ -112,7 +112,7 @@ export default function PhotoUploadScreen({ navigation }) {
                         source={{ uri: `${imageUrl}` }}
                         style={styles.image}
                     />
-                    <TouchableOpacity style={styles.button3} onPress={() => validateImage() && navigation.navigate('ProfilStack')}>
+                    <TouchableOpacity style={styles.button3} onPress={() => validateImage()}>
                         <Text style={styles.text3} >Valider</Text>
                     </TouchableOpacity>
                 </View>
