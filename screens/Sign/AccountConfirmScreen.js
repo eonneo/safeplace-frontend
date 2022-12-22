@@ -93,15 +93,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans'
   },
 
-  header: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "#cccccc",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    textAlign: "center",
-  },
+
   optionContainer: {
     flex: 1,
     flexDirection: "row",
