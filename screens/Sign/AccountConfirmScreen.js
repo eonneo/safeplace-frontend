@@ -34,13 +34,18 @@ export default function AccountConfirmScreen({ navigation }) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
-      <View style={styles.header}>
-        <FontAwesome name='arrow-left' size={25} color='#000000' onPress={() => navigation.navigate('Selfie')} />
-        <Text style={styles.title}>    Welcome to Safe Place</Text>
-      </View>
+<View style={styles.header}>
+          <FontAwesome
+            name="arrow-left"
+            size={25}
+            color="#33355C"
+            onPress={() => navigation.navigate("Selfie")}
+          />
+          <Text style={styles.title}>Welcome to Safe Place</Text>
+        </View>
 
       <View style={styles.container2}>
-        <Text style={styles.title}>Nous vous confirmons la création de votre compte sur SAFE PLACE</Text>
+        <Text style={styles.titles}>Nous vous confirmons la création de votre compte sur SAFE PLACE</Text>
       </View>
 
 
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#cccccc',
+    //backgroundColor: '#cccccc',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
@@ -121,11 +126,17 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 32,
     textAlign: 'center',
     color: '#5CA4A9',
+    marginLeft: 10,
+  },
 
+  titles: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#5CA4A9',
+    marginLeft: 10,
   },
 
   subtitle: {
@@ -170,4 +181,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+ 
+  
 });
