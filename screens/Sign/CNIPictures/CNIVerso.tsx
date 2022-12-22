@@ -72,16 +72,16 @@ export default function CNIVerso({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <View style={styles.topContent}>
-                <View style={styles.header}>
-                    <FontAwesome
-                        name="arrow-left"
-                        size={25}
-                        color="#33355C"
-                        onPress={() => navigation.navigate("CNIRecto")}
-                    />
-                    <Text style={styles.title}>Welcome to Safe Place</Text>
-                </View>
+            <View style={styles.header}>
+                <FontAwesome
+                    name="arrow-left"
+                    size={25}
+                    color="#33355C"
+                    onPress={() => navigation.navigate("Signup")}
+                />
+                <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
+            </View>
+            <View style={styles.textContainer}>
                 <Text style={styles.instructions}>
                     Prends une photo lisible du verso de ta pièce d'identité pour qu'elle soit vérifiée:
                 </Text>
@@ -92,7 +92,6 @@ export default function CNIVerso({ navigation }) {
                     La vérification prend environ 48h 
                 </Text>
             </View>
-
             <Camera
                 type={type}
                 flashMode={flashMode}
@@ -109,7 +108,6 @@ export default function CNIVerso({ navigation }) {
                     >
                         <FontAwesome name="rotate-right" size={25} color="#ffffff" />
                     </TouchableOpacity>
-
                     <TouchableOpacity
                         onPress={() =>
                         setFlashMode(flashMode === FlashMode.off ? FlashMode.torch : FlashMode.off)
@@ -123,7 +121,6 @@ export default function CNIVerso({ navigation }) {
                         />
                     </TouchableOpacity>
                 </View>
-
                 <View style={styles.snapContainer}>
                     <TouchableOpacity onPress={() => cameraRef && isFocused && takePicture()}>
                         <FontAwesome name="circle-thin" size={95} color="#ffffff" />
@@ -137,9 +134,10 @@ export default function CNIVerso({ navigation }) {
 
 const styles = StyleSheet.create({
 camera: {
-    flex: 2.1,
-    alignItems: "center",
-    width: "100%",
+    flex: 10,
+        alignItems: "center",
+        width: "100%",
+        height: "100%"
 },
 buttonsContainer: {
     flex: 0.1,
@@ -168,16 +166,30 @@ snapContainer: {
 },
 container: {
     flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
-},
-topContent: {
-    flex: 1,
-    marginTop: 50,
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 35,
 },
 header: {
-    alignItems: "center",
+    flex: 1,
+    width: '80%',
     flexDirection: "row",
+    paddingTop: 10,
+},
+headerTitle: {
+    fontSize: 24,
+    color: "#5CA4A9",
+    marginLeft: 10,
+    fontFamily: 'Raleway'
+},
+textContainer: {
+    width: "90%",
+    backgroundColor: '#ffffff',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    paddingBottom: 10,
 },
 button: {
     alignItems: "center",
@@ -199,18 +211,14 @@ title: {
 },
 instructions: {
     color: "#33355C",
-    fontSize: 20,
-    marginTop: 10,
-    marginLeft: 19,
-    marginRight: 19,
+    fontSize: 24,
+    fontFamily: 'Raleway',
 },
 explanations: {
-    marginLeft: 19,
-    marginRight: 19,
     marginTop: 10,
     color: "#33355C",
+    fontFamily: 'Raleway',
     fontSize: 16,
-    fontStyle: "italic",
 },
 button3: {
     marginTop: 10,
