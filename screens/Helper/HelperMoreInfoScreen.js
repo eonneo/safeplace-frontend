@@ -1,4 +1,13 @@
-import { Image, StyleSheet, Text, View, Switch, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import { 
+  Image, 
+  StyleSheet, 
+  Text, 
+  View, 
+  Switch, 
+  SafeAreaView, 
+  TouchableOpacity, 
+  ScrollView, 
+  KeyboardAvoidingView } from 'react-native';
 import { useFonts } from '@use-expo/font';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -52,104 +61,67 @@ export default function HelperMoreInfoScreen({ navigation }) {
   return (
 
 
-    <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
-      <View style={styles.topContainer}>
-
-        <View>
-          <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
-        </View>
-
-        <View>
-          <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-            <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic} />
-          </TouchableOpacity>
-        </View>
-
-      </View>
-      <View style={styles.containerTextNotification}>
-        <Text style={styles.title}>Jane a besoin de ton aide</Text>
-      </View>
-
-
-      <View style={styles.mapContainer}>
-        {currentPosition && <MapView mapType="standard"
-          showsUserLocation={true}
-          followsUserLocation={true}
-          initialRegion={{
-            latitude: currentPosition.latitude,
-            longitude: currentPosition.longitude,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05,
-          }}
-          style={styles.map}>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+        <Text style={styles.nameText}>{user.prenom}</Text>
+        <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
+      </TouchableOpacity>
+      <Text style={styles.title}>Jane a besoin de ton aide</Text>
+      <SafeAreaView style={styles.mapContainer}>
+        {currentPosition && <MapView mapType="standard" 
+        showsUserLocation={true} 
+        followsUserLocation={true} 
+        initialRegion={{
+          latitude: currentPosition.latitude,
+          longitude: currentPosition.longitude,
+          latitudeDelta: 0.06,
+          longitudeDelta: 0.06,
+        }} 
+        style={styles.map}>
         </MapView>}
-      </View>
-
+      </SafeAreaView>
       <Text style={styles.textDistance}> Distance : 300 mètres</Text>
-
       <ScrollView style={styles.scroll}>
-        <View style={styles.switchContainer}>
           <View style={styles.optionhelpcontainer}>
-            <View>
-              <Text style={styles.subtitle}>Je peux l'accueillir</Text>
-            </View>
-            <View>
-              <Switch
-                value={isEnabled}
-                onValueChange={(value) => setIsEnabled(value)}
-                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-                thumbColor={isEnabled ? "white" : "white"}
-                ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
+            <Text style={styles.subtitle}>Je peux l'accueillir</Text>
+            <Switch
+              value={isEnabled}
+              onValueChange={(value) => setIsEnabled(value)}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={isEnabled ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-
           <View style={styles.optionhelpcontainer}>
-            <View>
-              <Text style={styles.subtitle}>Je peux la rejoindre</Text>
-            </View>
-            <View>
-              <Switch
-                value={isReadyToAccomodate}
-                onValueChange={(value) => setisReadyToAccomodate(value)}
-                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-                thumbColor={isReadyToAccomodate ? "white" : "white"}
-                ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
+            <Text style={styles.subtitle}>Je peux la rejoindre</Text>
+            <Switch
+              value={isReadyToAccomodate}
+              onValueChange={(value) => setisReadyToAccomodate(value)}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={isReadyToAccomodate ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-
           <View style={styles.optionhelpcontainer}>
-            <View>
-              <Text style={styles.subtitle}>Je peux répondre à son appel</Text>
-            </View>
-            <View>
-              <Switch
-                value={isReadyToLift}
-                onValueChange={(value) => setisReadyToLift(value)}
-                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-                thumbColor={isReadyToLift ? "white" : "white"}
-                ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
+            <Text style={styles.subtitle}>Je peux répondre à son appel</Text>
+            <Switch
+              value={isReadyToLift}
+              onValueChange={(value) => setisReadyToLift(value)}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={isReadyToLift ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-
           <View style={styles.optionhelpcontainer}>
-            <View>
-              <Text style={styles.subtitle}>Je peux la transporter</Text>
-            </View>
-            <View>
-              <Switch
-                value={isReadyToAssist}
-                onValueChange={(value) => setisReadyToAssist(value)}
-                trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
-                thumbColor={isReadyToAssist ? "white" : "white"}
-                ios_backgroundColor="#e5eadf"
-                style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
-            </View>
+            <Text style={styles.subtitle}>Je peux la transporter</Text>
+            <Switch
+              value={isReadyToAssist}
+              onValueChange={(value) => setisReadyToAssist(value)}
+              trackColor={{ false: "#E6EBE0", true: "#5CA4A9" }}
+              thumbColor={isReadyToAssist ? "white" : "white"}
+              ios_backgroundColor="#e5eadf"
+              style={{ transform: [{ scaleX: 1.0 }, { scaleY: 1.0 }] }} />
           </View>
-        </View>
       </ScrollView>
       <View style={styles.buttonsContainer} >
 
@@ -163,7 +135,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
       </View>
 
-    </SafeAreaView>
+    </KeyboardAvoidingView>
 
 
   );
@@ -171,37 +143,32 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 20,
-    height: '100%',
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 2,
+      backgroundColor: '#ffffff',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingTop: 35,
   },
-
-  topContainer: {
-    // flex: 1,
-    alignItems: 'center',
-    marginTop: 10,
-    width: '90%',
+  header: {
     flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
     justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
   },
-
-  profilName: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'left',
+  nameText: {
+    width: '80%',
+    fontSize: 24,
+    color: "#33355C",
+    fontWeight: '400',
     fontFamily: 'Raleway',
-    color: '#33355C',
   },
-
   profilePic: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 50,
   },
-
   containerTextNotification: {
     // flex: 1,
   },
@@ -210,10 +177,11 @@ const styles = StyleSheet.create({
     width: '80%',
     fontSize: 24,
     color: "#33355C",
-    fontWeight: '900',
+    fontWeight: '400',
     textAlign: 'center',
-    margin: 5,
     fontFamily: 'Raleway',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 
   map: {
@@ -236,7 +204,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway',
   },
   scroll: {
+    flexDirection: 'row',
     width: '100%',
+    justifyContent: 'space-between',
+    marginBottom:10,
   },
   
   switchContainer: {
