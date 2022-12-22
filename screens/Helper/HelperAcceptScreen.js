@@ -69,11 +69,11 @@ const styles = StyleSheet.create({
   },
   title: {
     width: '80%',
-    fontSize: 24,
+    fontSize: 36,
     color: "#33355C",
     fontWeight: '400',
     textAlign: 'center',
-    marginTop: 70,
+    marginTop: 40,
     fontFamily: 'Raleway',
   },
   waitContainer: {

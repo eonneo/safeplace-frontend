@@ -24,32 +24,15 @@ export default function HelperMoreInfoScreen({ navigation }) {
   }
   return (
     <SafeAreaView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
-      <View style={styles.topContainer}>
-        <View>
-          <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
-        </View>
-        <View>
-          <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('Settings')}>
-            <Image source={PlaceholderImage} style={styles.profilePic} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.textNotification}>
+      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+        <Text style={styles.nameText}>{user.prenom}</Text>
+        <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
+      </TouchableOpacity>
         <Text style={styles.title}>Jane a trouvé un helper plus proche</Text>
-      </View>
-
       <View style={styles.remerciementContainer}>
         <Text style={styles.text}> Merci pour ton aide.</Text>
         <Text style={styles.text}> Souhaites-tu rester disponible pour Jane ?</Text>
       </View>
-
-
-
-
-
-
       <View style={styles.buttonsContainer} >
         <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate("Home")}>
           <Text style={styles.textButton}>OUI</Text>
@@ -58,10 +41,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
           <Text style={styles.textButton}>NON</Text>
         </TouchableOpacity>
       </View>
-
     </SafeAreaView>
-
-
   );
 }
 
@@ -70,47 +50,36 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 35,
   },
-
-  topContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 10,
-    //backgroundColor: 'brown',
-    width: '90%',
+  header: {
     flexDirection: 'row',
+    width: '100%',
+    alignItems: "center",
     justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
   },
-
+  nameText: {
+    width: '80%',
+    fontSize: 24,
+    color: "#33355C",
+    fontWeight: '400',
+    fontFamily: 'Raleway',
+  },
   profilePic: {
     width: 40,
     height: 40,
+    borderRadius: 50,
   },
-
-  profilName: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'left',
-    fontFamily: 'Raleway',
-  },
-
-  textNotification: {
-    //backgroundColor: 'red',
-    flex: 2,
-    textAlign: 'center',
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   title: {
     width: '80%',
-    fontSize: 32,
+    fontSize: 36,
     color: "#33355C",
-    fontWeight: '900',
+    fontWeight: '400',
     textAlign: 'center',
-    margin: 5,
+    marginTop: 50,
     fontFamily: 'Raleway',
   },
 
@@ -123,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '600',
     color: '#33355C',
     margin: 5,
@@ -135,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     // backgroundColor: "pink",
-    width: '90%',
+    width: '85%',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
