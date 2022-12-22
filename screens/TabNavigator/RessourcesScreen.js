@@ -140,10 +140,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
-  // scrollView: {
-  //   flex: 1,
-  //   width: "100%",
-  // },
   optionContainer: {
     flex: 1,
     flexDirection: "row",

@@ -20,15 +20,16 @@ const data = [
   },
   {
     title: "VOUS ÊTES SOLIDAIRE ?",
-    body: "Inscrivez-vous si vous souhaitez aider un membre de la communauté en détresse. Vous pouvez héberger, transporter ou simplement être une oreille attentive ! Avec Safe Place, une minute suffit pour venir en aide !",
-    imgUrl: require("./carou4.png"),
+    body: "Inscrivez-vous sur notre application si vous souhaitez aider un membre de la communauté en détresse. Vous pouvez héberger, transporter ou simplement être une oreille attentive ! Inscrivez-vous, une minute suffit pour venir en aide !",
+    imgUrl: require('./carou4.png'),
   },
   {
     title: "BESOIN DE CONSEILS ?",
-    body: "Vous trouverez dans notre application des conseils, des ressources et les numéros utiles vous permettant de vous informer et de signaler les violences. ",
+    body: "Vous trouverez dans notre application des conseils, des ressources et les numéros utiles vous permettant de vous informer et de signaler les violences",
 
-    imgUrl: require("./carou5.png"),
+    imgUrl: require('./carou5.png'),
   },
 ];
 
 export default data;
+

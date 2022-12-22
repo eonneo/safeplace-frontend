@@ -1,12 +1,11 @@
-import {
-  Button,
-  Image,
-  StyleSheet,
-  Text,
+import { Button, 
+  Image, 
+  StyleSheet, 
+  Text, 
   View,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  Linking
+  Linking,
+  KeyboardAvoidingView,  
+  TouchableOpacity 
 } from 'react-native';
 import { useFonts } from '@use-expo/font';
 
@@ -20,10 +19,11 @@ import { Entypo } from '@expo/vector-icons';
 
 export default function ContactHelperScreen({ navigation }) {
 
+ 
+
 
   const user = useSelector((state) => state.user.value);
   const helper = useSelector((state) => state.selectedHelper.value);
-
   const position = useSelector((state) => state.location.value);
 
   const [currentPosition, setCurrentPosition] = useState({
@@ -62,14 +62,14 @@ export default function ContactHelperScreen({ navigation }) {
       let dist2 = dist1 * 180 / Math.PI;
       let dist3 = dist2 * 60 * 1.1515;
       let dist4 = dist3 * 1.609344;
-      if (dist4 < 1) { return (dist4 /= 1000).toFixed(2) + ' m' }
+      if (dist4 < 1) { return (dist4 /= 1000).toFixed(2)}
       return (dist4.toFixed(2));
     }
   }
   //calculer la distance
   const eloignement = distance(helper.latitude, helper.longitude, currentPosition.latitude, currentPosition.longitude);
   // calcule du delta pour marker helper
-  const delta = eloignement * 0.02;
+  const delta = eloignement * 0.02+0.01;
   console.log("eloignement:", eloignement)
 
   //récupérer les données de géolocalisation
@@ -88,6 +88,19 @@ export default function ContactHelperScreen({ navigation }) {
       }
     })();
   }, []);
+{/*
+const helper =(user.telephone)
+  // Fonctions pour declencher un appel on click 
+  const makeCallToPolice = () => {
+    let phoneNumber = (helper);
+    if (Platform.OS === 'android') {
+        phoneNumber = (`tel:${phoneNumber}`);
+    } else {
+        phoneNumber = (`telprompt:${phoneNumber}`);
+    }
+    Linking.openURL(phoneNumber);
+};
+*/}
 
   const [isLoaded] = useFonts({
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
@@ -98,7 +111,7 @@ export default function ContactHelperScreen({ navigation }) {
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+      <TouchableOpacity style={styles.header} onPress={() =>  navigation.navigate('TabNavigator', { screen: 'Profil' })}>
         <Text style={styles.nameText}>{user.prenom}</Text>
         <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
@@ -137,7 +150,7 @@ export default function ContactHelperScreen({ navigation }) {
         <Text style={styles.title}>Tu peux contacter {helper.prenom} :</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.buttonCall} onPress={() => callHelper()}>
-            <FontAwesome name="phone" size={24} color="white" style={styles.phone} />
+            <FontAwesome name="phone" size={24} color="white" style={styles.phone}/>
             <Text style={styles.text3}>Appeler {helper.prenom}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonChat} onPress={() => navigation.navigate('Chat')}>
