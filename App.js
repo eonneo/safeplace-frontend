@@ -34,21 +34,23 @@ import HelperAcceptScreen from "./screens/Helper/HelperAcceptScreen";
 import HelperContactScreen from "./screens/Helper/HelperContactScreen";
 import EmergencyNumbScreen from "./screens/HelpRequest/EmergencyNumbScreen";
 import PhotoUploadScreen from "./screens/PhotoUploadScreen";
+import SmsCheckingScreen from "./screens/Sign/SmsCheckingScreen";
 
 // redux imports
-import { Provider } from "react-redux";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import user from "./reducers/users";
-import signup from "./reducers/signup";
-import selfie from "./reducers/selfie";
-import location from "./reducers/geolocation";
+import { Provider } from 'react-redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import user from './reducers/users';
+import signup from './reducers/signup';
+import selfie from './reducers/selfie';
+import location from './reducers/geolocation';
+import selectedHelper from './reducers/selectedHelper';
 
 // redux-persist imports
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const reducers = combineReducers({ user, signup, selfie, location });
+const reducers = combineReducers({ user, signup, selfie, location, selectedHelper });
 const persistConfig = {
   key: "safeplacecapsule",
   storage: AsyncStorage,
@@ -72,8 +74,8 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarStyle: {
             backgroundColor: "#33355C",
-            height: '8%',
-            paddingBottom: 15,
+            height: 54  ,
+            paddingBottom: 5,
             borderRadius: 3,
           },
           tabBarIcon: ({ color, size }) => {
@@ -115,6 +117,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Cgu" component={CguScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Checking" component={SmsCheckingScreen} />
             <Stack.Screen name="Upload" component={UploadScreen} />
             <Stack.Screen name="CNIRecto" component={CNIRecto} />
             <Stack.Screen name="CNIVerso" component={CNIVerso} />

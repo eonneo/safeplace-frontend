@@ -88,6 +88,7 @@ export default function HomeScreen({ navigation }) {
   });
 
   const schedulePushNotification = async () => {
+    
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "SafePlace",
@@ -96,7 +97,7 @@ export default function HomeScreen({ navigation }) {
       },
       trigger: { seconds: 1 },
     });
-    navigation.navigate("HelperLocation");
+    
   };
 
   useEffect(() => {
@@ -166,9 +167,7 @@ export default function HomeScreen({ navigation }) {
       <Image source={homePic}></Image>
       </View>
       <TouchableOpacity
-        onPress={async () => {
-          await schedulePushNotification();
-        }}
+        onPress={() => {async () => {await schedulePushNotification()}, navigation.navigate("HelperLocation")}}
       >
         <LinearGradient
           // Background Linear Gradient
