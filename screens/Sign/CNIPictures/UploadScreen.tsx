@@ -33,7 +33,7 @@ export default function UploadScreen({ navigation }) {
               name="arrow-left"
               size={25}
               color="#33355C"
-              onPress={() => navigation.navigate("Upload")}
+              onPress={() => navigation.navigate("Signup")}
           />
           <Text style={styles.headerTitle}>Welcome to Safe Place</Text>
         </View>

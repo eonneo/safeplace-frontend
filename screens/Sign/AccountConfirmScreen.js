@@ -1,37 +1,45 @@
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useDispatch, useSelector } from "react-redux";
 
-import IP from '../../IPAdress';
+import IP from "../../IPAdress";
 
-import { useFonts } from '@use-expo/font';
+import { useFonts } from "@use-expo/font";
 
 export default function AccountConfirmScreen({ navigation }) {
-
-  const email = useSelector((state) => state.signup.value.email)
-
+  const email = useSelector((state) => state.signup.value.email);
+  const PlaceholderImage = require("../../assets/homepic4.png");
   const handleNext = () => {
-    console.log('btn next')
+    console.log("btn next");
     fetch(`http://${IP}:3000/users/isconnected`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: email, isConnected: true }),
-    }).then(response => response.json())
-      .then(updateStatus => {
-        console.log('status isConnected à jour en bdd')
-        navigation.navigate('TabNavigator', { screen: 'Home' })
-      })
-
-  }
+    })
+      .then((response) => response.json())
+      .then((updateStatus) => {
+        console.log("status isConnected à jour en bdd");
+        navigation.navigate("TabNavigator", { screen: "Home" });
+      });
+  };
 
   const [isLoaded] = useFonts({
-    'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
-    'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
-    });
-  if(!isLoaded) {
-    return <View />
+    OpenSans: require("../../assets/OpenSans/OpenSans-Regular.ttf"),
+    Raleway: require("../../assets/Raleway/static/Raleway-Regular.ttf"),
+  });
+  if (!isLoaded) {
+    return <View />;
   }
   return (
+<<<<<<< HEAD
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
 <View style={styles.header}>
@@ -76,34 +84,91 @@ export default function AccountConfirmScreen({ navigation }) {
     </KeyboardAvoidingView>
 
 
+=======
+    // <ScrollView>
+      <SafeAreaView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        
+          <Text style={styles.title}>Bienvenue sur Safe Place</Text>
+        
+        <View style={styles.lineStyle} />
+        <View style={styles.optionContainer}>
+          <View style={styles.textContainer}>
+            <Text style={styles.subtitle}>
+              Nous vous confirmons la création de votre compte sur SAFE PLACE.
+            </Text>
+            <Text style={styles.subtitle}>
+              Cliquez sur le bouton ci-dessous pour commencer la navigation sur
+              l'application.
+            </Text>
+            <Text style={styles.smallText}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.
+            </Text>
+          </View>
+        </View>
+        <Image source={PlaceholderImage} style={styles.homePic}></Image>
+        <View>
+        <TouchableOpacity
+        style={styles.button5}
+        activeOpacity={0.9}
+        onPress={() => handleNext()}
+      >
+        <Text style={styles.text5}>Home</Text>
+      </TouchableOpacity>
+          
+        </View>
+      </SafeAreaView>
+    // </ScrollView>
+>>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    fontFamily: 'OpenSans'
   },
 
   header: {
     flex: 1,
+<<<<<<< HEAD
     flexDirection: 'row',
     //backgroundColor: '#cccccc',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
     textAlign: 'center',
+=======
+    flexDirection: "row",
+    backgroundColor: "#cccccc",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    textAlign: "center",
+>>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75
   },
-
-  container1: {
+  optionContainer: {
     flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    flexDirection: "row",
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 5,
   },
 
+<<<<<<< HEAD
   container2: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -140,48 +205,70 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
+=======
+  smallText: {
+>>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75
     fontSize: 14,
-    fontWeight: '300',
-    textAlign: 'center',
+    marginBottom: 20,
+    color: "#33355C",
+    width: "100%",
+    fontFamily: "OpenSans",
+    textAlign: "justify",
+  },
+  textContainer: {
+    flex: 1,
+    width: "100%",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  title: {
+    fontSize: 38,
+    fontWeight: "600",
+    textAlign: "center",
+    color: "#33355C",
+    fontFamily: "OpenSans",
+    paddingTop: 20,
+    paddingBottom: 5,
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    justifyContent: "flex-start",
+    fontFamily: "Raleway",
+    color: "#5CA4A9",
+    marginBottom: 10,
+  },
+  lineStyle: {
+    borderWidth: 0.5,
+    width: "80%",
+    borderColor: "#33355C",
+    margin: 10,
+    alignSelf: "center",
     marginTop: 5,
+    marginBottom: 15,
   },
 
-  input: {
-    width: '80%',
-    marginTop: 25,
-    borderBottomColor: '#EC6E5B',
-    borderBottomWidth: 1,
-    fontSize: 20,
-  },
-
-  button: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingTop: 8,
-    width: '80%',
-    marginTop: 30,
-    backgroundColor: 'blue',
-    borderRadius: 10,
-    marginBottom: 80,
-  },
-
-  textButton: {
-    color: '#ffffff',
-    height: 30,
-    fontWeight: '600',
-    fontSize: 16,
-  },
-
-  button1: {
+  button5: {
     marginTop: 10,
     width: 176,
     height: 48,
     borderRadius: 10,
-    backgroundColor: "#33355C",
+    backgroundColor: "#FFA647",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 20,
   },
+<<<<<<< HEAD
 
  
   
 });
+=======
+  text5: {
+    color: "#FFFFFF",
+    fontFamily: "OpenSans",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+});
+>>>>>>> 674e69af4b0a8fabeac73c1291120429b1f58b75

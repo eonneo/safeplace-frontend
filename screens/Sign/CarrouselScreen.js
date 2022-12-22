@@ -65,6 +65,9 @@ export default function CarrouselScreen({ navigation }) {
       <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate("SigninScreen")}>
         <Text style={styles.text4}>Login</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate("Account")}>
+        <Text style={styles.text4}>account</Text>
+      </TouchableOpacity>
 
     </View>
   );
