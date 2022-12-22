@@ -19,7 +19,7 @@ const data = [
     imgUrl: require("./carou3.png"),
   },
   {
-    title: "VOUS ETES SOLIDAIRE ?",
+    title: "VOUS ÊTES SOLIDAIRE ?",
     body: "Inscrivez-vous sur notre application si vous souhaitez aider un membre de la communauté en détresse. Vous pouvez héberger, transporter ou simplement être une oreille attentive ! Inscrivez-vous, une minute suffit pour venir en aide !",
     imgUrl: require('./carou4.png'),
   },
