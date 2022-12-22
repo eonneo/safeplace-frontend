@@ -126,6 +126,8 @@ export default function HelperLocatorScreen({ navigation }) {
       }
     })
   }
+  
+
 
   // séléction du helper et envoi des données au reducer selectedHelper
   const selectHelper = (data) => {

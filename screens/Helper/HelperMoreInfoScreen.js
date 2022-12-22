@@ -15,6 +15,13 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
   //récupérer les données du store
   const user = useSelector((state) => state.user.value);
+  const fakeUser= {
+    prenom: 'Mewen',
+    avatarUri: 'uri',
+    // latitude: 45,
+    // longitude: 05,
+
+  }
 
   const [currentPosition, setCurrentPosition] = useState(null);
 
@@ -57,7 +64,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
       <View style={styles.topContainer}>
 
         <View>
-          <Text style={styles.profilName}> Bonjour {user.prenom}</Text>
+          <Text style={styles.profilName}>Bonjour Mewen</Text>
         </View>
 
         <View>
@@ -68,7 +75,7 @@ export default function HelperMoreInfoScreen({ navigation }) {
 
       </View>
       <View style={styles.containerTextNotification}>
-        <Text style={styles.title}>Jane a besoin de ton aide</Text>
+        <Text style={styles.title}>{user.prenom} a besoin de ton aide</Text>
       </View>
 
 
