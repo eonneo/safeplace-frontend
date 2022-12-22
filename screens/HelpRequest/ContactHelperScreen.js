@@ -98,7 +98,7 @@ export default function ContactHelperScreen({ navigation }) {
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('ProfilStack')}>
+      <TouchableOpacity style={styles.header} onPress={() =>  navigation.navigate('TabNavigator', { screen: 'Profil' })}>
         <Text style={styles.nameText}>{user.prenom}</Text>
         <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
