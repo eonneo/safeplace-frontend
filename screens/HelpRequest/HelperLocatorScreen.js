@@ -225,7 +225,7 @@ export default function HelperLocatorScreen({ navigation }) {
     'OpenSans': require("../../assets/OpenSans/OpenSans-Regular.ttf"),
     'Raleway': require('../../assets/Raleway/static/Raleway-Regular.ttf')
     });
-  if(!isLoaded) {
+  if(!isLoaded) 5
     return <View />
   }
   return (
