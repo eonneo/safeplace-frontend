@@ -23,7 +23,7 @@ export default function HelperConfirmationScreen({ navigation }) {
         <Image source={{ uri: `${user.avatarUri}` }} style={styles.profilePic}></Image>
       </TouchableOpacity>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Votre proposition d'aide a été envoyée à Jane, Merci</Text>
+        <Text style={styles.title}>Votre proposition d'aide a été envoyée à Louise, Merci</Text>
         <ActivityIndicator size="large" color="#5CA4A9" />
       </View>
       <View style={styles.waitContainer}>
